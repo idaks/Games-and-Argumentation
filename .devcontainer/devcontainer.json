@@ -3,7 +3,7 @@
 {
 	"name": "LP_Env",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/universal:2.2.0-linux",
+	"image": "mcr.microsoft.com/devcontainers/universal:2.1.0-linux",
 	
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
@@ -17,5 +17,8 @@
                 "analytic-signal.preview-pdf"
             ]
         }
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/conda:1": {}
 	}
 }

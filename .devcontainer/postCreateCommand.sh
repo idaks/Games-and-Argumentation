@@ -22,7 +22,7 @@ chmod +x ./dlv.x86-64-linux-elf-static.bin
 
 # Create a symbolic link to the binary
 echo "Creating symbolic link for the DLV binary"
-sudo unlink /usr/local/bin/dlv
+sudo unlink /go/bin/dlv
 sudo ln -s $(readlink -f dlv.x86-64-linux-elf-static.bin) /usr/local/bin/dlv
 
 # Install SWI-Prolog
@@ -41,5 +41,8 @@ sudo apt-get install python3-pip --yes
 
 # Install logica
 pip3 install logica
+
+# Install Jupyter
+pip3 install jupyterlab
 
 echo "Setup completed successfully"
