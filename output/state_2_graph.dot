@@ -1,0 +1,44 @@
+strict digraph "" {
+	a	[fillcolor="#AAFFAA",
+		style=filled];
+	b	[fillcolor="#FFAAAA",
+		style=filled];
+	a -> b;
+	c	[fillcolor="#FFAAAA",
+		style=filled];
+	a -> c;
+	d	[fillcolor="#AAFFAA",
+		style=filled];
+	c -> d;
+	e	[fillcolor="#AAFFAA",
+		style=filled];
+	c -> e;
+	k	[fillcolor="#FFFFAA",
+		style=filled];
+	l	[fillcolor="#FFFFAA",
+		style=filled];
+	k -> l;
+	l -> e;
+	m	[fillcolor="#FFFFAA",
+		style=filled];
+	l -> m;
+	d -> e;
+	f	[fillcolor="#FFAAAA",
+		style=filled];
+	d -> f;
+	g	[fillcolor="#FFAAAA",
+		style=filled];
+	d -> g;
+	e -> d;
+	e -> m;
+	h	[fillcolor="#FFAAAA",
+		style=filled];
+	e -> h;
+	m -> e;
+	n	[fillcolor="#FFFFAA",
+		style=filled];
+	m -> n;
+	g -> d;
+	n -> m;
+{rank=same; "d" "e" "m"}
+}

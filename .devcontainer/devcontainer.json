@@ -17,8 +17,5 @@
                 "analytic-signal.preview-pdf"
             ]
         }
-	},
-	"features": {
-		"ghcr.io/devcontainers/features/conda:1": {}
 	}
 }
