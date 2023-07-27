@@ -38,6 +38,9 @@ pip install logica
 # Install pygraphviz
 pip install pygraphviz
 
+# Install ipywidgets
+pip install ipywidgets
+
 # Reset Jupyter Kernel
 jupyter kernelspec uninstall python3 --yes
 /home/codespace/.python/current/bin/python -m ipykernel install --user --name=python3
