@@ -1,35 +1,35 @@
 strict digraph "" {
-	b	[fillcolor="#FFAAAA",
+	a	[fillcolor="#ffdaaf",
 		style=filled];
-	a	[fillcolor="#AAFFAA",
+	b	[fillcolor="#bfefff",
 		style=filled];
-	b -> a;
-	c	[fillcolor="#FFAAAA",
+	a -> b	[dir=back];
+	c	[fillcolor="#bfefff",
 		style=filled];
-	c -> a;
-	l -> k;
-	d	[fillcolor="#AAFFAA",
+	a -> c	[dir=back];
+	d	[fillcolor="#ffdaaf",
 		style=filled];
-	d -> c;
-	e	[fillcolor="#AAFFAA",
+	c -> d	[dir=back];
+	e	[fillcolor="#ffdaaf",
 		style=filled];
-	d -> e;
-	g	[fillcolor="#FFAAAA",
+	c -> e	[dir=back];
+	k -> l	[dir=back];
+	l -> e	[dir=back];
+	l -> m	[dir=back];
+	d -> e	[dir=back];
+	f	[fillcolor="#bfefff",
 		style=filled];
-	d -> g;
-	e -> c;
-	e -> l;
-	e -> d;
-	e -> m;
-	m -> l;
-	m -> e;
-	m -> n;
-	f	[fillcolor="#FFAAAA",
+	d -> f	[dir=back];
+	g	[fillcolor="#bfefff",
 		style=filled];
-	f -> d;
-	g -> d;
-	h	[fillcolor="#FFAAAA",
+	d -> g	[dir=back];
+	e -> d	[dir=back];
+	e -> m	[dir=back];
+	h	[fillcolor="#bfefff",
 		style=filled];
-	h -> e;
-	n -> m;
+	e -> h	[dir=back];
+	m -> e	[dir=back];
+	m -> n	[dir=back];
+	g -> d	[dir=back];
+	n -> m	[dir=back];
 }
