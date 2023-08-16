@@ -6,7 +6,7 @@ import pandas as pd
 import os
 from IPython.display import Image
 
-def visualize_file(input_file,pred_name,output_filename):
+def visualize_file(input_file, pred_name, output_filename, argu=False):
     edges = []
     try:
         with open(input_file, 'r') as file:
@@ -16,15 +16,25 @@ def visualize_file(input_file,pred_name,output_filename):
                 if match:
                     source = match.group(1)
                     target = match.group(2)
+                    
+                    # Switching the source and target if the argu parameter is True
+                    if argu:
+                        source, target = target, source
+
                     edges.append((source, target))
     except:
         pattern = r'{}\s*\(([^,]+),\s*([^)]+)\)'.format(pred_name)
         edges = re.findall(pattern, input_file)
+        # Switching the source and target if the argu parameter is True
+        if argu:
+            edges = [(target, source) for source, target in edges]
+
     edge_df = pd.DataFrame(edges, columns=['source', 'target'])
     G = pgv.AGraph(directed=True)
     for _, row in edge_df.iterrows():
         # Adding edges from the dataframe
-        G.add_edge(row['source'], row['target'], dir="forward")
+        edge_dir = "back" if argu else "forward"
+        G.add_edge(row['source'], row['target'], dir=edge_dir)
         G.write('output/{}.dot'.format(output_filename))
         G.draw('output/{}.png'.format(output_filename), prog='dot', format='png')
 

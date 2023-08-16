@@ -1,19 +1,19 @@
 strict digraph "" {
-	b -> a	[dir=forward];
-	c -> a	[dir=forward];
-	l -> k	[dir=forward];
-	d -> c	[dir=forward];
-	d -> e	[dir=forward];
-	d -> g	[dir=forward];
-	e -> c	[dir=forward];
-	e -> l	[dir=forward];
-	e -> d	[dir=forward];
-	e -> m	[dir=forward];
-	g -> d	[dir=forward];
-	m -> l	[dir=forward];
-	m -> e	[dir=forward];
-	m -> n	[dir=forward];
-	n -> m	[dir=forward];
-	f -> d	[dir=forward];
-	h -> e	[dir=forward];
+	a -> b	[dir=back];
+	a -> c	[dir=back];
+	c -> d	[dir=back];
+	c -> e	[dir=back];
+	k -> l	[dir=back];
+	l -> e	[dir=back];
+	l -> m	[dir=back];
+	d -> e	[dir=back];
+	d -> g	[dir=back];
+	d -> f	[dir=back];
+	e -> d	[dir=back];
+	e -> m	[dir=back];
+	e -> h	[dir=back];
+	g -> d	[dir=back];
+	m -> e	[dir=back];
+	m -> n	[dir=back];
+	n -> m	[dir=back];
 }
