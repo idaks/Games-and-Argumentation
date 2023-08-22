@@ -1,5 +1,4 @@
 
-edge(a,b).
 edge(a,c).
 edge(k,l).
 edge(c,d).
@@ -15,3 +14,4 @@ edge(d,g).
 edge(g,d).
 edge(e,h).
 edge(m,n).
+edge(n,m).

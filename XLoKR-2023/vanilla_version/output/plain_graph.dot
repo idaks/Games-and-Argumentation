@@ -1,5 +1,4 @@
 strict digraph "" {
-	a -> b	[dir=forward];
 	a -> c	[dir=forward];
 	c -> d	[dir=forward];
 	c -> e	[dir=forward];
@@ -15,4 +14,5 @@ strict digraph "" {
 	m -> e	[dir=forward];
 	m -> n	[dir=forward];
 	g -> d	[dir=forward];
+	n -> m	[dir=forward];
 }

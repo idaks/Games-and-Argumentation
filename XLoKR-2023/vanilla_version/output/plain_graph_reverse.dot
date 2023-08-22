@@ -1,5 +1,4 @@
 strict digraph "" {
-	a -> b	[dir=back];
 	a -> c	[dir=back];
 	c -> d	[dir=back];
 	c -> e	[dir=back];
@@ -15,4 +14,5 @@ strict digraph "" {
 	m -> e	[dir=back];
 	m -> n	[dir=back];
 	g -> d	[dir=back];
+	n -> m	[dir=back];
 }
