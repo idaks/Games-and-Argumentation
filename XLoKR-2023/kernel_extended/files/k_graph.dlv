@@ -1,0 +1,13 @@
+
+edge(a,b).
+edge(b,a).
+edge(c,d).
+edge(d,c).
+edge(f,e).
+edge(e,f).
+edge(m,n).
+edge(n,m).
+edge(i,b).
+edge(i,a).
+edge(i,e).
+edge(i,m).
