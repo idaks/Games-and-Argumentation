@@ -1,0 +1,9 @@
+
+% Positions
+pos(X) :- attacks(X,_).
+pos(X) :- attacks(_,X).
+
+% Win_Move
+defeated(X) :- attacks(X,Y),not defeated(Y).
+accepted(X) :- pos(X), not defeated(X).
+undefined(X) :- pos(X), not defeated(X), not accepted(X).
