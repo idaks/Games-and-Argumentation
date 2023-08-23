@@ -4,7 +4,8 @@ import pandas as pd
 import pygraphviz as pgv
 import pandas as pd
 import os
-from IPython.display import Image
+import datetime
+import shutil
 
 def visualize_file(input_file, pred_name, output_filename, argu=False):
     edges = []
@@ -66,7 +67,7 @@ def get_nodes_status(string, node_types):
     return nodes_status
 
 
-def color_graph(file_path, output_name,nodes_status, node_color, edge_color):
+def color_graph(file_path, output_name,nodes_status, node_color, edge_color, layout="dot"):
     G = pgv.AGraph(file_path)
     
     color_node_map_game = {
@@ -80,6 +81,10 @@ def color_graph(file_path, output_name,nodes_status, node_color, edge_color):
         "gray": '#b7b7b7', "orange": "#cc8400", "blue": "#006ad1",
         "dark_gray": "#A9A9A9","black": "#000000", "dark_yellow":"#000080"
     }
+    
+    for node in G.nodes():
+        node.attr['fillcolor'] = "#ffffff"
+        node.attr['style'] = 'filled'
     
     if nodes_status and node_color:
         for status, nodes in nodes_status.items():
@@ -116,7 +121,7 @@ def color_graph(file_path, output_name,nodes_status, node_color, edge_color):
     output_file_path_png = "output/"+ output_name + "_graph_colored" + ".png"
     
     G.write(output_file_path_dot)
-    G.draw(output_file_path_png, prog='dot', format='png')
+    G.draw(output_file_path_png, prog=layout, format='png')
     
     
 def change_edge_direction(dot_file_path, output_file_path):
@@ -145,3 +150,69 @@ def count_sets(s: str) -> int:
 def count_cycles(s: str) -> int:
     cycle_found = re.findall(r'cycle\([^)]*\)', s)
     return len(cycle_found)
+
+def extract_sets(input_string):
+    # Extract all the characters inside the curly braces
+    sets = re.findall(r'\{[^}]*\}', input_string)
+
+    # Dictionary to store the results
+    result_dict = {}
+
+    for idx, s in enumerate(sets, 1):
+        elements = [re.search(r'\((.)\)', el).group(1) for el in s.split(',')]
+        key = f'pw{idx}'
+        result_dict[key] = elements
+    return result_dict
+
+
+import os
+import ipywidgets as widgets
+from IPython.display import display, Image
+
+def display_colored_graphs(filename,pw_dict, layout="dot"):
+    
+    # Create the subfolder
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    subfolder = os.path.join("output", timestamp)
+    os.makedirs(subfolder, exist_ok=True)
+    
+    
+    kernel_node_color = {
+        'k': 'black'
+    }
+    kernel_edge_color = {
+        ('white', 'white'): 'gray',
+        ('white', 'black'): 'dark_gray',
+        ('black', 'white'): 'black'
+    }
+    
+    visualize_file(filename, "edge", "plain_graph")
+    
+    for idx, (key, nodes) in enumerate(pw_dict.items(), 1):
+        kernel_name = f"kernel_{key}"
+        kernel_nodes_status = {"k": nodes}
+        color_graph(os.path.join("output", "plain_graph.dot"), timestamp+"/"+kernel_name, kernel_nodes_status, kernel_node_color, kernel_edge_color, layout)
+    
+    # Update the file search pattern to the new subfolder
+    files = sorted([f for f in os.listdir(subfolder) if f.startswith("kernel_pw") and f.endswith("_graph_colored.png")])
+
+    # Adjust display_image function to account for the new subfolder
+    def display_image(index):
+        file_path = os.path.join(subfolder, files[index-1])
+        img = Image(filename=file_path)
+        title = "pw" + str(index)
+        print(title)
+        display(img)
+
+    # Create a slider to navigate through the images
+    widgets.interact(display_image, index=widgets.IntSlider(min=1, max=len(files), step=1, value=1, description='Slider'))
+
+def delete_timestamped_subfolders(directory="output"):
+    # Regular expression pattern to match the timestamp pattern (YYYYMMDD_HHMMSS)
+    pattern = r"\d{8}_\d{6}"
+    
+    for dir_name in os.listdir(directory):
+        dir_path = os.path.join(directory, dir_name)
+        if os.path.isdir(dir_path) and re.match(pattern, dir_name):
+            shutil.rmtree(dir_path)
+            print(f"Deleted {dir_path}")
