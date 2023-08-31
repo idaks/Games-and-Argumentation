@@ -1,0 +1,2 @@
+
+attacks(Y,X) :- edge(X,Y).
