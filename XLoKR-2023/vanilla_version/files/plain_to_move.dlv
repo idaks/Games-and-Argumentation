@@ -1,0 +1,2 @@
+
+move(X,Y):- edge(X,Y).

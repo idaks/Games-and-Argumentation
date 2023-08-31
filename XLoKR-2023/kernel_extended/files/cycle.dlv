@@ -1,0 +1,2 @@
+
+cycle(X,Y):- edge(X,Y), edge(Y,X), X>Y.
