@@ -11,10 +11,10 @@ m(l,m).
 m(d,e).
 m(e,d).
 m(e,m).
-%m(m,e).
+m(m,e).
 m(d,f).
 m(d,g).
 m(g,d).
-%m(e,h).
-%m(m,n).
-%m(n,m).
+m(e,h).
+m(m,n).
+m(n,m).

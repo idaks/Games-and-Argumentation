@@ -11,12 +11,8 @@ strict digraph "" {
 	e	[fillcolor="#AAFFAA",
 		style=filled];
 	c -> e	[dir=forward];
-	l	[fillcolor="#AAFFAA",
-		style=filled];
 	k -> l	[dir=forward];
 	l -> e	[dir=forward];
-	m	[fillcolor="#FFAAAA",
-		style=filled];
 	l -> m	[dir=forward];
 	d -> e	[dir=forward];
 	f	[fillcolor="#FFAAAA",
@@ -25,5 +21,11 @@ strict digraph "" {
 	d -> g	[dir=forward];
 	e -> d	[dir=forward];
 	e -> m	[dir=forward];
+	h	[fillcolor="#FFAAAA",
+		style=filled];
+	e -> h	[dir=forward];
+	m -> e	[dir=forward];
+	m -> n	[dir=forward];
 	g -> d	[dir=forward];
+	n -> m	[dir=forward];
 }
