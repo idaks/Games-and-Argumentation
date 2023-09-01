@@ -168,6 +168,35 @@ def extract_sets(input_string):
 import os
 import ipywidgets as widgets
 from IPython.display import display, Image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+def visualize_images_in_grid(folder_path, grid_shape=(4, 4)):
+    # List all PNG files in the folder that match the desired format
+    png_files = [f for f in os.listdir(folder_path) if re.match(r'kernel_pw\d+_graph_colored\.png', f)]
+    
+    # Sort the files based on the number after "pw"
+    png_files = sorted(png_files, key=lambda x: int(re.search(r'kernel_pw(\d+)_graph_colored\.png', x).group(1)))
+    
+    if len(png_files) < grid_shape[0] * grid_shape[1]:
+        print("Not enough PNG files in the folder for the desired grid.")
+        return
+
+    fig, axes = plt.subplots(nrows=grid_shape[0], ncols=grid_shape[1], figsize=(12, 12))
+
+    for ax, img_name in zip(axes.ravel(), png_files):
+        img_path = os.path.join(folder_path, img_name)
+        img = mpimg.imread(img_path)
+        
+        # Extract the number from the filename using regex
+        pw_number = re.search(r'kernel_pw(\d+)_graph_colored\.png', img_name).group(1)
+        
+        ax.imshow(img)
+        ax.axis('off')  # Hide axes
+        ax.set_title(f"pw_{pw_number}")
+
+    plt.tight_layout()
+    plt.show()
 
 def display_colored_graphs(filename,pw_dict, layout="dot"):
     
@@ -206,6 +235,7 @@ def display_colored_graphs(filename,pw_dict, layout="dot"):
 
     # Create a slider to navigate through the images
     widgets.interact(display_image, index=widgets.IntSlider(min=1, max=len(files), step=1, value=1, description='Slider'))
+    visualize_images_in_grid(subfolder)
 
 def delete_timestamped_subfolders(directory="output"):
     # Regular expression pattern to match the timestamp pattern (YYYYMMDD_HHMMSS)
