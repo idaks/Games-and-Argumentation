@@ -4,7 +4,6 @@
 
 This repository demonstrates the paper titled "Games and Argumentation: Time for a Family Reunion!" presented at [XLoKR 2023](https://sites.google.com/view/xlokr2023).
 
----
 
 ## Codespace Setup
 
@@ -12,7 +11,10 @@ To set up your environment, simply click on the `Open in GitHub Codespaces` butt
 
 > **Notice:** If you encounter alerts like "Container build failed. Check troubleshooting guide" or "This codespace is currently running in recovery mode due to a configuration error", don't panic. Just press `Ctrl+Shift+P` and type `>Codespaces: Full Rebuild Container` to resolve the issue.
 
----
+This process will take around 4-8 minutes. **Please do not** press any button until you see something like: `@username  ➜ /workspaces/Games-and-Argumentation (main) $ `
+
+#### For Non-First-Time Usage
+You can find the codespace you created at [this link](https://github.com/codespaces).
 
 ## Launch Jupyter
 
