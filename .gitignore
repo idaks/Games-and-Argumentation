@@ -2,4 +2,4 @@ dlv.x86-64-linux-elf-static.bin
 dlv.i386-apple-darwin.bin
 *.ipynb_checkpoints
 __pycache__/
-**/output/
+**/graphs/
