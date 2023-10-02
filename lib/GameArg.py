@@ -119,17 +119,17 @@ def create_plain_graph(input_file, pred_name, output_filename, arg=False):
 def group_edges(input_list):
     edge_groups = defaultdict(list)
     result = []
-    graph_end_index = (
-        None  # To store the index of the closing } for the graph.
-    )
+    brace_count = 0  # Count of open braces to identify the last closing brace.
 
     # Parsing the input list.
     for index, line in enumerate(input_list):
-        if "}" in line:
-            graph_end_index = (
-                index  # Found the closing }, remember its position.
-            )
+        brace_count += line.count("{") - line.count("}")  # Update brace_count
+
+        # If brace_count is zero after counting braces in the line, it means
+        # we are at the last closing brace.
+        if "}" in line and brace_count == 0:
             continue  # Don't add the closing } yet, we will add it at the end.
+
         # Extracting edges and their properties
         elif "->" in line:
             edge_prop_index = line.find("[")
@@ -137,24 +137,30 @@ def group_edges(input_list):
                 edge_str = line[:edge_prop_index].rstrip()
                 prop_str = line[edge_prop_index:].rstrip().rstrip(";")
                 edge_groups[prop_str].append(edge_str.rstrip(";").rstrip())
+
+        # Preserving node, subgraph information, and any other lines.
         else:
             result.append(line)  # Preserve other lines as they are.
 
     # Grouping edges with the same properties
     for props, edges in edge_groups.items():
         result.append(f"  edge {props}\n")
-        result.extend([f"    {edge}\n" for edge in edges])
+        result.extend([f"    {edge};\n" for edge in edges])
 
-    # Now, add the closing } at the correct position
-    if graph_end_index is not None:
-        result.append("}\n")
+    # Add the closing brace for the graph.
+    result.append("}\n")
 
     return result
 
 
 # Apply Color Schema to WFS
 def apply_color_schema(
-    dot_file_path, output_file_key, nodes_status, node_color, edge_color
+    dot_file_path,
+    output_file_key,
+    nodes_status,
+    node_color,
+    edge_color,
+    subgraph=False,
 ):
     color_node_map = {
         "red": "#FFAAAA",
@@ -197,28 +203,90 @@ def apply_color_schema(
 
     node_to_color = {}
     if nodes_status and node_color:
-        for status, nodes in nodes_status.items():
-            hex_color = color_node_map[node_color[status]]
-            font_color = "#ffffff" if hex_color == "#000000" else "#000000"
-
-            for node in nodes:
-                node_to_color[node] = hex_color  # Map the node to its color.
-
-            colored_nodes_line = (
-                '  node [fillcolor="'
-                + hex_color
-                + '" fontcolor="'
-                + font_color
-                + '"] '
-                + " ".join(nodes)
-                + ";\n"
+        if subgraph:
+            g1_nodes = (
+                []
+            )  # You can decide the logic to split nodes between subgraphs
+            g2_nodes = (
+                []
+            )  # You can decide the logic to split nodes between subgraphs
+            for status, nodes in nodes_status.items():
+                for node in nodes:
+                    # Decide logic to append nodes to g1_nodes or g2_nodes.
+                    third_key = list(node_color.keys())[2]
+                    if status == third_key:
+                        g2_nodes.append(node)
+                    else:
+                        g1_nodes.append(node)
+            # print(g1_nodes, g2_nodes)
+            # Creating subgraph cluster_g1 and cluster_g2 strings.
+            subgraph_cluster_g1 = (
+                "  subgraph cluster_g1{\n"
+                '  label = "G1"; color = black; style ="dashed";\n'
             )
-            insert_idx += 1
-            lines.insert(insert_idx, colored_nodes_line)
+            subgraph_cluster_g2 = (
+                "  subgraph cluster_g2{\n"
+                '  label = "G2"; color = black; style ="dashed";\n'
+            )
 
-        default_color_line = '  node [fillcolor="white" fontcolor="black"];\n'
-        insert_idx += 1
-        lines.insert(insert_idx, default_color_line)
+            for status, nodes in nodes_status.items():
+                hex_color = color_node_map[node_color[status]]
+                font_color = "#ffffff" if hex_color == "#000000" else "#000000"
+                for node in nodes:
+                    node_to_color[
+                        node
+                    ] = hex_color  # Map the node to its color.
+
+                colored_nodes_line = (
+                    '  node [fillcolor="'
+                    + hex_color
+                    + '" fontcolor="'
+                    + font_color
+                    + '"] '
+                    + " ".join(nodes)
+                    + ";\n"
+                )
+
+                if all(
+                    node in g1_nodes for node in nodes
+                ):  # Adjust based on your actual logic
+                    subgraph_cluster_g1 += "  " + colored_nodes_line
+                elif all(
+                    node in g2_nodes for node in nodes
+                ):  # Adjust based on your actual logic
+                    subgraph_cluster_g2 += "  " + colored_nodes_line
+
+            subgraph_cluster_g1 += "  }\n"  # Close subgraph cluster_g1
+            subgraph_cluster_g2 += "  }\n"  # Close subgraph cluster_g2
+            lines.insert(insert_idx + 1, subgraph_cluster_g1)
+            lines.insert(insert_idx + 2, subgraph_cluster_g2)
+            insert_idx += 2  # Adjusting the insert_idx after inserting
+
+        else:
+            for status, nodes in nodes_status.items():
+                hex_color = color_node_map[node_color[status]]
+                font_color = "#ffffff" if hex_color == "#000000" else "#000000"
+
+                for node in nodes:
+                    node_to_color[
+                        node
+                    ] = hex_color  # Map the node to its color.
+
+                colored_nodes_line = (
+                    '  node [fillcolor="'
+                    + hex_color
+                    + '" fontcolor="'
+                    + font_color
+                    + '"] '
+                    + " ".join(nodes)
+                    + ";\n"
+                )
+                insert_idx += 1
+                lines.insert(insert_idx, colored_nodes_line)
+    # default_color_line = '  node [fillcolor="white" fontcolor="black"];\n'
+    # insert_idx += 1
+    # lines.insert(insert_idx, default_color_line)
+
     # Manually add edge colors based on the node colors.
     for idx, line in enumerate(lines):
         if "->" in line:  # This line represents an edge.
@@ -269,9 +337,15 @@ def apply_color_schema(
                     # Append to the existing attribute section.
                     attributes = match.group(1)
                     attributes = attributes.rstrip("]")
-                    new_attributes = f'{attributes}, color="{actual_edge_color}", style="solid"'
+                    new_attributes = (
+                        f'{attributes}, color="{actual_edge_color}",'
+                        f' style="solid"'
+                    )
                     if selected_edge_color == "gray":
-                        new_attributes = f'{attributes}, color="{actual_edge_color}", style="dashed"'
+                        new_attributes = (
+                            f'{attributes}, color="{actual_edge_color}",'
+                            f' style="dashed"'
+                        )
                     new_attributes += "]"
                     line_with_color = line.replace(
                         match.group(1), new_attributes
@@ -292,6 +366,8 @@ def apply_color_schema(
 
     # Optimize the edges
     lines_with_grouped_properties = group_edges(lines)
+
+    # print(lines_with_grouped_properties)
 
     output_file_path_dot = os.path.join(
         "graphs", f"{output_file_key}_graph_colored.dot"
@@ -346,7 +422,12 @@ def get_nodes_status(string, node_types):
 
 # Visualize Well_Founded Semantics
 def visualize_wfs(
-    plain_file, output_file_key, node_color, edge_color, arg=False
+    plain_file,
+    output_file_key,
+    node_color,
+    edge_color,
+    arg=False,
+    subgraph=False,
 ):
     temp_file_name = "wfs_compute.dlv"
 
@@ -389,6 +470,7 @@ def visualize_wfs(
                 nodes_status,
                 node_color,
                 edge_color,
+                subgraph,
             )
         else:
             print("No output received from command")

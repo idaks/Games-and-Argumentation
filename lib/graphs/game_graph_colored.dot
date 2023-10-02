@@ -1,27 +1,32 @@
 digraph G {
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  node [fillcolor="#AAFFAA" fontcolor="#000000"] a d e;
-  node [fillcolor="#FFAAAA" fontcolor="#000000"] c f g h;
-  node [fillcolor="#FFFFAA" fontcolor="#000000"] k l m n;
-  node [fillcolor="white" fontcolor="black"];
+  subgraph cluster_g1{
+  label = "G1"; color = black; style ="dashed";
+    node [fillcolor="#AAFFAA" fontcolor="#000000"] a d e;
+    node [fillcolor="#FFAAAA" fontcolor="#000000"] c f g h;
+  }
+  subgraph cluster_g2{
+  label = "G2"; color = black; style ="dashed";
+    node [fillcolor="#FFFFAA" fontcolor="#000000"] k l m n;
+  }
   edge [dir=forward, color="#00BB00", style="solid"]
-        "a" -> "c"
-        "d" -> "f"
-        "d" -> "g"
-        "e" -> "h"
+        "a" -> "c";
+        "d" -> "f";
+        "d" -> "g";
+        "e" -> "h";
   edge [dir=forward, color="#AAAA00", style="solid"]
-        "k" -> "l"
-        "l" -> "m"
-        "m" -> "n"
-        "n" -> "m"
+        "k" -> "l";
+        "l" -> "m";
+        "m" -> "n";
+        "n" -> "m";
   edge [dir=forward, color="#CC0000", style="solid"]
-        "c" -> "d"
-        "c" -> "e"
-        "g" -> "d"
+        "c" -> "d";
+        "c" -> "e";
+        "g" -> "d";
   edge [dir=forward, color="#b7b7b7", style="dashed"]
-        "l" -> "e"
-        "d" -> "e"
-        "e" -> "d"
-        "e" -> "m"
-        "m" -> "e"
+        "l" -> "e";
+        "d" -> "e";
+        "e" -> "d";
+        "e" -> "m";
+        "m" -> "e";
 }
