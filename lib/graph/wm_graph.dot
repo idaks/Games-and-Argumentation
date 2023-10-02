@@ -1,0 +1,18 @@
+digraph G {
+    "a" -> "c"[dir=forward];
+    "k" -> "l"[dir=forward];
+    "c" -> "d"[dir=forward];
+    "c" -> "e"[dir=forward];
+    "l" -> "e"[dir=forward];
+    "l" -> "m"[dir=forward];
+    "d" -> "e"[dir=forward];
+    "e" -> "d"[dir=forward];
+    "e" -> "m"[dir=forward];
+    "m" -> "e"[dir=forward];
+    "d" -> "f"[dir=forward];
+    "d" -> "g"[dir=forward];
+    "g" -> "d"[dir=forward];
+    "e" -> "h"[dir=forward];
+    "m" -> "n"[dir=forward];
+    "n" -> "m"[dir=forward];
+}
