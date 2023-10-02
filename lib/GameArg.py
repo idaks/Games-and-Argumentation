@@ -362,10 +362,12 @@ def visualize_wfs(
         pos(X) :- e(_,X).
 
         % Kernel
-        status1(X) :- e(X,Y), status2(Y).
+        status1(X) :- {}, status2(Y).
         status2(X) :- pos(X), not status1(X).
         status3(X) :- pos(X), not status1(X), not status2(X).
-        """
+        """.format(
+            "e(X,Y)" if not arg else "e(Y,X)"
+        )
 
         keys = list(node_color.keys())
         for i in range(3):
@@ -437,9 +439,11 @@ def visualize_stb(
         pos(X) :- e(_,X).
 
         % Kernel
-        status1(X) :- e(X,Y), status2(Y).
+        status1(X) :- {}, status2(Y).
         status2(X) :- pos(X), not status1(X).
-        """
+        """.format(
+            "e(X,Y)" if not arg else "e(Y,X)"
+        )
 
         keys = list(node_color.keys())
         for i in range(2):

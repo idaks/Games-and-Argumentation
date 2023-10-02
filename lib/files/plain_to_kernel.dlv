@@ -1,2 +1,2 @@
 
-e(X,Y):- edge(X,Y).
+e(X,Y):- edge(Y,X).
