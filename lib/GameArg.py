@@ -294,10 +294,10 @@ def apply_color_schema(
     lines_with_grouped_properties = group_edges(lines)
 
     output_file_path_dot = os.path.join(
-        "graph", f"{output_file_key}_graph_colored.dot"
+        "graphs", f"{output_file_key}_graph_colored.dot"
     )
     output_file_path_png = os.path.join(
-        "graph", f"{output_file_key}_graph_colored.png"
+        "graphs", f"{output_file_key}_graph_colored.png"
     )
 
     # Use the output_file_path_dot as the file path to write to.
@@ -350,7 +350,7 @@ def visualize_wfs(
 ):
     temp_file_name = "wfs_compute.dlv"
 
-    create_plain_graph(plain_file, "edge", "graph/wfs_temp.dot", arg)
+    create_plain_graph(plain_file, "edge", "graphs/wfs_temp.dot", arg)
 
     try:
         facts_prep = (
@@ -384,7 +384,7 @@ def visualize_wfs(
                 run_command(cmd_solve), node_types=list(node_color.keys())
             )
             apply_color_schema(
-                "graph/wfs_temp.dot",
+                "graphs/wfs_temp.dot",
                 output_file_key,
                 nodes_status,
                 node_color,
@@ -398,7 +398,7 @@ def visualize_wfs(
         if os.path.exists(temp_file_name):
             try:
                 os.remove(temp_file_name)
-                os.remove("graph/wfs_temp.dot")
+                os.remove("graphs/wfs_temp.dot")
             except Exception as e:
                 print(f"Failed to delete {temp_file_name}. Error: {e}")
 
@@ -427,7 +427,7 @@ def visualize_stb(
 ):
     temp_file_name = "stable_compute.dlv"
 
-    create_plain_graph(plain_file, "edge", "graph/stb_temp.dot", arg)
+    create_plain_graph(plain_file, "edge", "graphs/stb_temp.dot", arg)
 
     try:
         facts_prep = (
@@ -459,14 +459,14 @@ def visualize_stb(
             pws = extract_pws(output, list(node_color.keys()))
             for pw, predicates_dict in pws.items():
                 apply_color_schema(
-                    "graph/stb_temp.dot",
+                    "graphs/stb_temp.dot",
                     output_file_key + "_" + pw,
                     predicates_dict,
                     node_color,
                     edge_color,
                 )
                 image_files.append(
-                    "graph/"
+                    "graphs/"
                     + output_file_key
                     + "_"
                     + pw
@@ -479,12 +479,12 @@ def visualize_stb(
         if os.path.exists(temp_file_name):
             try:
                 os.remove(temp_file_name)
-                os.remove("graph/stb_temp.dot")
+                os.remove("graphs/stb_temp.dot")
             except Exception as e:
                 print(f"Failed to delete {temp_file_name}. Error: {e}")
 
     images_per_row = 4
-    image_width = "200px"  # You can adjust the width to your preferred size
+    image_width = "300px"  # You can adjust the width to your preferred size
     html_str = ""
 
     for i, img_file in enumerate(image_files):
