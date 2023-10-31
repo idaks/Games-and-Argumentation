@@ -2,7 +2,7 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/idaks/Games-and-Argumentation)
 
-This repository demonstrates the paper titled "Games and Argumentation: Time for a Family Reunion!" presented at [XLoKR 2023](https://sites.google.com/view/xlokr2023).
+This repository serve as the centralized place to hold latest code for Games and Argumentation
 
 
 ## Codespace Setup
@@ -25,9 +25,7 @@ After setting up the codespace environment:
    > **Notice:** Sometimes, due to codespace limitations, the terminal may go blank. Simply refreshing your browser should solve the problem.
 
 2. This will lead you to the Jupyter Lab interface, where you can run:
-   - `demo_vanilla_version.ipynb`
-   - `demo_statelog_version.ipynb`
-   - `kernel_exploration.ipynb`
+   - `Tutorial.ipynb`
 
 ---
 
