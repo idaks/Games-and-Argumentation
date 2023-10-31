@@ -1,0 +1,9 @@
+
+% Positions
+pos(X) :- move(X,_).
+pos(X) :- move(_,X).
+
+% Win_Move
+win(X) :- move(X,Y),not win(Y).
+lost(X) :- pos(X), not win(X).
+drawn(X) :- pos(X), not win(X), not lost(X).
