@@ -1,25 +1,38 @@
 digraph G {
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  node [fillcolor="#AAFFAA" fontcolor="#000000"] c l;
-  node [fillcolor="#FFAAAA" fontcolor="#000000"] a k;
-  node [fillcolor="#FFFFAA" fontcolor="#000000"] d e m f g h n;
-  edge [dir=back, color="#CC0000", style="solid"]
+  node [fillcolor="#AAFFAA" fontcolor="#000000"] 
+       a[label="a (4)"] 
+       d[label="d (2)"] 
+       e[label="e (2)"];
+  node [fillcolor="#FFAAAA" fontcolor="#000000"] 
+       c[label="c (3)"] 
+       f[label="f (1)"] 
+       g[label="g (3)"] 
+       h[label="h (1)"];
+  node [fillcolor="#FFFFAA" fontcolor="#000000"] 
+       k[label="k (∞)"] 
+       l[label="l (∞)"] 
+       m[label="m (∞)"] 
+       n[label="n (∞)"];
+  edge [dir=forward, color="#00BB00", style="solid", label="3"]
         "a" -> "c";
+        "d" -> "g";
+  edge [dir=forward, color="#AAAA00", style="solid", label="∞"]
         "k" -> "l";
-  edge [dir=back, color="#b7b7b7", style="dashed"]
+        "l" -> "m";
+        "m" -> "n";
+        "n" -> "m";
+  edge [dir=forward, color="#CC0000", style="solid", label="2"]
         "c" -> "d";
         "c" -> "e";
+        "g" -> "d";
+  edge [dir=forward, color="#b7b7b7", style="dashed", label=" "]
         "l" -> "e";
-        "l" -> "m";
-  edge [dir=back, color="#AAAA00", style="solid"]
         "d" -> "e";
         "e" -> "d";
         "e" -> "m";
         "m" -> "e";
+  edge [dir=forward, color="#00BB00", style="solid", label="1"]
         "d" -> "f";
-        "d" -> "g";
-        "g" -> "d";
         "e" -> "h";
-        "m" -> "n";
-        "n" -> "m";
 }

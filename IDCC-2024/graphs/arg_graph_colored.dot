@@ -1,14 +1,8 @@
 digraph G {
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  subgraph cluster_g1{
-  label = "G1"; color = black; style ="dashed";
-    node [fillcolor="#ffdaaf" fontcolor="#000000"] b c d s g h i u;
-    node [fillcolor="#FFFFAA" fontcolor="#000000"] e j m o n;
-  }
-  subgraph cluster_g2{
-  label = "G2"; color = black; style ="dashed";
-    node [fillcolor="#bfefff" fontcolor="#000000"] a t f k l q v w x y z;
-  }
+  node [fillcolor="#ffdaaf" fontcolor="#000000"] b c d s g h i u;
+  node [fillcolor="#bfefff" fontcolor="#000000"] a t f k l q v w x y z;
+  node [fillcolor="#FFFFAA" fontcolor="#000000"] e j m o n;
   edge [dir=back, color="#cc8400", style="solid"]
         "a" -> "b";
         "t" -> "b";

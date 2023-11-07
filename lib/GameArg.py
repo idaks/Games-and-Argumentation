@@ -239,8 +239,14 @@ def finalize_state(input_file, arg=False):
         full_edges_df = pd.merge(
             edges_df_from_file, df, on="target_node", how="left"
         )
+    # sort and clean up the node dataframe
+    final_sorted_nodes_df = df.copy()
+    final_sorted_nodes_df["state_id"], unique = pd.factorize(
+        final_sorted_nodes_df["state_id"]
+    )
+    final_sorted_nodes_df["state_id"] = final_sorted_nodes_df["state_id"] + 1
 
-    # Sort and clean up the dataframe
+    # Sort and clean up the edge dataframe
     final_sorted_edges_df = full_edges_df.sort_values(by="state_id")
     final_sorted_edges_df["state_id"], unique = pd.factorize(
         final_sorted_edges_df["state_id"]
@@ -254,7 +260,7 @@ def finalize_state(input_file, arg=False):
     )
 
     # Print the final dataframe
-    return final_sorted_edges_df.reset_index(drop=True)
+    return final_sorted_nodes_df, final_sorted_edges_df.reset_index(drop=True)
 
 
 # ===================Visualization Specific===================
@@ -338,8 +344,10 @@ def apply_color_schema(
     node_color,
     edge_color=None,
     subgraph=False,
-    show_label=False,
+    show_edge_label=False,
+    show_node_label=False,
     edge_to_label=None,
+    node_to_label=None,
 ):
     color_node_map = {
         "red": "#FFAAAA",
@@ -417,13 +425,32 @@ def apply_color_schema(
                         node
                     ] = hex_color  # Map the node to its color.
 
+                if show_node_label:
+                    modified_nodes = []
+                    for node in nodes:
+                        if status == "undefined" or status == "drawn":
+                            modified_nodes.append(
+                                '\n       {}[label="{} ({})"]'.format(
+                                    node, node, "∞"
+                                )
+                            )
+                        else:
+                            node_label = node_to_label[node]
+                            modified_nodes.append(
+                                '\n       {}[label="{} ({})"]'.format(
+                                    node, node, node_label
+                                )
+                            )
+                else:
+                    modified_nodes = nodes
+
                 colored_nodes_line = (
                     '  node [fillcolor="'
                     + hex_color
                     + '" fontcolor="'
                     + font_color
                     + '"] '
-                    + " ".join(nodes)
+                    + " ".join(modified_nodes)
                     + ";\n"
                 )
 
@@ -452,17 +479,37 @@ def apply_color_schema(
                         node
                     ] = hex_color  # Map the node to its color.
 
+                if show_node_label:
+                    modified_nodes = []
+                    for node in nodes:
+                        if status == "undefined" or status == "drawn":
+                            modified_nodes.append(
+                                '\n       {}[label="{} ({})"]'.format(
+                                    node, node, "∞"
+                                )
+                            )
+                        else:
+                            node_label = node_to_label[node]
+                            modified_nodes.append(
+                                '\n       {}[label="{} ({})"]'.format(
+                                    node, node, node_label
+                                )
+                            )
+                else:
+                    modified_nodes = nodes
+
                 colored_nodes_line = (
                     '  node [fillcolor="'
                     + hex_color
                     + '" fontcolor="'
                     + font_color
                     + '"] '
-                    + " ".join(nodes)
+                    + " ".join(modified_nodes)
                     + ";\n"
                 )
                 insert_idx += 1
                 lines.insert(insert_idx, colored_nodes_line)
+
     # stop execution if the edge_color is none
     if edge_color is None:
         output_file_path_dot = os.path.join(
@@ -566,7 +613,7 @@ def apply_color_schema(
 
                     lines[idx] = line_with_color
 
-    if show_label:
+    if show_edge_label:
         # Map state_id to a label string
         for idx, line in enumerate(lines):
             if "->" in line:  # This line represents an edge.
@@ -685,7 +732,8 @@ def visualize_wfs(
     edge_color=None,
     arg=False,
     subgraph=False,
-    show_label=False,
+    show_edge_label=False,
+    show_node_label=False,
     reverse=False,
 ):
     temp_file_name = "wfs_compute.dlv"
@@ -722,16 +770,22 @@ def visualize_wfs(
 
         cmd_solve = f"dlv {plain_file} {temp_file_name} -wf"
         output = run_command(cmd_solve)
-
+        # print(output)
         # get the dataframe for edge labels
-        final_sorted_edges_df = finalize_state(plain_file)
+        final_sorted_nodes_df, final_sorted_edges_df = finalize_state(
+            plain_file
+        )
         edge_to_label = {
             tuple(([row["source_node"], row["target_node"]])): str(
                 row["state_id"]
             )
             for idx, row in final_sorted_edges_df.iterrows()
         }
-        # print(edge_to_label)
+        node_to_label = {
+            row["node_label"]: str(row["state_id"])
+            for idx, row in final_sorted_nodes_df.iterrows()
+        }
+        # print(final_sorted_edges_df)
         if output:
             nodes_status = get_nodes_status(
                 run_command(cmd_solve), node_types=list(node_color.keys())
@@ -744,8 +798,10 @@ def visualize_wfs(
                 node_color,
                 edge_color,
                 subgraph,
-                show_label,
+                show_edge_label,
+                show_node_label,
                 edge_to_label,
+                node_to_label,
             )
         else:
             print("No output received from command")
@@ -786,7 +842,8 @@ def visualize_stb(
     edge_color=None,
     arg=False,
     subgraph=False,
-    show_label=False,
+    show_edge_label=False,
+    show_node_label=False,
     reverse=False,
 ):
     temp_file_name = "stable_compute.dlv"
@@ -795,11 +852,16 @@ def visualize_stb(
 
     graph_name = "_graph_colored" if edge_color else "_node_colored"
 
-    final_sorted_edges_df = finalize_state(plain_file)
+    final_sorted_nodes_df, final_sorted_edges_df = finalize_state(plain_file)
 
     edge_to_label = {
         tuple(([row["source_node"], row["target_node"]])): str(row["state_id"])
         for idx, row in final_sorted_edges_df.iterrows()
+    }
+
+    node_to_label = {
+        row["node_label"]: str(row["state_id"])
+        for idx, row in final_sorted_nodes_df.iterrows()
     }
 
     try:
@@ -842,8 +904,10 @@ def visualize_stb(
                     node_color,
                     edge_color,
                     subgraph,
-                    show_label,
+                    show_edge_label,
+                    show_node_label,
                     edge_to_label,
+                    node_to_label,
                 )
                 image_files.append(
                     "graphs/"
