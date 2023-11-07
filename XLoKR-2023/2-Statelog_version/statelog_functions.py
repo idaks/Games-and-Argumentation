@@ -2,7 +2,7 @@ import re
 import pandas as pd
 import subprocess
 import ipywidgets as widgets
-from IPython.display import display, clear_output
+from IPython.display import display, clear_output,Image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -171,7 +171,7 @@ def generate_png_from_dot(directory='output'):
         command = f'dot -Tpng {directory}/{dot_file} -o {directory}/{png_file}'
         os.system(command)
         
-def display_image_slider(directory='output'):
+def display_image_slider(directory='output', static=False):
     """
     Display an image slider widget to navigate through PNG images in the specified directory.
 
@@ -186,7 +186,8 @@ def display_image_slider(directory='output'):
     state_files = [directory + '/' + f for f in state_files]
     # Append the special files
     image_files = [directory + '/uncolored_graph.png'] + state_files + [directory + '/colored_edge_graph.png']
-
+    
+    
     # Create widgets
     image_slider = widgets.IntSlider(value=0, min=0, max=len(image_files)-1, step=1, description='Slide:')
     prev_button = widgets.Button(description='Previous')
@@ -227,3 +228,10 @@ def display_image_slider(directory='output'):
         plt.imshow(img)
         plt.axis('off')
         plt.show()
+        
+    # Show Static Results
+    if static == True:
+        state_number = 0  # Initialize the counter
+        for file in image_files:
+            display(Image(filename=file))
+            state_number += 1  # Increment the counter
