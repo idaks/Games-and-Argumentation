@@ -1,7 +1,19 @@
 digraph G {
+  rankdir="LR"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  node [fillcolor="#ffffff" fontcolor="#000000"] a k d e m;
-  node [fillcolor="#000000" fontcolor="#ffffff"] c l f g h n;
+  node [fillcolor="#ffffff" fontcolor="#000000"] 
+       a[label="a (4)"] 
+       k[label="k (5)"] 
+       d[label="d (2)"] 
+       e[label="e (2)"] 
+       m[label="m (5)"];
+  node [fillcolor="#000000" fontcolor="#ffffff"] 
+       c[label="c (3)"] 
+       l[label="l (5)"] 
+       f[label="f (1)"] 
+       g[label="g (3)"] 
+       h[label="h (1)"] 
+       n[label="n (5)"];
   edge [dir=forward, color="#A9A9A9", style="solid"]
         "a" -> "c";
         "k" -> "l";
@@ -21,4 +33,9 @@ digraph G {
         "e" -> "d";
         "e" -> "m";
         "m" -> "e";
+
+  {rank = min; f; h}
+  {rank = same; d; e}
+  {rank = same; c; g}
+  {rank = max; k; l; m; n}
 }

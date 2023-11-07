@@ -116,12 +116,12 @@ def redefine_states(state_df):
     return state_df
 
 
-def finalize_state(input_file, arg=False):
+def finalize_state(input_file, arg=False, reverse=True):
     game_solve = """
 
     #maxint = 100.
         
-    m(X,Y) :- edge(X,Y).
+    m(X,Y) :- {}.
 
     % Positions
     p(X) :- m(X,_).
@@ -207,7 +207,9 @@ def finalize_state(input_file, arg=False):
     % out(x,X,Y) :- m(X,Y), r(X), y(Y).
     % out(x,X,Y) :- m(X,Y), y(X), r(Y).
     out(yy,X,Y) :- m(X,Y), y(X), y(Y).
-    """
+    """.format(
+        "edge(X,Y)" if not reverse else "edge(Y,X)"
+    )
 
     with open("files/game_solve.dlv", "w+") as temp_file:
         temp_file.write(game_solve)
@@ -330,10 +332,49 @@ def group_edges(input_list):
         result.append(f"  edge {props}\n")
         result.extend([f"    {edge};\n" for edge in edges])
 
-    # Add the closing brace for the graph.
-    result.append("}\n")
-
     return result
+
+
+def rank_same_nodes(node_dict):
+    """
+    Function to create a list of strings indicating nodes that have the same rank.
+    This can be used for defining ranks in Graphviz, with the first group having rank=min and the last group rank=max.
+
+    Parameters:
+    node_dict (dict): A dictionary with the node as the key and its rank as the value.
+
+    Returns:
+    list: A list of strings for Graphviz rank definition.
+    """
+
+    # Inverting the node_dict to group nodes by their ranks
+    rank_groups = {}
+    for node, rank in node_dict.items():
+        rank_groups.setdefault(rank, []).append(node)
+
+    # Sorting the ranks to assign min and max
+    sorted_ranks = sorted(rank_groups.keys())
+
+    # Creating the rank strings for Graphviz
+    rank_strings = []
+    for rank in sorted_ranks:
+        nodes = rank_groups[rank]
+        if (
+            len(nodes) > 1
+        ):  # Only if there are at least 2 nodes with the same rank
+            # Check if it's the first rank group
+            if rank == sorted_ranks[0]:
+                rank_str = "min"
+            # Check if it's the last rank group
+            elif rank == sorted_ranks[-1]:
+                rank_str = "max"
+            else:
+                rank_str = "same"
+            rank_strings.append(
+                f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
+            )
+
+    return rank_strings
 
 
 # Apply Color Schema to WFS
@@ -376,6 +417,7 @@ def apply_color_schema(
         lines = file.readlines()
 
     node_info = (
+        '  rankdir="LR"\n'
         "  node [shape=oval style=filled fontname=Helvetica fontsize=14]\n"
     )
 
@@ -592,6 +634,7 @@ def apply_color_schema(
                             new_attributes = (
                                 f'{attributes}, color="{actual_edge_color}",'
                                 f' style="dashed"'
+                                # f" constraint=false"
                             )
                         new_attributes += "]"
                         line_with_color = line.replace(
@@ -604,7 +647,9 @@ def apply_color_schema(
                         )
                         if selected_edge_color == "gray":
                             new_attributes = (
-                                f'[color="{actual_edge_color}", style="dashed"'
+                                f'[color="{actual_edge_color}",'
+                                f'style="dashed",'
+                                # f"constraint=false"
                             )
                         new_attributes += "]"
                         line_with_color = (
@@ -669,7 +714,13 @@ def apply_color_schema(
     # Optimize the edges
     lines_with_grouped_properties = group_edges(lines)
 
-    # print(lines_with_grouped_properties)
+    # Add the rank=same
+    if node_to_label:
+        line_graph_rank_same = rank_same_nodes(node_to_label)
+        lines_with_grouped_properties.extend(line_graph_rank_same)
+
+    # Add the closing brace for the graph.
+    lines_with_grouped_properties.append("\n}")
 
     output_file_path_dot = os.path.join(
         "graphs", f"{output_file_key}_graph_colored.dot"
@@ -770,11 +821,12 @@ def visualize_wfs(
 
         cmd_solve = f"dlv {plain_file} {temp_file_name} -wf"
         output = run_command(cmd_solve)
-        # print(output)
+
         # get the dataframe for edge labels
         final_sorted_nodes_df, final_sorted_edges_df = finalize_state(
-            plain_file
+            plain_file, arg, reverse
         )
+        # print(final_sorted_nodes_df)
         edge_to_label = {
             tuple(([row["source_node"], row["target_node"]])): str(
                 row["state_id"]
@@ -852,8 +904,10 @@ def visualize_stb(
 
     graph_name = "_graph_colored" if edge_color else "_node_colored"
 
-    final_sorted_nodes_df, final_sorted_edges_df = finalize_state(plain_file)
-
+    final_sorted_nodes_df, final_sorted_edges_df = finalize_state(
+        plain_file, arg, reverse
+    )
+    # print(final_sorted_nodes_df)
     edge_to_label = {
         tuple(([row["source_node"], row["target_node"]])): str(row["state_id"])
         for idx, row in final_sorted_edges_df.iterrows()

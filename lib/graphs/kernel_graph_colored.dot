@@ -1,4 +1,5 @@
 digraph G {
+  rankdir="LR"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffffff" fontcolor="#000000"] a d e;
   node [fillcolor="#000000" fontcolor="#ffffff"] c f g h;
@@ -23,4 +24,5 @@ digraph G {
         "e" -> "d";
         "e" -> "m";
         "m" -> "e";
+
 }

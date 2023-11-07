@@ -1,4 +1,5 @@
 digraph G {
+  rankdir="LR"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffdaaf" fontcolor="#000000"] 
        a[label="a (4)"] 
@@ -14,25 +15,31 @@ digraph G {
        l[label="l (∞)"] 
        m[label="m (∞)"] 
        n[label="n (∞)"];
-  edge [dir=back, color="#006ad1", style="solid", label="3"]
+  edge [dir=back, color="#006ad1", style="solid"]
         "a" -> "c";
-        "d" -> "g";
+        "d" -> "f";
+        "e" -> "h";
   edge [dir=back, color="#AAAA00", style="solid", label="∞"]
         "k" -> "l";
         "l" -> "m";
         "m" -> "n";
         "n" -> "m";
-  edge [dir=back, color="#cc8400", style="solid", label="2"]
+  edge [dir=back, color="#cc8400", style="solid"]
         "c" -> "d";
         "c" -> "e";
-        "g" -> "d";
   edge [dir=back, color="#b7b7b7", style="dashed", label=" "]
         "l" -> "e";
         "d" -> "e";
         "e" -> "d";
         "e" -> "m";
         "m" -> "e";
-  edge [dir=back, color="#006ad1", style="solid", label="1"]
-        "d" -> "f";
-        "e" -> "h";
+  edge [dir=back, color="#006ad1", style="solid", label="2"]
+        "d" -> "g";
+  edge [dir=back, color="#cc8400", style="solid", label="3"]
+        "g" -> "d";
+
+  {rank = min; f; h}
+  {rank = same; d; e}
+  {rank = same; c; g}
+  {rank = max; k; l; m; n}
 }
