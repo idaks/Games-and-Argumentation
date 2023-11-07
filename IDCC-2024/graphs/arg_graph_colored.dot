@@ -3,11 +3,11 @@ digraph G {
   subgraph cluster_g1{
   label = "G1"; color = black; style ="dashed";
     node [fillcolor="#ffdaaf" fontcolor="#000000"] b c d s g h i u;
-    node [fillcolor="#bfefff" fontcolor="#000000"] a t f k l q v w x y z;
+    node [fillcolor="#FFFFAA" fontcolor="#000000"] e j m o n;
   }
   subgraph cluster_g2{
   label = "G2"; color = black; style ="dashed";
-    node [fillcolor="#FFFFAA" fontcolor="#000000"] e j m o n;
+    node [fillcolor="#bfefff" fontcolor="#000000"] a t f k l q v w x y z;
   }
   edge [dir=back, color="#cc8400", style="solid"]
         "a" -> "b";
