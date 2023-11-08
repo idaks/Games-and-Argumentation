@@ -1,42 +1,70 @@
 digraph G {
+  rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  node [fillcolor="#ffdaaf" fontcolor="#000000"] b c d s g h i u;
-  node [fillcolor="#bfefff" fontcolor="#000000"] a t f k l q v w x y z;
-  node [fillcolor="#FFFFAA" fontcolor="#000000"] e j m o n;
-  edge [dir=back, color="#cc8400", style="solid"]
-        "a" -> "b";
-        "t" -> "b";
-        "f" -> "h";
-        "f" -> "s";
-        "t" -> "u";
-  edge [dir=back, color="#b7b7b7", style="dashed"]
-        "b" -> "c";
-        "c" -> "d";
-        "b" -> "e";
-        "d" -> "e";
-        "s" -> "g";
-        "e" -> "i";
-        "i" -> "j";
-        "i" -> "o";
-        "e" -> "s";
-  edge [dir=back, color="#006ad1", style="solid"]
-        "b" -> "f";
-        "i" -> "k";
-        "i" -> "l";
-        "g" -> "q";
-        "h" -> "q";
-        "c" -> "q";
-        "s" -> "t";
-        "b" -> "v";
-        "u" -> "v";
-        "b" -> "w";
-        "d" -> "x";
-        "b" -> "y";
-        "c" -> "z";
-  edge [dir=back, color="#AAAA00", style="solid"]
-        "e" -> "m";
-        "o" -> "m";
-        "n" -> "m";
-        "j" -> "n";
-        "m" -> "o";
+  node [fillcolor="#ffdaaf" fontcolor="#000000"] 
+       b[label="b.2"] 
+       c[label="c.2"] 
+       d[label="d.2"] 
+       s[label="s.4"] 
+       g[label="g.2"] 
+       h[label="h.2"] 
+       i[label="i.2"] 
+       u[label="u.2"]
+  node [fillcolor="#bfefff" fontcolor="#000000"] 
+       a[label="a.3"] 
+       t[label="t.3"] 
+       f[label="f.5"] 
+       k[label="k.1"] 
+       l[label="l.1"] 
+       q[label="q.1"] 
+       v[label="v.1"] 
+       w[label="w.1"] 
+       x[label="x.1"] 
+       y[label="y.1"] 
+       z[label="z.1"]
+  node [fillcolor="#FFFFAA" fontcolor="#000000"] 
+       e[label="e.∞"] 
+       j[label="j.∞"] 
+       m[label="m.∞"] 
+       o[label="o.∞"] 
+       n[label="n.∞"]
+  edge [dir=back color="#cc8400" style="solid"]
+        "a" -> "b" 
+        "t" -> "b" 
+        "f" -> "h" 
+        "f" -> "s" 
+        "t" -> "u" 
+  edge [dir=back color="#006ad1" style="solid"]
+        "b" -> "f" 
+        "i" -> "k" 
+        "i" -> "l" 
+        "g" -> "q" 
+        "h" -> "q" 
+        "c" -> "q" 
+        "s" -> "t" 
+        "b" -> "v" 
+        "u" -> "v" 
+        "b" -> "w" 
+        "d" -> "x" 
+        "b" -> "y" 
+        "c" -> "z" 
+  edge [dir=back color="#AAAA00" style="solid"]
+        "e" -> "m" 
+        "o" -> "m" 
+        "n" -> "m" 
+        "j" -> "n" 
+        "m" -> "o" 
+  edge [dir=back color="#b7b7b7" style="dotted" constraint=false]
+        "b" -> "c" 
+        "c" -> "d" 
+        "b" -> "e" 
+        "d" -> "e" 
+        "s" -> "g" 
+        "e" -> "i" 
+        "i" -> "j" 
+        "i" -> "o" 
+        "e" -> "s" 
+
+  {rank = max k l q v w x y z}
+  {rank = min f}
 }
