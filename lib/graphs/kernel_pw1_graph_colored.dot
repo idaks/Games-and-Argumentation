@@ -1,41 +1,41 @@
 digraph G {
-  rankdir="LR"
+  rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffffff" fontcolor="#000000"] 
-       a[label="a (4)"] 
-       l[label="l (5)"] 
-       d[label="d (2)"] 
-       e[label="e (2)"] 
-       n[label="n (5)"];
+       a[label="a.2"] 
+       l[label="l.4"] 
+       d[label="d.2"] 
+       e[label="e.2"] 
+       n[label="n.4"]
   node [fillcolor="#000000" fontcolor="#ffffff"] 
-       c[label="c (3)"] 
-       k[label="k (5)"] 
-       m[label="m (5)"] 
-       f[label="f (1)"] 
-       g[label="g (3)"] 
-       h[label="h (1)"];
-  edge [dir=forward, color="#A9A9A9", style="solid"]
-        "a" -> "c";
-        "l" -> "m";
-        "e" -> "m";
-        "d" -> "f";
-        "d" -> "g";
-        "e" -> "h";
-        "n" -> "m";
-  edge [dir=forward, color="#000000", style="solid"]
-        "k" -> "l";
-        "c" -> "d";
-        "c" -> "e";
-        "m" -> "e";
-        "g" -> "d";
-        "m" -> "n";
-  edge [dir=forward, color="#b7b7b7", style="dashed"]
-        "l" -> "e";
-        "d" -> "e";
-        "e" -> "d";
+       c[label="c.3"] 
+       b[label="b.1"] 
+       k[label="k.4"] 
+       m[label="m.4"] 
+       f[label="f.1"] 
+       g[label="g.3"] 
+       h[label="h.1"]
+  edge [dir=forward color="#A9A9A9" style="solid"]
+        "a" -> "c" 
+        "a" -> "b" 
+        "l" -> "m" 
+        "e" -> "m" 
+        "d" -> "f" 
+        "d" -> "g" 
+        "e" -> "h" 
+        "n" -> "m" 
+  edge [dir=forward color="#000000" style="solid"]
+        "k" -> "l" 
+        "c" -> "d" 
+        "c" -> "e" 
+        "m" -> "e" 
+        "g" -> "d" 
+        "m" -> "n" 
+  edge [dir=forward color="#b7b7b7" style="dotted" constraint=false]
+        "l" -> "e" 
+        "d" -> "e" 
+        "e" -> "d" 
 
-  {rank = min; f; h}
-  {rank = same; d; e}
-  {rank = same; c; g}
-  {rank = max; k; l; m; n}
+  {rank = max; b; f; h}
+  {rank = min; c; g}
 }

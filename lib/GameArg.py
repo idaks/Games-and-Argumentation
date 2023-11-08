@@ -330,7 +330,7 @@ def group_edges(input_list):
     # Grouping edges with the same properties
     for props, edges in edge_groups.items():
         result.append(f"  edge {props}\n")
-        result.extend([f"    {edge};\n" for edge in edges])
+        result.extend([f"    {edge} \n" for edge in edges])
 
     return result
 
@@ -364,16 +364,18 @@ def rank_same_nodes(node_dict):
         ):  # Only if there are at least 2 nodes with the same rank
             # Check if it's the first rank group
             if rank == sorted_ranks[0]:
-                rank_str = "min"
-            # Check if it's the last rank group
-            elif rank == sorted_ranks[-1]:
                 rank_str = "max"
+                rank_strings.append(
+                    f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
+                )
+            # Check if it's the last rank group
+            elif rank == sorted_ranks[-2]:
+                rank_str = "min"
+                rank_strings.append(
+                    f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
+                )
             else:
                 rank_str = "same"
-            rank_strings.append(
-                f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
-            )
-
     return rank_strings
 
 
@@ -389,6 +391,7 @@ def apply_color_schema(
     show_node_label=False,
     edge_to_label=None,
     node_to_label=None,
+    rank=False,
 ):
     color_node_map = {
         "red": "#FFAAAA",
@@ -417,7 +420,7 @@ def apply_color_schema(
         lines = file.readlines()
 
     node_info = (
-        '  rankdir="LR"\n'
+        '  rankdir="TB"\n'
         "  node [shape=oval style=filled fontname=Helvetica fontsize=14]\n"
     )
 
@@ -452,11 +455,11 @@ def apply_color_schema(
             # Creating subgraph cluster_g1 and cluster_g2 strings.
             subgraph_cluster_g1 = (
                 "  subgraph cluster_g1{\n"
-                '  label = "G1"; color = black; style ="dashed";\n'
+                '  label = "G1" color = black style ="dashed" \n'
             )
             subgraph_cluster_g2 = (
                 "  subgraph cluster_g2{\n"
-                '  label = "G2"; color = black; style ="dashed";\n'
+                '  label = "G2" color = black style ="dashed" \n'
             )
 
             for status, nodes in nodes_status.items():
@@ -472,14 +475,14 @@ def apply_color_schema(
                     for node in nodes:
                         if status == "undefined" or status == "drawn":
                             modified_nodes.append(
-                                '\n       {}[label="{} ({})"]'.format(
+                                '\n       {}[label="{}.{}"]'.format(
                                     node, node, "∞"
                                 )
                             )
                         else:
                             node_label = node_to_label[node]
                             modified_nodes.append(
-                                '\n       {}[label="{} ({})"]'.format(
+                                '\n       {}[label="{}.{}"]'.format(
                                     node, node, node_label
                                 )
                             )
@@ -493,7 +496,7 @@ def apply_color_schema(
                     + font_color
                     + '"] '
                     + " ".join(modified_nodes)
-                    + ";\n"
+                    + "\n"
                 )
 
                 if all(
@@ -526,14 +529,14 @@ def apply_color_schema(
                     for node in nodes:
                         if status == "undefined" or status == "drawn":
                             modified_nodes.append(
-                                '\n       {}[label="{} ({})"]'.format(
+                                '\n       {}[label="{}.{}"]'.format(
                                     node, node, "∞"
                                 )
                             )
                         else:
                             node_label = node_to_label[node]
                             modified_nodes.append(
-                                '\n       {}[label="{} ({})"]'.format(
+                                '\n       {}[label="{}.{}"]'.format(
                                     node, node, node_label
                                 )
                             )
@@ -547,7 +550,7 @@ def apply_color_schema(
                     + font_color
                     + '"] '
                     + " ".join(modified_nodes)
-                    + ";\n"
+                    + "\n"
                 )
                 insert_idx += 1
                 lines.insert(insert_idx, colored_nodes_line)
@@ -626,15 +629,15 @@ def apply_color_schema(
                         attributes = match.group(1)
                         attributes = attributes.rstrip("]")
                         new_attributes = (
-                            f'{attributes}, color="{actual_edge_color}",'
+                            f'{attributes} color="{actual_edge_color}"'
                             f' style="solid"'
                         )
 
                         if selected_edge_color == "gray":
                             new_attributes = (
-                                f'{attributes}, color="{actual_edge_color}",'
-                                f' style="dashed"'
-                                # f" constraint=false"
+                                f'{attributes} color="{actual_edge_color}"'
+                                f' style="dotted"'
+                                f" constraint=false"
                             )
                         new_attributes += "]"
                         line_with_color = line.replace(
@@ -648,8 +651,8 @@ def apply_color_schema(
                         if selected_edge_color == "gray":
                             new_attributes = (
                                 f'[color="{actual_edge_color}",'
-                                f'style="dashed",'
-                                # f"constraint=false"
+                                f'style="dotted",'
+                                f"constraint=false"
                             )
                         new_attributes += "]"
                         line_with_color = (
@@ -698,14 +701,14 @@ def apply_color_schema(
                         # Append to the existing attribute section.
                         attributes = match.group(1)
                         attributes = attributes.rstrip("]")
-                        new_attributes = f'{attributes}, label="{label}"'
+                        new_attributes = f'{attributes} taillabel="{label}"'
                         new_attributes += "]"
                         line_with_label = line.replace(
                             match.group(1), new_attributes
                         )
                     else:
                         # Create a new attribute section.
-                        new_attributes = f'[label="{label}"]'
+                        new_attributes = f'[taillabel="{label}"]'
                         line_with_label = (
                             line.rstrip("\n") + new_attributes + "\n"
                         )
@@ -715,7 +718,7 @@ def apply_color_schema(
     lines_with_grouped_properties = group_edges(lines)
 
     # Add the rank=same
-    if node_to_label:
+    if node_to_label and rank:
         line_graph_rank_same = rank_same_nodes(node_to_label)
         lines_with_grouped_properties.extend(line_graph_rank_same)
 
@@ -786,6 +789,7 @@ def visualize_wfs(
     show_edge_label=False,
     show_node_label=False,
     reverse=False,
+    rank=False,
 ):
     temp_file_name = "wfs_compute.dlv"
 
@@ -854,6 +858,7 @@ def visualize_wfs(
                 show_node_label,
                 edge_to_label,
                 node_to_label,
+                rank,
             )
         else:
             print("No output received from command")
@@ -897,6 +902,7 @@ def visualize_stb(
     show_edge_label=False,
     show_node_label=False,
     reverse=False,
+    rank=False,
 ):
     temp_file_name = "stable_compute.dlv"
 
@@ -962,6 +968,7 @@ def visualize_stb(
                     show_node_label,
                     edge_to_label,
                     node_to_label,
+                    rank,
                 )
                 image_files.append(
                     "graphs/"

@@ -1,5 +1,6 @@
 digraph G {
     "a" -> "c" [dir=back];
+    "a" -> "b" [dir=back];
     "k" -> "l" [dir=back];
     "c" -> "d" [dir=back];
     "c" -> "e" [dir=back];

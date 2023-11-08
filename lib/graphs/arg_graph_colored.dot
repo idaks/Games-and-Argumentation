@@ -1,45 +1,45 @@
 digraph G {
-  rankdir="LR"
+  rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffdaaf" fontcolor="#000000"] 
-       a[label="a (4)"] 
-       d[label="d (2)"] 
-       e[label="e (2)"];
+       a[label="a.2"] 
+       d[label="d.2"] 
+       e[label="e.2"]
   node [fillcolor="#bfefff" fontcolor="#000000"] 
-       c[label="c (3)"] 
-       f[label="f (1)"] 
-       g[label="g (3)"] 
-       h[label="h (1)"];
+       c[label="c.3"] 
+       b[label="b.1"] 
+       f[label="f.1"] 
+       g[label="g.3"] 
+       h[label="h.1"]
   node [fillcolor="#FFFFAA" fontcolor="#000000"] 
-       k[label="k (∞)"] 
-       l[label="l (∞)"] 
-       m[label="m (∞)"] 
-       n[label="n (∞)"];
-  edge [dir=back, color="#006ad1", style="solid"]
-        "a" -> "c";
-        "d" -> "f";
-        "e" -> "h";
-  edge [dir=back, color="#AAAA00", style="solid", label="∞"]
-        "k" -> "l";
-        "l" -> "m";
-        "m" -> "n";
-        "n" -> "m";
-  edge [dir=back, color="#cc8400", style="solid"]
-        "c" -> "d";
-        "c" -> "e";
-  edge [dir=back, color="#b7b7b7", style="dashed", label=" "]
-        "l" -> "e";
-        "d" -> "e";
-        "e" -> "d";
-        "e" -> "m";
-        "m" -> "e";
-  edge [dir=back, color="#006ad1", style="solid", label="2"]
-        "d" -> "g";
-  edge [dir=back, color="#cc8400", style="solid", label="3"]
-        "g" -> "d";
+       k[label="k.∞"] 
+       l[label="l.∞"] 
+       m[label="m.∞"] 
+       n[label="n.∞"]
+  edge [dir=back color="#006ad1" style="solid"]
+        "a" -> "c" 
+        "a" -> "b" 
+        "d" -> "f" 
+        "e" -> "h" 
+  edge [dir=back color="#AAAA00" style="solid" taillabel="∞"]
+        "k" -> "l" 
+        "l" -> "m" 
+        "m" -> "n" 
+        "n" -> "m" 
+  edge [dir=back color="#cc8400" style="solid"]
+        "c" -> "d" 
+        "c" -> "e" 
+  edge [dir=back color="#b7b7b7" style="dotted" constraint=false taillabel=" "]
+        "l" -> "e" 
+        "d" -> "e" 
+        "e" -> "d" 
+        "e" -> "m" 
+        "m" -> "e" 
+  edge [dir=back color="#006ad1" style="solid" taillabel="2"]
+        "d" -> "g" 
+  edge [dir=back color="#cc8400" style="solid" taillabel="3"]
+        "g" -> "d" 
 
-  {rank = min; f; h}
-  {rank = same; d; e}
-  {rank = same; c; g}
-  {rank = max; k; l; m; n}
+  {rank = max; b; f; h}
+  {rank = min; c; g}
 }
