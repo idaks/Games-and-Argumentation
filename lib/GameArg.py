@@ -403,6 +403,7 @@ def apply_color_schema(
     edge_to_label=None,
     node_to_label=None,
     rank=False,
+    arg=False,
 ):
     color_node_map = {
         "red": "#FFAAAA",
@@ -444,6 +445,7 @@ def apply_color_schema(
             raise ValueError("Improper dot file: 'digraph' not found")
     lines.insert(insert_idx, node_info)
 
+    # print(edge_to_label)
     node_to_color = {}
     edge_to_color = {}
     if nodes_status and node_color:
@@ -692,18 +694,31 @@ def apply_color_schema(
                     label = " "  # No label for gray edges
                 else:
                     # Sort the nodes to match the mapping
-                    sorted_nodes = tuple(
-                        (
-                            [
-                                source_node.replace('"', ""),
-                                target_node.replace('"', ""),
-                            ]
+                    if arg:
+                        sorted_nodes = tuple(
+                            (
+                                [
+                                    target_node.replace('"', ""),
+                                    source_node.replace('"', ""),
+                                ]
+                            )
                         )
-                    )
+                    else:
+                        sorted_nodes = tuple(
+                            (
+                                [
+                                    source_node.replace('"', ""),
+                                    target_node.replace('"', ""),
+                                ]
+                            )
+                        )
                     # Check if the edge has a label
                     label = edge_to_label.get(sorted_nodes)
                     # print(sorted_nodes, label)
-
+                    if arg:
+                        label_location = "headlabel"
+                    else:
+                        label_location = "taillabel"
                 if label:
                     # Check if attributes already exist
                     # and modify accordingly.
@@ -712,14 +727,16 @@ def apply_color_schema(
                         # Append to the existing attribute section.
                         attributes = match.group(1)
                         attributes = attributes.rstrip("]")
-                        new_attributes = f'{attributes} taillabel="{label}"'
+                        new_attributes = (
+                            f'{attributes} {label_location}="{label}"'
+                        )
                         new_attributes += "]"
                         line_with_label = line.replace(
                             match.group(1), new_attributes
                         )
                     else:
                         # Create a new attribute section.
-                        new_attributes = f'[taillabel="{label}"]'
+                        new_attributes = f'[{label_location}="{label}"]'
                         line_with_label = (
                             line.rstrip("\n") + new_attributes + "\n"
                         )
@@ -870,6 +887,7 @@ def visualize_wfs(
                 edge_to_label,
                 node_to_label,
                 rank,
+                arg=arg,
             )
         else:
             print("No output received from command")
@@ -980,6 +998,7 @@ def visualize_stb(
                     edge_to_label,
                     node_to_label,
                     rank,
+                    arg=arg,
                 )
                 image_files.append(
                     "graphs/"

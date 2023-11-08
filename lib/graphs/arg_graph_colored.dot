@@ -16,24 +16,23 @@ digraph G {
        l[label="l.∞"] 
        m[label="m.∞"] 
        n[label="n.∞"]
-  edge [dir=back color="#006ad1" style="solid"]
+  edge [dir=back color="#006ad1" style="solid" headlabel="3"]
         "a" -> "c" 
+        "d" -> "g" 
+  edge [dir=back color="#006ad1" style="solid" headlabel="1"]
         "a" -> "b" 
         "d" -> "f" 
         "e" -> "h" 
-  edge [dir=back color="#AAAA00" style="solid" taillabel="∞"]
+  edge [dir=back color="#AAAA00" style="solid" headlabel="∞"]
         "k" -> "l" 
         "l" -> "m" 
         "m" -> "n" 
         "n" -> "m" 
-  edge [dir=back color="#cc8400" style="solid"]
+  edge [dir=back color="#cc8400" style="solid" headlabel="2"]
         "c" -> "d" 
         "c" -> "e" 
-  edge [dir=back color="#006ad1" style="solid" taillabel="2"]
-        "d" -> "g" 
-  edge [dir=back color="#cc8400" style="solid" taillabel="3"]
         "g" -> "d" 
-  edge [dir=back color="#b7b7b7" style="dotted" constraint=false taillabel=" "]
+  edge [dir=back color="#b7b7b7" style="dotted" constraint=false headlabel=" "]
         "l" -> "e" 
         "d" -> "e" 
         "e" -> "d" 
