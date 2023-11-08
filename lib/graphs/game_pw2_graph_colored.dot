@@ -36,6 +36,6 @@ digraph G {
         "e" -> "m" 
         "m" -> "e" 
 
-  {rank = max; b; f; h}
-  {rank = min; c; g}
+  {rank = max b f h}
+  {rank = min c g}
 }

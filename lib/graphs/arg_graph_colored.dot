@@ -29,17 +29,17 @@ digraph G {
   edge [dir=back color="#cc8400" style="solid"]
         "c" -> "d" 
         "c" -> "e" 
+  edge [dir=back color="#006ad1" style="solid" taillabel="2"]
+        "d" -> "g" 
+  edge [dir=back color="#cc8400" style="solid" taillabel="3"]
+        "g" -> "d" 
   edge [dir=back color="#b7b7b7" style="dotted" constraint=false taillabel=" "]
         "l" -> "e" 
         "d" -> "e" 
         "e" -> "d" 
         "e" -> "m" 
         "m" -> "e" 
-  edge [dir=back color="#006ad1" style="solid" taillabel="2"]
-        "d" -> "g" 
-  edge [dir=back color="#cc8400" style="solid" taillabel="3"]
-        "g" -> "d" 
 
-  {rank = max; b; f; h}
-  {rank = min; c; g}
+  {rank = max b f h}
+  {rank = min c g}
 }

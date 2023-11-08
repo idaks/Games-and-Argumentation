@@ -327,8 +327,14 @@ def group_edges(input_list):
         else:
             result.append(line)  # Preserve other lines as they are.
 
+    # Sort edge_groups so that items with `constraint=false` are at the end.
+    sorted_edge_props = sorted(
+        edge_groups.keys(), key=lambda prop: "constraint=false" in prop
+    )
+
     # Grouping edges with the same properties
-    for props, edges in edge_groups.items():
+    for props in sorted_edge_props:
+        edges = edge_groups[props]
         result.append(f"  edge {props}\n")
         result.extend([f"    {edge} \n" for edge in edges])
 
@@ -337,11 +343,13 @@ def group_edges(input_list):
 
 def rank_same_nodes(node_dict):
     """
-    Function to create a list of strings indicating nodes that have the same rank.
-    This can be used for defining ranks in Graphviz, with the first group having rank=min and the last group rank=max.
+    Function to create a list of strings indicating nodes
+    that have the same rank.This can be used for defining ranks in Graphviz,
+    with the first group having rank=min and the last group rank=max.
 
     Parameters:
-    node_dict (dict): A dictionary with the node as the key and its rank as the value.
+    node_dict (dict): A dictionary with the node as the key
+    and its rank as the value.
 
     Returns:
     list: A list of strings for Graphviz rank definition.
@@ -352,6 +360,7 @@ def rank_same_nodes(node_dict):
     for node, rank in node_dict.items():
         rank_groups.setdefault(rank, []).append(node)
 
+    # print(rank_groups)
     # Sorting the ranks to assign min and max
     sorted_ranks = sorted(rank_groups.keys())
 
@@ -360,22 +369,24 @@ def rank_same_nodes(node_dict):
     for rank in sorted_ranks:
         nodes = rank_groups[rank]
         if (
-            len(nodes) > 1
+            len(nodes) >= 1
         ):  # Only if there are at least 2 nodes with the same rank
             # Check if it's the first rank group
             if rank == sorted_ranks[0]:
                 rank_str = "max"
                 rank_strings.append(
-                    f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
+                    f"\n  {{rank = {rank_str} {' '.join(nodes)}}}"
                 )
             # Check if it's the last rank group
             elif rank == sorted_ranks[-2]:
+                # print(rank)
                 rank_str = "min"
                 rank_strings.append(
-                    f"\n  {{rank = {rank_str}; {'; '.join(nodes)}}}"
+                    f"\n  {{rank = {rank_str} {' '.join(nodes)}}}"
                 )
             else:
                 rank_str = "same"
+
     return rank_strings
 
 
