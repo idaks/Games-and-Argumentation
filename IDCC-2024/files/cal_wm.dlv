@@ -1,0 +1,9 @@
+
+% Positions
+pos(X) :- e(X,_).
+pos(X) :- e(_,X).
+
+% Kernel rules
+win(X) :- e(Y,X), lost(Y).         % X is in the kernel complement if there is an edge from X into the kernel (to Y)
+lost(X) :- pos(X), not win(X).
+drawn(X) :- pos(X), not win(X), not lost(X).

@@ -1019,7 +1019,7 @@ def visualize_stb(
                 print(f"Failed to delete {temp_file_name}. Error: {e}")
 
     images_per_row = 4
-    image_width = "300px"  # You can adjust the width to your preferred size
+    image_width = "auto"  # You can adjust the width to your preferred size
     html_str = ""
 
     for i, img_file in enumerate(image_files):

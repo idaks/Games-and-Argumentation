@@ -1,8 +1,32 @@
 digraph G {
   rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
-  node [fillcolor="#ffffff" fontcolor="#000000"] b c d s g h i j m u
-  node [fillcolor="#000000" fontcolor="#ffffff"] a t e f k l o n q v w x y z
+  node [fillcolor="#ffffff" fontcolor="#000000"] 
+       b[label="b.2"] 
+       c[label="c.2"] 
+       d[label="d.2"] 
+       s[label="s.4"] 
+       g[label="g.2"] 
+       h[label="h.2"] 
+       i[label="i.2"] 
+       j[label="j.6"] 
+       m[label="m.6"] 
+       u[label="u.2"]
+  node [fillcolor="#000000" fontcolor="#ffffff"] 
+       a[label="a.3"] 
+       t[label="t.3"] 
+       e[label="e.6"] 
+       f[label="f.5"] 
+       k[label="k.1"] 
+       l[label="l.1"] 
+       o[label="o.6"] 
+       n[label="n.6"] 
+       q[label="q.1"] 
+       v[label="v.1"] 
+       w[label="w.1"] 
+       x[label="x.1"] 
+       y[label="y.1"] 
+       z[label="z.1"]
   edge [dir=forward color="#000000" style="solid"]
         "a" -> "b" 
         "t" -> "b" 
