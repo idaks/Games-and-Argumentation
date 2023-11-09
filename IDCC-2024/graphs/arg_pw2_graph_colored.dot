@@ -3,7 +3,7 @@ digraph G {
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffdaaf" fontcolor="#000000"] b c d s g h i j m u
   node [fillcolor="#bfefff" fontcolor="#000000"] a t e f k l o n q v w x y z
-  edge [dir=back color="#cc8400" style="solid"]
+  edge [dir=back color="#006ad1" style="solid"]
         "a" -> "b" 
         "t" -> "b" 
         "f" -> "h" 
@@ -14,7 +14,7 @@ digraph G {
         "e" -> "s" 
         "f" -> "s" 
         "t" -> "u" 
-  edge [dir=back color="#006ad1" style="solid"]
+  edge [dir=back color="#cc8400" style="solid"]
         "b" -> "e" 
         "d" -> "e" 
         "b" -> "f" 

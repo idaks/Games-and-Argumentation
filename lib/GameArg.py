@@ -715,10 +715,10 @@ def apply_color_schema(
                     # Check if the edge has a label
                     label = edge_to_label.get(sorted_nodes)
                     # print(sorted_nodes, label)
-                    if arg:
-                        label_location = "headlabel"
-                    else:
-                        label_location = "taillabel"
+                    # if arg:
+                    #     label_location = "headlabel"
+                    # else:
+                label_location = "taillabel"
                 if label:
                     # Check if attributes already exist
                     # and modify accordingly.
@@ -727,16 +727,16 @@ def apply_color_schema(
                         # Append to the existing attribute section.
                         attributes = match.group(1)
                         attributes = attributes.rstrip("]")
-                        new_attributes = (
-                            f'{attributes} {label_location}="{label}"'
-                        )
+                        new_attributes = f'{attributes} {label_location}="{label}" labeldistance=1.5'
                         new_attributes += "]"
                         line_with_label = line.replace(
                             match.group(1), new_attributes
                         )
                     else:
                         # Create a new attribute section.
-                        new_attributes = f'[{label_location}="{label}"]'
+                        new_attributes = (
+                            f'[{label_location}="{label}"] labeldistance=1.5'
+                        )
                         line_with_label = (
                             line.rstrip("\n") + new_attributes + "\n"
                         )

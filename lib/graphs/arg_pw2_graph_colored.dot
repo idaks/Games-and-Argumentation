@@ -15,7 +15,7 @@ digraph G {
        g[label="g.3"] 
        h[label="h.1"] 
        n[label="n.4"]
-  edge [dir=back color="#006ad1" style="solid"]
+  edge [dir=back color="#cc8400" style="solid"]
         "a" -> "c" 
         "a" -> "b" 
         "k" -> "l" 
@@ -23,7 +23,7 @@ digraph G {
         "d" -> "g" 
         "e" -> "h" 
         "m" -> "n" 
-  edge [dir=back color="#cc8400" style="solid"]
+  edge [dir=back color="#006ad1" style="solid"]
         "c" -> "d" 
         "c" -> "e" 
         "l" -> "e" 

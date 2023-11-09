@@ -28,14 +28,14 @@ digraph G {
        m[label="m.∞"] 
        o[label="o.∞"] 
        n[label="n.∞"]
-  edge [dir=forward color="#CC0000" style="solid" taillabel="2"]
+  edge [dir=forward color="#CC0000" style="solid" taillabel="2" labeldistance=1.5]
         "a" -> "b" 
         "t" -> "b" 
         "f" -> "h" 
         "t" -> "u" 
-  edge [dir=forward color="#00BB00" style="solid" taillabel="5"]
+  edge [dir=forward color="#00BB00" style="solid" taillabel="5" labeldistance=1.5]
         "b" -> "f" 
-  edge [dir=forward color="#00BB00" style="solid" taillabel="1"]
+  edge [dir=forward color="#00BB00" style="solid" taillabel="1" labeldistance=1.5]
         "i" -> "k" 
         "i" -> "l" 
         "g" -> "q" 
@@ -47,17 +47,17 @@ digraph G {
         "d" -> "x" 
         "b" -> "y" 
         "c" -> "z" 
-  edge [dir=forward color="#AAAA00" style="solid" taillabel="∞"]
+  edge [dir=forward color="#AAAA00" style="solid" taillabel="∞" labeldistance=1.5]
         "e" -> "m" 
         "o" -> "m" 
         "n" -> "m" 
         "j" -> "n" 
         "m" -> "o" 
-  edge [dir=forward color="#CC0000" style="solid" taillabel="4"]
+  edge [dir=forward color="#CC0000" style="solid" taillabel="4" labeldistance=1.5]
         "f" -> "s" 
-  edge [dir=forward color="#00BB00" style="solid" taillabel="3"]
+  edge [dir=forward color="#00BB00" style="solid" taillabel="3" labeldistance=1.5]
         "s" -> "t" 
-  edge [dir=forward color="#b7b7b7" style="dotted" constraint=false taillabel=" "]
+  edge [dir=forward color="#b7b7b7" style="dotted" constraint=false taillabel=" " labeldistance=1.5]
         "b" -> "c" 
         "c" -> "d" 
         "b" -> "e" 
