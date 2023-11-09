@@ -20,7 +20,7 @@ You can find the codespace you created at [this link](https://github.com/codespa
 
 After setting up the codespace environment:
 
-1. Type `jupyter Lab` in the Terminal of the VScode online version.
+1. Type `jupyter lab` in the Terminal of the VScode online version.
    
    > **Notice:** Sometimes, due to codespace limitations, the terminal may go blank. Simply refreshing your browser should solve the problem.
 
