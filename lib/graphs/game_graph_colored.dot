@@ -2,43 +2,13 @@ digraph G {
   rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#AAFFAA" fontcolor="#000000"] 
-       a[label="a.2"] 
-       d[label="d.2"] 
-       e[label="e.2"]
   node [fillcolor="#FFAAAA" fontcolor="#000000"] 
-       c[label="c.3"] 
-       b[label="b.1"] 
-       f[label="f.1"] 
-       g[label="g.3"] 
-       h[label="h.1"]
   node [fillcolor="#FFFFAA" fontcolor="#000000"] 
-       k[label="k.∞"] 
-       l[label="l.∞"] 
-       m[label="m.∞"] 
-       n[label="n.∞"]
-  edge [dir=forward color="#00BB00" style="solid" taillabel="3" labeldistance=1.5]
-        "a" -> "c" 
-        "d" -> "g" 
-  edge [dir=forward color="#00BB00" style="solid" taillabel="1" labeldistance=1.5]
-        "a" -> "b" 
-        "d" -> "f" 
-        "e" -> "h" 
+       b[label="b.∞"] 
+       a[label="a.∞"]
   edge [dir=forward color="#AAAA00" style="solid" taillabel="∞" labeldistance=1.5]
-        "k" -> "l" 
-        "l" -> "m" 
-        "m" -> "n" 
-        "n" -> "m" 
-  edge [dir=forward color="#CC0000" style="solid" taillabel="2" labeldistance=1.5]
-        "c" -> "d" 
-        "c" -> "e" 
-        "g" -> "d" 
-  edge [dir=forward color="#b7b7b7" style="dotted" constraint=false taillabel=" " labeldistance=1.5]
-        "l" -> "e" 
-        "d" -> "e" 
-        "e" -> "d" 
-        "e" -> "m" 
-        "m" -> "e" 
+        "b" -> "a" 
+        "a" -> "b" 
 
-  {rank = max b f h}
-  {rank = min c g}
+  {rank = max b a}
 }

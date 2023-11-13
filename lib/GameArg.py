@@ -4,9 +4,8 @@ import subprocess
 import os
 from IPython.display import display, HTML
 from collections import defaultdict
-
-# import pygraphviz as pgv
-
+import random
+import string
 
 # =================== General ===================
 def reverse_edges(input_file_path: str, output_file_path: str):
@@ -85,6 +84,27 @@ def run_command(cmd):
         print(result.stderr.decode())
         return None
 
+def generate_unique_edges(node_count, edge_count):
+    if node_count > 26:
+        raise ValueError("Currently supports a maximum of 26 nodes (A-Z).")
+    elif node_count < 1:
+        raise ValueError("There must be at least one node.")
+    
+    max_edges = node_count * (node_count - 1)
+    if edge_count > max_edges:
+        print(f"Warning: Cannot generate more than {max_edges} unique directed edges for {node_count} nodes.")
+        edge_count = max_edges
+
+    nodes = list(string.ascii_lowercase[:node_count])
+    edges = set()
+
+    while len(edges) < edge_count:
+        edge = tuple(random.sample(nodes, 2))
+        edges.add(edge)
+    
+    with open("files/plain_wm_graph.dlv", "w") as f:
+        for edge in edges:
+            f.write(f"edge({edge[0]}, {edge[1]}).\n")
 
 # ================== State Calcultation ====================
 def state_to_dataframe(output):
