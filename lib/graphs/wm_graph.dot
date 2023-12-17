@@ -1,4 +1,12 @@
 digraph G {
     "b" -> "a"[dir=forward];
-    "a" -> "b"[dir=forward];
+    "f" -> "a"[dir=forward];
+    "f" -> "b"[dir=forward];
+    "c" -> "b"[dir=forward];
+    "e" -> "b"[dir=forward];
+    "d" -> "c"[dir=forward];
+    "e" -> "d"[dir=forward];
+    "d" -> "g"[dir=forward];
+    "g" -> "h"[dir=forward];
+    "h" -> "g"[dir=forward];
 }

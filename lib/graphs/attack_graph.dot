@@ -1,4 +1,12 @@
 digraph G {
     "b" -> "a" [dir=back];
-    "a" -> "b" [dir=back];
+    "f" -> "a" [dir=back];
+    "f" -> "b" [dir=back];
+    "c" -> "b" [dir=back];
+    "e" -> "b" [dir=back];
+    "d" -> "c" [dir=back];
+    "e" -> "d" [dir=back];
+    "d" -> "g" [dir=back];
+    "g" -> "h" [dir=back];
+    "h" -> "g" [dir=back];
 }

@@ -894,6 +894,7 @@ def visualize_wfs(
             nodes_status = get_nodes_status(
                 run_command(cmd_solve), node_types=list(node_color.keys())
             )
+            print(nodes_status)
             # print(nodes_status)
             apply_color_schema(
                 "graphs/wfs_temp.dot",
@@ -1004,6 +1005,7 @@ def visualize_stb(
         image_files = []
         if output:
             pws = extract_pws(output, list(node_color.keys()))
+            print(pws)
             for pw, predicates_dict in pws.items():
                 # print(edge_to_label)
                 apply_color_schema(

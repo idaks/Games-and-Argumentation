@@ -2,13 +2,29 @@ digraph G {
   rankdir="TB"
   node [shape=oval style=filled fontname=Helvetica fontsize=14]
   node [fillcolor="#ffdaaf" fontcolor="#000000"] 
-       b[label="b.1"]
+       b[label="b.2"] 
+       f[label="f.2"] 
+       d[label="d.4"] 
+       g[label="g.6"]
   node [fillcolor="#bfefff" fontcolor="#000000"] 
-       a[label="a.1"]
+       a[label="a.1"] 
+       c[label="c.3"] 
+       e[label="e.5"] 
+       h[label="h.6"]
   edge [dir=back color="#cc8400" style="solid"]
         "b" -> "a" 
+        "f" -> "a" 
+        "d" -> "c" 
+        "g" -> "h" 
   edge [dir=back color="#006ad1" style="solid"]
-        "a" -> "b" 
+        "c" -> "b" 
+        "e" -> "b" 
+        "e" -> "d" 
+        "h" -> "g" 
+  edge [dir=back color="#b7b7b7" style="dotted" constraint=false]
+        "f" -> "b" 
+        "d" -> "g" 
 
-  {rank = max b a}
+  {rank = max a}
+  {rank = min e}
 }
