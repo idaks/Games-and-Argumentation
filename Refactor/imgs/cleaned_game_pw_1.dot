@@ -1,0 +1,45 @@
+digraph {
+    rankdir="TB"
+    node [style=filled fontname="Palatino"]
+    node [fillcolor="#AAFFAA"]
+    "e" [label="∃ e.1"]
+    "d" [label="∃ d.1"]
+    "a" [label="∃ a.1"]
+    "l" [label="l.∞"]
+    "n" [label="n.∞"]
+    node [fillcolor="#FFAAAA"]
+    "b" [label="∀ b.0"]
+    "f" [label="∀ f.0"]
+    "h" [label="∀ h.0"]
+    "c" [label="∀ c.2"]
+    "g" [label="∀ g.2"]
+    "k" [label="k.∞"]
+    "m" [label="m.∞"]
+  edge [color="#00BB00" style="solid" dir="forward" label="1"]
+        "a" -> "b" 
+        "d" -> "f" 
+        "e" -> "h" 
+  edge [color="#00BB00" style="solid" dir="forward" label="3"]
+        "a" -> "c" 
+        "d" -> "g" 
+  edge [color="#CC0000" style="solid" dir="forward" label="∞"]
+        "k" -> "l" 
+        "m" -> "n" 
+  edge [color="#CC0000" style="solid" dir="forward" label="2"]
+        "c" -> "d" 
+        "c" -> "e" 
+        "g" -> "d" 
+  edge [color="#00BB00" style="solid" dir="forward" label="∞"]
+        "l" -> "m" 
+        "n" -> "m" 
+  edge [color="#00BB00" style="solid" dir="forward" label=""]
+        "e" -> "m" 
+  edge [color="#CC0000" style="solid" dir="forward" label=""]
+        "m" -> "e" 
+  edge [color="black" style="dotted" dir="forward" label="" constraint=false]
+        "l" -> "e" 
+        "d" -> "e" 
+        "e" -> "d" 
+    {rank = max b f h}
+    {rank = min c g}
+}

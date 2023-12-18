@@ -1,0 +1,114 @@
+{
+    "game": {
+        "status" : {
+            "status_1": "won",
+            "status_2": "lost",
+            "status_3": "draw"
+        },
+        "node_color": {
+            "won": "#AAFFAA",
+            "lost": "#FFAAAA",
+            "draw": "#FFFFAA"
+        },
+        "edge_color": [
+            {
+                "source": "won",
+                "target": "lost",
+                "color": "#00BB00",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "lost",
+                "target": "won",
+                "color": "#CC0000",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "draw",
+                "target": "draw",
+                "color": "#AAAA00",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "won",
+                "target": "won",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            },
+            {
+                "source": "draw",
+                "target": "won",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            },
+            {
+                "source": "won",
+                "target": "draw",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            }
+        ]
+    },
+    "arg": {
+        "status" : {
+            "status_1": "defeated",
+            "status_2": "accepted",
+            "status_3": "undefined"
+        },
+        "node_color": {
+            "accepted": "#bfefff",
+            "defeated": "#ffdaaf",
+            "undefined": "#FFFFAA"
+        },
+        "edge_color": [
+            {
+                "source": "defeated",
+                "target": "accepted",
+                "color": "#cc8400",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "accepted",
+                "target": "defeated",
+                "color": "#006ad1",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "undefined",
+                "target": "undefined",
+                "color": "#AAAA00",
+                "style": "solid",
+                "show_label": true
+            },
+            {
+                "source": "defeated",
+                "target": "defeated",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            },
+            {
+                "source": "undefined",
+                "target": "defeated",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            },
+            {
+                "source": "defeated",
+                "target": "undefined",
+                "color": "black",
+                "style": "dotted",
+                "show_label": false
+            }
+        ]
+    }
+}
