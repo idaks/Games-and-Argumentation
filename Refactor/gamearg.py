@@ -7,7 +7,7 @@ from collections import defaultdict
 import os
 import subprocess
 import shutil
-from IPython.display import HTML, display
+from IPython.display import HTML, display, Image
 
 
 def get_graphviz_schema_and_facts_prep(input_file, keyword, reverse=False):
@@ -353,6 +353,7 @@ def generate_clean_dot_string(
     colored_edge_df,
     model,
     keyword,
+    input_file,
     edge_color_col="wfs_edge_color",
     edge_style_col="wfs_edge_style",
 ):
@@ -417,10 +418,11 @@ def generate_clean_dot_string(
 
     # Close the DOT string
     dot_string += "}\n"
-    folder_name = "imgs"
+    graph_folder=input_file.split(".")[0].split("/")[1]
+    folder_name = "imgs"+"/"+graph_folder
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-    with open(f"imgs/clean_{keyword}_{model}.dot", "w") as file:
+    with open(f"imgs/{graph_folder}/clean_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
 
@@ -429,6 +431,7 @@ def generate_dot_string(
     colored_edge_df,
     model,
     keyword,
+    input_file,
     edge_color_col="wfs_edge_color",
     edge_style_col="wfs_edge_style",
 ):
@@ -473,10 +476,11 @@ def generate_dot_string(
 
     dot_string += "}"
 
-    folder_name = "imgs"
+    graph_folder=input_file.split(".")[0].split("/")[1]
+    folder_name = "imgs"+"/"+graph_folder
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-    with open(f"imgs/unfactored_{keyword}_{model}.dot", "w") as file:
+    with open(f"imgs/{graph_folder}/unfactored_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
 
@@ -497,7 +501,7 @@ def render_dot_to_png(dot_file_path, output_file_path):
 
 def generate_graphviz(input_file, keyword, reverse=False):
     """Generate Graphviz dot string for the input file."""
-    clear_imgs_folder()
+    # clear_imgs_folder()
     colored_node_df = get_node_properties(input_file, keyword, reverse)
     colored_edge_df = get_edge_properties(input_file, keyword, reverse)
     # print(colored_edge_df)
@@ -509,6 +513,7 @@ def generate_graphviz(input_file, keyword, reverse=False):
             colored_edge_df,
             pw,
             keyword,
+            input_file,
             edge_color_col=pw + "_edge_color",
         )
         generate_clean_dot_string(
@@ -516,16 +521,18 @@ def generate_graphviz(input_file, keyword, reverse=False):
             colored_edge_df,
             pw,
             keyword,
+            input_file,
             edge_color_col=pw + "_edge_color",
         )
 
     # Generate PNG files
+    graph_folder=input_file.split(".")[0].split("/")[1]
     for pw in wfs_stb_pws:
         render_dot_to_png(
-            f"imgs/unfactored_{keyword}_{pw}.dot", f"imgs/unfactored_{keyword}_{pw}.png"
+            f"imgs/{graph_folder}/unfactored_{keyword}_{pw}.dot", f"imgs/{graph_folder}/unfactored_{keyword}_{pw}.png"
         )
         render_dot_to_png(
-            f"imgs/clean_{keyword}_{pw}.dot", f"imgs/clean_{keyword}_{pw}.png"
+            f"imgs/{graph_folder}/clean_{keyword}_{pw}.dot", f"imgs/{graph_folder}/clean_{keyword}_{pw}.png"
         )
 
 
@@ -549,7 +556,7 @@ def clear_imgs_folder():
             print(f"Failed to delete {file_path}. Reason: {e}")
 
 
-def display_images_in_rows(file_prefix, images_per_row=2, image_width="auto"):
+def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_width="auto"):
     """
     Display images in rows from a specified folder.
 
@@ -560,7 +567,7 @@ def display_images_in_rows(file_prefix, images_per_row=2, image_width="auto"):
     image_width (str): Width of each image (CSS value).
     """
     # Gather all relevant .png files
-    folder_path = "imgs"
+    folder_path= "imgs/"+input_file.split(".")[0].split("/")[1]
     image_files = [
         os.path.join(folder_path, f)
         for f in os.listdir(folder_path)
@@ -588,3 +595,21 @@ def display_images_in_rows(file_prefix, images_per_row=2, image_width="auto"):
 
     # Display the HTML
     display(HTML(html_str))
+
+
+def show_wfs(input_file, keyword, reverse, gvz_version):
+    # Generate the Graphviz graph
+    generate_graphviz(input_file, keyword, reverse)
+
+    # Extracting the folder name from the input file
+    graph_folder = input_file.split(".")[0].split("/")[1]
+
+    # Constructing the image file path
+    image_file = f"imgs/{graph_folder}/{gvz_version}_{keyword}_wfs.png"
+
+    # Displaying the image
+    return Image(image_file)
+
+def show_stb(input_file, keyword, gvz_version):
+    image_prefix = f"{gvz_version}_{keyword}_pw"
+    display_images_in_rows(input_file, image_prefix)
