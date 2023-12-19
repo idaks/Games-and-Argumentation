@@ -342,8 +342,8 @@ def group_edges(input_list):
     # Grouping edges with the same properties
     for props in sorted_edge_props:
         edges = edge_groups[props]
-        result.append(f"  edge {props}\n")
-        result.extend([f"    {edge} \n" for edge in edges])
+        result.append(f"    edge {props}\n")
+        result.extend([f"       {edge} \n" for edge in edges])
 
     return result
 
@@ -368,13 +368,15 @@ def generate_clean_dot_string(
     # Initialize DOT string
     dot_string = "digraph {\n"
     dot_string += '    rankdir="TB"\n'
-    dot_string += '    node [style=filled fontname="Palatino"]\n'
+    dot_string += '    node [style=filled fontname="Palatino" fontsize=14]\n'
 
     # Adding nodes grouped by color
     for color, nodes in grouped_nodes_by_color.items():
         dot_string += f'    node [fillcolor="{color}"]\n'
         for node, label in nodes:
             dot_string += f'    "{node}" [label="{label}"]\n'
+    
+    dot_string += '    edge[labeldistance=1 fontsize=12]\n'
     # Construct edge strings
     edge_string_ls = []
     for _, row in colored_edge_df.iterrows():
@@ -387,7 +389,7 @@ def generate_clean_dot_string(
         edge_label = row["edge_label"]
         edge_dir = row["direction"]
         constraint = " constraint=false" if row["wfs_edge_color"] == "black" else ""
-        edge = f'    "{row["source"]}" -> "{row["target"]}" [{edge_color} style="{edge_style}" dir="{edge_dir}" label="{edge_label}"{constraint}]\n'
+        edge = f'    "{row["source"]}" -> "{row["target"]}" [{edge_color} style="{edge_style}" dir="{edge_dir}" taillabel="{edge_label}"{constraint}]\n'
         edge_string_ls.append(edge)
 
     # Assuming 'group_edges' is a function that groups edge strings in some way
@@ -418,63 +420,64 @@ def generate_clean_dot_string(
     folder_name = "imgs"
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-    with open(f"imgs/{keyword}_{model}.dot", "w") as file:
+    with open(f"imgs/clean_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
 
-# def generate_dot_string(
-#     colored_node_df,
-#     colored_edge_df,
-#     model,
-#     keyword,
-#     edge_color_col="wfs_edge_color",
-#     edge_style_col="wfs_edge_style",
-# ):
-#     node_color_col = model + "_color"
-#     dot_string = "digraph {\n"
-#     dot_string += "    // Node defaults can be set here if needed\n"
+def generate_dot_string(
+    colored_node_df,
+    colored_edge_df,
+    model,
+    keyword,
+    edge_color_col="wfs_edge_color",
+    edge_style_col="wfs_edge_style",
+):
+    node_color_col = model + "_color"
+    dot_string = "digraph {\n"
+    dot_string += "    // Node defaults can be set here if needed\n"
 
-#     # Adding node information
-#     for index, row in colored_node_df.iterrows():
-#         node = f'    "{row["node"]}" [style="filled", fillcolor="{row[node_color_col]}", label="{row["label"]}"]\n'
-#         dot_string += node
+    # Adding node information
+    for index, row in colored_node_df.iterrows():
+        node = f'    "{row["node"]}" [style="filled" fillcolor="{row[node_color_col]}" label="{row["label"]}" fontsize=14]\n'
+        dot_string += node
 
-#     # Adding edge information
-#     for index, row in colored_edge_df.iterrows():
-#         constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
-#         color = (
-#             f'color="{row[edge_color_col]}:invis:{row[edge_color_col]}"'
-#             if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
-#             else f'color="{row[edge_color_col]}"'
-#         )
+    dot_string += '    edge[labeldistance=1 fontsize=12]\n'
+    # Adding edge information
+    for index, row in colored_edge_df.iterrows():
+        constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
+        color = (
+            f'color="{row[edge_color_col]}:invis:{row[edge_color_col]}"'
+            if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
+            else f'color="{row[edge_color_col]}"'
+        )
 
-#         edge_style = "dotted" if row[edge_color_col] == "black" else row[edge_style_col]
+        edge_style = "dotted" if row[edge_color_col] == "black" else row[edge_style_col]
 
-#         edge = f'    "{row["source"]}" -> "{row["target"]}" [{color} style="{edge_style}" dir="{row["direction"]}" label="{row["edge_label"]}" {constraint}]\n'
-#         dot_string += edge
+        edge = f'"{row["source"]}" -> "{row["target"]}" [{color} style="{edge_style}" dir="{row["direction"]}" taillabel="{row["edge_label"]}" {constraint}]\n'
+        dot_string += "    "+edge
 
-#     numeric_state_ids = pd.to_numeric(
-#         colored_node_df["state_id"], errors="coerce"
-#     ).dropna()
-#     min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
-#     # Group by state_id and construct rank strings
-#     for state_id, group in colored_node_df.groupby("state_id"):
-#         if state_id == str(int(min_state_id)):
-#             rank_label = "max"
-#         elif state_id == str(int(max_state_id)):
-#             rank_label = "min"
-#         else:
-#             continue
-#         nodes_same_rank = " ".join(f"{node}" for node in group["node"])
-#         dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
+    numeric_state_ids = pd.to_numeric(
+        colored_node_df["state_id"], errors="coerce"
+    ).dropna()
+    min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
+    # Group by state_id and construct rank strings
+    for state_id, group in colored_node_df.groupby("state_id"):
+        if state_id == str(int(min_state_id)):
+            rank_label = "max"
+        elif state_id == str(int(max_state_id)):
+            rank_label = "min"
+        else:
+            continue
+        nodes_same_rank = " ".join(f"{node}" for node in group["node"])
+        dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
 
-#     dot_string += "}"
+    dot_string += "}"
 
-#     folder_name = "imgs"
-#     if not os.path.exists(folder_name):
-#         os.makedirs(folder_name)
-#     with open(f"imgs/display_{keyword}_{model}.dot", "w") as file:
-#         file.write(dot_string)
+    folder_name = "imgs"
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    with open(f"imgs/unfactored_{keyword}_{model}.dot", "w") as file:
+        file.write(dot_string)
 
 
 def render_dot_to_png(dot_file_path, output_file_path):
@@ -501,13 +504,13 @@ def generate_graphviz(input_file, keyword, reverse=False):
 
     wfs_stb_pws, df_wfs_stb = node_stb_cal(input_file, keyword, reverse)
     for pw in wfs_stb_pws:
-        # generate_dot_string(
-        #     colored_node_df,
-        #     colored_edge_df,
-        #     pw,
-        #     keyword,
-        #     edge_color_col=pw + "_edge_color",
-        # )
+        generate_dot_string(
+            colored_node_df,
+            colored_edge_df,
+            pw,
+            keyword,
+            edge_color_col=pw + "_edge_color",
+        )
         generate_clean_dot_string(
             colored_node_df,
             colored_edge_df,
@@ -519,7 +522,10 @@ def generate_graphviz(input_file, keyword, reverse=False):
     # Generate PNG files
     for pw in wfs_stb_pws:
         render_dot_to_png(
-            f"imgs/{keyword}_{pw}.dot", f"imgs/{keyword}_{pw}.png"
+            f"imgs/unfactored_{keyword}_{pw}.dot", f"imgs/unfactored_{keyword}_{pw}.png"
+        )
+        render_dot_to_png(
+            f"imgs/clean_{keyword}_{pw}.dot", f"imgs/clean_{keyword}_{pw}.png"
         )
 
 
@@ -566,7 +572,7 @@ def display_images_in_rows(file_prefix, images_per_row=2, image_width="auto"):
 
     for i, img_file in enumerate(image_files):
         # Extract pw_id from the file name
-        pw_id = os.path.basename(img_file).split("_")[2].split(".")[0]
+        pw_id = os.path.basename(img_file).split("_")[3].split(".")[0]
 
         if i % images_per_row == 0:
             html_str += '<div style="text-align: center;">'  # Start a new row
