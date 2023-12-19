@@ -1,0 +1,16 @@
+digraph {
+    // Node defaults can be set here if needed
+    "d" [style="filled" fillcolor="#40cfff" label="∀ d.0" fontsize=14]
+    "c" [style="filled" fillcolor="#ffb763" label="∃ c.1" fontsize=14]
+    "e" [style="filled" fillcolor="#40cfff" label="∀ e.2" fontsize=14]
+    "a" [style="filled" fillcolor="#FFFFAA" label="a.∞" fontsize=14]
+    "b" [style="filled" fillcolor="#FFFFAA" label="b.∞" fontsize=14]
+    edge[labeldistance=1.5 fontsize=12]
+    "a" -> "b" [color="#AAAA00" style="solid" dir="back" taillabel="∞" ]
+    "b" -> "a" [color="#AAAA00" style="solid" dir="back" taillabel="∞" ]
+    "b" -> "c" [color="black" style="dotted" dir="back" taillabel="" constraint=false]
+    "c" -> "d" [color="#cc8400" style="solid" dir="back" taillabel="1" ]
+    "e" -> "c" [color="#006ad1" style="solid" dir="back" taillabel="2" ]
+    {rank = max d}
+    {rank = min e}
+}
