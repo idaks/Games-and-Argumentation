@@ -1,0 +1,21 @@
+digraph {
+    // Node defaults can be set here if needed
+    "a" [style="filled" fillcolor="#FFAAAA" label="∀ a.0" fontsize=14]
+    "f" [style="filled" fillcolor="#AAFFAA" label="∃ f.1" fontsize=14]
+    "b" [style="filled" fillcolor="#AAFFAA" label="∃ b.1" fontsize=14]
+    "c" [style="filled" fillcolor="#FFFFAA" label="c.∞" fontsize=14]
+    "d" [style="filled" fillcolor="#FFFFAA" label="d.∞" fontsize=14]
+    "e" [style="filled" fillcolor="#FFFFAA" label="e.∞" fontsize=14]
+    edge[labeldistance=1.5 fontsize=12]
+    "b" -> "a" [color="#00BB00" style="solid" dir="forward" taillabel="1" ]
+    "c" -> "b" [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+    "c" -> "d" [color="#AAAA00" style="solid" dir="forward" taillabel="∞" ]
+    "d" -> "b" [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+    "d" -> "c" [color="#AAAA00" style="solid" dir="forward" taillabel="∞" ]
+    "e" -> "c" [color="#AAAA00" style="solid" dir="forward" taillabel="∞" ]
+    "e" -> "d" [color="#AAAA00" style="solid" dir="forward" taillabel="∞" ]
+    "f" -> "e" [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+    "f" -> "a" [color="#00BB00" style="solid" dir="forward" taillabel="1" ]
+    {rank = max a}
+    {rank = min f b}
+}
