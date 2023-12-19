@@ -23,12 +23,12 @@ digraph {
     "t" [label="∀ t.2"]
     "f" [label="∀ f.4"]
     node [fillcolor="#d5fdce"]
+    "j" [label="j.∞"]
+    "m" [label="m.∞"]
+    node [fillcolor="#f7cccb"]
     "e" [label="e.∞"]
     "o" [label="o.∞"]
     "n" [label="n.∞"]
-    node [fillcolor="#f7cccb"]
-    "j" [label="j.∞"]
-    "m" [label="m.∞"]
   edge [color="#CC0000" style="solid" dir="forward" label="2"]
         "a" -> "b" 
         "t" -> "b" 
@@ -36,8 +36,6 @@ digraph {
         "t" -> "u" 
   edge [color="#00BB00" style="solid" dir="forward" label="5"]
         "b" -> "f" 
-  edge [color="#00BB00" style="solid" dir="forward" label=""]
-        "i" -> "j" 
   edge [color="#00BB00" style="solid" dir="forward" label="1"]
         "i" -> "k" 
         "i" -> "l" 
@@ -50,11 +48,11 @@ digraph {
         "d" -> "x" 
         "b" -> "y" 
         "c" -> "z" 
-  edge [color="#00BB00" style="solid" dir="forward" label="∞"]
+  edge [color="#CC0000" style="solid" dir="forward" label="∞"]
         "e" -> "m" 
         "o" -> "m" 
         "n" -> "m" 
-  edge [color="#CC0000" style="solid" dir="forward" label="∞"]
+  edge [color="#00BB00" style="solid" dir="forward" label="∞"]
         "j" -> "n" 
         "m" -> "o" 
   edge [color="#CC0000" style="solid" dir="forward" label="4"]
@@ -64,11 +62,14 @@ digraph {
   edge [color="black" style="dotted" dir="forward" label="" constraint=false]
         "b" -> "c" 
         "c" -> "d" 
+        "s" -> "g" 
+        "i" -> "j" 
+  edge [color="#00BB00:invis:#00BB00" style="dashed" dir="forward" label="" constraint=false]
         "b" -> "e" 
         "d" -> "e" 
-        "s" -> "g" 
-        "e" -> "i" 
         "i" -> "o" 
+  edge [color="#CC0000:invis:#CC0000" style="dashed" dir="forward" label="" constraint=false]
+        "e" -> "i" 
         "e" -> "s" 
     {rank = max v z y x w q l k}
     {rank = min f}

@@ -38,21 +38,21 @@
                 "source": "won",
                 "target": "won",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "draw",
                 "target": "won",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "won",
                 "target": "draw",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             }
         ]
@@ -96,21 +96,21 @@
                 "source": "defeated",
                 "target": "defeated",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "undefined",
                 "target": "defeated",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "defeated",
                 "target": "undefined",
                 "color": "black",
-                "style": "dotted",
+                "style": "dashed",
                 "show_label": false
             }
         ]
