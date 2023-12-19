@@ -1,0 +1,77 @@
+digraph {
+    rankdir="TB"
+    node [style=filled fontname="Palatino" fontsize=14]
+    node [fillcolor="#40cfff"]
+    "v" [label="∀ v.0"]
+    "z" [label="∀ z.0"]
+    "y" [label="∀ y.0"]
+    "x" [label="∀ x.0"]
+    "w" [label="∀ w.0"]
+    "q" [label="∀ q.0"]
+    "l" [label="∀ l.0"]
+    "k" [label="∀ k.0"]
+    "a" [label="∀ a.2"]
+    "t" [label="∀ t.2"]
+    "f" [label="∀ f.4"]
+    node [fillcolor="#a6e9ff"]
+    "e" [label="e.∞"]
+    "o" [label="o.∞"]
+    "n" [label="n.∞"]
+    node [fillcolor="#ffb763"]
+    "u" [label="∃ u.1"]
+    "b" [label="∃ b.1"]
+    "c" [label="∃ c.1"]
+    "d" [label="∃ d.1"]
+    "i" [label="∃ i.1"]
+    "g" [label="∃ g.1"]
+    "h" [label="∃ h.1"]
+    "s" [label="∃ s.3"]
+    node [fillcolor="#ffe6c9"]
+    "j" [label="j.∞"]
+    "m" [label="m.∞"]
+    edge[labeldistance=1.5 fontsize=12]
+    edge [color="#006ad1" style="solid" dir="back" taillabel="2"]
+           "a" -> "b" 
+           "t" -> "b" 
+           "f" -> "h" 
+           "t" -> "u" 
+    edge [color="#cc8400" style="solid" dir="back" taillabel="5"]
+           "b" -> "f" 
+    edge [color="#cc8400" style="solid" dir="back" taillabel="1"]
+           "i" -> "k" 
+           "i" -> "l" 
+           "g" -> "q" 
+           "h" -> "q" 
+           "c" -> "q" 
+           "b" -> "v" 
+           "u" -> "v" 
+           "b" -> "w" 
+           "d" -> "x" 
+           "b" -> "y" 
+           "c" -> "z" 
+    edge [color="#006ad1" style="solid" dir="back" taillabel="∞"]
+           "e" -> "m" 
+           "o" -> "m" 
+           "n" -> "m" 
+    edge [color="#cc8400" style="solid" dir="back" taillabel="∞"]
+           "j" -> "n" 
+           "m" -> "o" 
+    edge [color="#006ad1" style="solid" dir="back" taillabel="4"]
+           "f" -> "s" 
+    edge [color="#cc8400" style="solid" dir="back" taillabel="3"]
+           "s" -> "t" 
+    edge [color="black" style="dotted" dir="back" taillabel="" constraint=false]
+           "b" -> "c" 
+           "c" -> "d" 
+           "s" -> "g" 
+           "i" -> "j" 
+    edge [color="#cc8400:#cc8400" style="dashed" dir="back" taillabel="" constraint=false]
+           "b" -> "e" 
+           "d" -> "e" 
+           "i" -> "o" 
+    edge [color="#006ad1:#006ad1" style="dashed" dir="back" taillabel="" constraint=false]
+           "e" -> "i" 
+           "e" -> "s" 
+    {rank = max v z y x w q l k}
+    {rank = min f}
+}

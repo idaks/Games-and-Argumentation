@@ -4,23 +4,23 @@ digraph {
     node [fillcolor="#AAFFAA"]
     "c" [label="∃ c.1"]
     node [fillcolor="#FFAAAA"]
-    "d" [label="∀ d.0"]
-    "e" [label="∀ e.2"]
+    "e" [label="∀ e.0"]
+    "d" [label="∀ d.2"]
     node [fillcolor="#d5fdce"]
-    "a" [label="a.∞"]
-    node [fillcolor="#f7cccb"]
     "b" [label="b.∞"]
+    node [fillcolor="#f7cccb"]
+    "a" [label="a.∞"]
     edge[labeldistance=1.5 fontsize=12]
     edge [color="#00BB00" style="solid" dir="forward" taillabel="∞"]
-           "a" -> "b" 
-    edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
            "b" -> "a" 
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
-           "c" -> "d" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
+           "a" -> "b" 
     edge [color="#CC0000" style="solid" dir="forward" taillabel="2"]
-           "e" -> "c" 
-    edge [color="#CC0000:invis:#CC0000" style="dashed" dir="forward" taillabel="" constraint=false]
-           "b" -> "c" 
-    {rank = max d}
-    {rank = min e}
+           "d" -> "c" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "c" -> "e" 
+    edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+           "c" -> "b" 
+    {rank = max e}
+    {rank = min d}
 }

@@ -2,31 +2,31 @@ digraph {
     rankdir="TB"
     node [style=filled fontname="Palatino" fontsize=14]
     node [fillcolor="#AAFFAA"]
-    "f" [label="∃ f.1"]
-    "b" [label="∃ b.1"]
+    "e" [label="∃ e.1"]
+    "a" [label="∃ a.1"]
     node [fillcolor="#FFAAAA"]
-    "a" [label="∀ a.0"]
+    "f" [label="∀ f.0"]
     node [fillcolor="#d5fdce"]
-    "d" [label="d.∞"]
-    "e" [label="e.∞"]
-    node [fillcolor="#f7cccb"]
+    "b" [label="b.∞"]
     "c" [label="c.∞"]
+    node [fillcolor="#f7cccb"]
+    "d" [label="d.∞"]
     edge[labeldistance=1.5 fontsize=12]
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
-           "b" -> "a" 
-           "f" -> "a" 
-    edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
-           "c" -> "d" 
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="∞"]
-           "d" -> "c" 
-           "e" -> "c" 
     edge [color="black" style="dotted" dir="forward" taillabel="∞"]
-           "e" -> "d" 
-    edge [color="#CC0000:invis:#CC0000" style="dashed" dir="forward" taillabel="" constraint=false]
-           "c" -> "b" 
+           "b" -> "c" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
+           "d" -> "c" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="∞"]
+           "b" -> "d" 
+           "c" -> "d" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "e" -> "f" 
+           "a" -> "f" 
     edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
-           "d" -> "b" 
-           "f" -> "e" 
-    {rank = max a}
-    {rank = min f b}
+           "a" -> "b" 
+           "c" -> "e" 
+    edge [color="#CC0000:#CC0000" style="dashed" dir="forward" taillabel="" constraint=false]
+           "d" -> "e" 
+    {rank = max f}
+    {rank = min e a}
 }

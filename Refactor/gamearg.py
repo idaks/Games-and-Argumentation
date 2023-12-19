@@ -382,7 +382,7 @@ def generate_clean_dot_string(
     edge_string_ls = []
     for _, row in colored_edge_df.iterrows():
         edge_color = (
-            f'color="{row[edge_color_col]}:invis:{row[edge_color_col]}"'
+            f'color="{row[edge_color_col]}:{row[edge_color_col]}"'
             if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
             else f'color="{row[edge_color_col]}"'
         )
@@ -449,7 +449,7 @@ def generate_dot_string(
     for index, row in colored_edge_df.iterrows():
         constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
         color = (
-            f'color="{row[edge_color_col]}:invis:{row[edge_color_col]}"'
+            f'color="{row[edge_color_col]}:{row[edge_color_col]}"'
             if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
             else f'color="{row[edge_color_col]}"'
         )
