@@ -16,7 +16,7 @@ This process will take around 4-8 minutes. **Please do not** press any button un
 #### For Non-First-Time Usage
 You can find the codespace you created at [this link](https://github.com/codespaces).
 
-## Launch Jupyter
+### Launch Jupyter
 
 After setting up the codespace environment:
 
@@ -28,6 +28,13 @@ After setting up the codespace environment:
    - `Tutorial.ipynb`
 
 ---
+
+
+## Local Setup
+```
+conda env create -f environment.yaml
+conda activate gamearg
+```
 
 ## Contact
 
