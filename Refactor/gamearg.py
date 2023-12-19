@@ -196,6 +196,13 @@ def get_color(status, keyword):
     return color_settings[keyword]["node_color"].get(status, "default_color")
 
 
+def get_color_for_row(row, pw, keyword, status_3):
+    if row["wfs"] == status_3:
+        return get_color(f"{status_3}_{row[pw]}", keyword)
+    else:
+        return get_color(row[pw], keyword)
+
+
 def get_node_properties(input_file, keyword, reverse=False):
     status_1, status_2, status_3, facts_prep = get_graphviz_schema_and_facts_prep(
         "graphviz_settings.json", keyword, reverse
@@ -203,14 +210,21 @@ def get_node_properties(input_file, keyword, reverse=False):
     wfs_stb_pws, df_wfs_stb = node_stb_cal(input_file, keyword, reverse)
 
     colored_node_df = df_wfs_stb.copy()
+
     for pw in wfs_stb_pws:
-        colored_node_df[pw + "_color"] = colored_node_df[pw].apply(
-            lambda x: get_color(x, keyword)
-        )
+        if "pw" in pw:
+            colored_node_df[pw + "_color"] = colored_node_df.apply(
+                lambda row: get_color_for_row(row, pw, keyword, status_3), axis=1
+            )
+        else:
+            colored_node_df[pw + "_color"] = colored_node_df.apply(
+                lambda row: get_color(row[pw], keyword), axis=1
+            )
 
     colored_node_df["label"] = colored_node_df.apply(
         lambda row: create_label(status_1, status_2, row), axis=1
     )
+
     return colored_node_df.sort_values(
         by=["state_id", "wfs"], ascending=[True, True]
     ).reset_index(drop=True)
@@ -290,9 +304,6 @@ def get_edge_properties(input_file, keyword="game", reverse=False):
         + [f"{status}_edge_color" for status in wfs_stb_pws]
         + [f"{status}_edge_style" for status in wfs_stb_pws]
     ]
-
-    # Additional processing can be added here if needed
-
     return colored_edge_df
 
 
@@ -422,7 +433,12 @@ def generate_dot_string(
     # Adding edge information
     for index, row in colored_edge_df.iterrows():
         constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
-        edge = f'    "{row["source"]}" -> "{row["target"]}" [color="{row[edge_color_col]}" style="{row[edge_style_col]}" dir="{row["direction"]}" label="{row["edge_label"]}" {constraint}]\n'
+        color = (
+            f'color="{row[edge_color_col]}:invis:{row[edge_color_col]}"'
+            if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
+            else f'color="{row[edge_color_col]}"'
+        )
+        edge = f'    "{row["source"]}" -> "{row["target"]}" [{color} style="{row[edge_style_col]}" dir="{row["direction"]}" label="{row["edge_label"]}" {constraint}]\n'
         dot_string += edge
 
     numeric_state_ids = pd.to_numeric(
@@ -478,7 +494,6 @@ def generate_graphviz(input_file, keyword, reverse=False):
             colored_edge_df,
             pw,
             keyword,
-            edge_style_col=pw + "_edge_style",
             edge_color_col=pw + "_edge_color",
         )
         generate_clean_dot_string(colored_node_df, colored_edge_df, pw, keyword)
