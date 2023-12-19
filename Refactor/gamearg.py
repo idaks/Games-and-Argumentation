@@ -376,7 +376,7 @@ def generate_clean_dot_string(
         for node, label in nodes:
             dot_string += f'    "{node}" [label="{label}"]\n'
     
-    dot_string += '    edge[labeldistance=1 fontsize=12]\n'
+    dot_string += '    edge[labeldistance=1.5 fontsize=12]\n'
     # Construct edge strings
     edge_string_ls = []
     for _, row in colored_edge_df.iterrows():
@@ -441,7 +441,7 @@ def generate_dot_string(
         node = f'    "{row["node"]}" [style="filled" fillcolor="{row[node_color_col]}" label="{row["label"]}" fontsize=14]\n'
         dot_string += node
 
-    dot_string += '    edge[labeldistance=1 fontsize=12]\n'
+    dot_string += '    edge[labeldistance=1.5 fontsize=12]\n'
     # Adding edge information
     for index, row in colored_edge_df.iterrows():
         constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
