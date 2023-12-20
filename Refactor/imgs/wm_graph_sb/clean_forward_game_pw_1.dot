@@ -1,0 +1,32 @@
+digraph {
+    rankdir="TB"
+    node [style=filled fontname="Palatino" fontsize=14]
+    node [fillcolor="#AAFFAA"]
+    "f" [label="∃ f.1"]
+    "b" [label="∃ b.1"]
+    node [fillcolor="#FFAAAA"]
+    "a" [label="∀ a.0"]
+    node [fillcolor="#d5fdce"]
+    "d" [label="d.∞"]
+    "e" [label="e.∞"]
+    node [fillcolor="#f7cccb"]
+    "c" [label="c.∞"]
+    edge[labeldistance=1.5 fontsize=12]
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "b" -> "a" 
+           "f" -> "a" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
+           "c" -> "d" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="∞"]
+           "d" -> "c" 
+           "e" -> "c" 
+    edge [color="black" style="dotted" dir="forward" taillabel="∞"]
+           "e" -> "d" 
+    edge [color="#CC0000:#CC0000" style="dashed" dir="forward" taillabel="" constraint=false]
+           "c" -> "b" 
+    edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+           "d" -> "b" 
+           "f" -> "e" 
+    {rank = max a}
+    {rank = min f b}
+}

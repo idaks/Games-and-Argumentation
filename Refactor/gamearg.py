@@ -354,6 +354,7 @@ def generate_clean_dot_string(
     model,
     keyword,
     input_file,
+    reverse_str,
     edge_color_col="wfs_edge_color",
     edge_style_col="wfs_edge_style",
 ):
@@ -422,7 +423,7 @@ def generate_clean_dot_string(
     folder_name = "imgs"+"/"+graph_folder
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-    with open(f"imgs/{graph_folder}/clean_{keyword}_{model}.dot", "w") as file:
+    with open(f"imgs/{graph_folder}/clean_{reverse_str}_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
 
@@ -432,6 +433,7 @@ def generate_dot_string(
     model,
     keyword,
     input_file,
+    reverse_str,
     edge_color_col="wfs_edge_color",
     edge_style_col="wfs_edge_style",
 ):
@@ -480,7 +482,7 @@ def generate_dot_string(
     folder_name = "imgs"+"/"+graph_folder
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
-    with open(f"imgs/{graph_folder}/unfactored_{keyword}_{model}.dot", "w") as file:
+    with open(f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
 
@@ -506,6 +508,11 @@ def generate_graphviz(input_file, keyword, reverse=False):
     colored_edge_df = get_edge_properties(input_file, keyword, reverse)
     # print(colored_edge_df)
 
+
+    if reverse:
+        reverse_str = "backward"
+    else:
+        reverse_str = "forward"
     wfs_stb_pws, df_wfs_stb = node_stb_cal(input_file, keyword, reverse)
     for pw in wfs_stb_pws:
         generate_dot_string(
@@ -514,6 +521,7 @@ def generate_graphviz(input_file, keyword, reverse=False):
             pw,
             keyword,
             input_file,
+            reverse_str,
             edge_color_col=pw + "_edge_color",
         )
         generate_clean_dot_string(
@@ -522,6 +530,7 @@ def generate_graphviz(input_file, keyword, reverse=False):
             pw,
             keyword,
             input_file,
+            reverse_str,
             edge_color_col=pw + "_edge_color",
         )
 
@@ -529,10 +538,10 @@ def generate_graphviz(input_file, keyword, reverse=False):
     graph_folder=input_file.split(".")[0].split("/")[1]
     for pw in wfs_stb_pws:
         render_dot_to_png(
-            f"imgs/{graph_folder}/unfactored_{keyword}_{pw}.dot", f"imgs/{graph_folder}/unfactored_{keyword}_{pw}.png"
+            f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{pw}.dot", f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{pw}.png"
         )
         render_dot_to_png(
-            f"imgs/{graph_folder}/clean_{keyword}_{pw}.dot", f"imgs/{graph_folder}/clean_{keyword}_{pw}.png"
+            f"imgs/{graph_folder}/clean_{reverse_str}_{keyword}_{pw}.dot", f"imgs/{graph_folder}/clean_{reverse_str}_{keyword}_{pw}.png"
         )
 
 
@@ -603,13 +612,21 @@ def show_wfs(input_file, keyword, reverse, gvz_version):
 
     # Extracting the folder name from the input file
     graph_folder = input_file.split(".")[0].split("/")[1]
-
+    
+    if reverse:
+        reverse_str = "backward"
+    else:
+        reverse_str = "forward"
     # Constructing the image file path
-    image_file = f"imgs/{graph_folder}/{gvz_version}_{keyword}_wfs.png"
+    image_file = f"imgs/{graph_folder}/{gvz_version}_{reverse_str}_{keyword}_wfs.png"
 
     # Displaying the image
     return Image(image_file)
 
-def show_stb(input_file, keyword, gvz_version):
-    image_prefix = f"{gvz_version}_{keyword}_pw"
+def show_stb(input_file, keyword, reverse, gvz_version):
+    if reverse:
+        reverse_str = "backward"
+    else:
+        reverse_str = "forward"
+    image_prefix = f"{gvz_version}_{reverse_str}_{keyword}_pw"
     display_images_in_rows(input_file, image_prefix)
