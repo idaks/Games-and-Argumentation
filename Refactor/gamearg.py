@@ -588,7 +588,7 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
 
     for i, img_file in enumerate(image_files):
         # Extract pw_id from the file name
-        pw_id = os.path.basename(img_file).split("_")[3].split(".")[0]
+        pw_id = os.path.basename(img_file).split("_")[4].split(".")[0]
 
         if i % images_per_row == 0:
             html_str += '<div style="text-align: center;">'  # Start a new row
