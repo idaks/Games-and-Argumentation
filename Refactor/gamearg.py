@@ -8,6 +8,7 @@ import os
 import subprocess
 import shutil
 from IPython.display import HTML, display, Image
+import numpy as np
 
 
 def get_graphviz_schema_and_facts_prep(input_file, keyword, reverse=False):
@@ -166,8 +167,12 @@ def read_edges_from_file(input_file, keyword, reverse):
             prg = []
             ast.parse_files([input_file], lambda x: prg.append(x))
             for line in prg[1:]:
-                start_node = line.head.atom.symbol.arguments[0].values()[1].name
-                end_node = line.head.atom.symbol.arguments[1].values()[1].name
+                try:
+                    start_node = line.head.atom.symbol.arguments[0].values()[1].name
+                    end_node = line.head.atom.symbol.arguments[1].values()[1].name
+                except (AttributeError,RuntimeError) as e:
+                    start_node = str(line.head.atom.symbol.arguments[0].values()[1])
+                    end_node = str(line.head.atom.symbol.arguments[1].values()[1])
                 if keyword == "game":
                     direction = "forward"
                 else:
@@ -410,16 +415,19 @@ def generate_clean_dot_string(
         colored_node_df["state_id"], errors="coerce"
     ).dropna()
     min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
+    if np.isnan(min_state_id) or np.isnan(max_state_id):
+        dot_string += " "
+    else:
     # Group by state_id and construct rank strings
-    for state_id, group in colored_node_df.groupby("state_id"):
-        if state_id == str(int(min_state_id)):
-            rank_label = "max"
-        elif state_id == str(int(max_state_id)):
-            rank_label = "min"
-        else:
-            continue
-        nodes_same_rank = " ".join(f"{node}" for node in group["node"])
-        dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
+        for state_id, group in colored_node_df.groupby("state_id"):
+            if state_id == str(int(min_state_id)):
+                rank_label = "max"
+            elif state_id == str(int(max_state_id)):
+                rank_label = "min"
+            else:
+                continue
+            nodes_same_rank = " ".join(f"{node}" for node in group["node"])
+            dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
 
     # Close the DOT string
     dot_string += "}\n"
@@ -469,16 +477,18 @@ def generate_dot_string(
         colored_node_df["state_id"], errors="coerce"
     ).dropna()
     min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
-    # Group by state_id and construct rank strings
-    for state_id, group in colored_node_df.groupby("state_id"):
-        if state_id == str(int(min_state_id)):
-            rank_label = "max"
-        elif state_id == str(int(max_state_id)):
-            rank_label = "min"
-        else:
-            continue
-        nodes_same_rank = " ".join(f"{node}" for node in group["node"])
-        dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
+    if np.isnan(min_state_id) or np.isnan(max_state_id):
+        dot_string += " "
+    else:
+        for state_id, group in colored_node_df.groupby("state_id"):
+            if state_id == str(int(min_state_id)):
+                rank_label = "max"
+            elif state_id == str(int(max_state_id)):
+                rank_label = "min"
+            else:
+                continue
+            nodes_same_rank = " ".join(f"{node}" for node in group["node"])
+            dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
 
     dot_string += "}"
 
