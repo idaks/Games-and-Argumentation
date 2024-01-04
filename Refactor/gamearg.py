@@ -83,7 +83,11 @@ def node_wfs_cal(input_file, keyword, reverse=False):
     #show len/3.
     """
     ctl = clingo.Control()
-    ctl.load(input_file)
+    if "files/" not in input_file:
+        ctl.add("base", [], input_file)
+    else:
+        ctl.load(input_file)
+    
     ctl.add("base", [], statelog)
     ctl.ground([("base", [])])
     models = []
