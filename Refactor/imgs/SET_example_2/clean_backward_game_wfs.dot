@@ -2,21 +2,22 @@ digraph {
     rankdir="TB"
     node [style=filled fontname="Palatino" fontsize=14]
     node [fillcolor="#AAFFAA"]
-    "a" [label="∃ a.1"]
+    "5" [label=" p5.1"]
     node [fillcolor="#FFAAAA"]
-    "d" [label="∀ d.0"]
-    "c" [label="∀ c.2"]
+    "2" [label=" p2.0"]
     node [fillcolor="#FFFFAA"]
-    "b" [label="b.∞"]
+    "3" [label="p3.∞"]
+    "4" [label="p4.∞"]
+    "1" [label="p1.∞"]
     edge[labeldistance=1.5 fontsize=12]
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
-           "a" -> "d" 
     edge [color="#AAAA00" style="solid" dir="forward" taillabel="∞"]
-           "b" -> "b" 
-    edge [color="#CC0000" style="solid" dir="forward" taillabel="2"]
-           "c" -> "a" 
+           "3" -> "1" 
+           "4" -> "1" 
+           "1" -> "4" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "5" -> "2" 
     edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
-           "a" -> "b" 
-    {rank = max d}
-    {rank = min c}
+           "5" -> "3" 
+    {rank = max 2}
+    {rank = min 5}
 }

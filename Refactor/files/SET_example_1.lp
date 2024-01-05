@@ -1,1 +1,1 @@
-move(a,b). move(a,d). move(b,b). move(c,a).
+move(1,2). move(1,4). move(2,2). move(3,1).

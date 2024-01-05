@@ -191,10 +191,24 @@ def read_edges_from_file(input_file, keyword, reverse):
 
 # Color Nodes
 def create_label(status_1, status_2, row):
+    try:
+        row["node"] = int(row["node"])
+        row["node"] = "p" + str(row["node"])
+    except ValueError:
+        pass
+    with open("graphviz_settings.json", "r") as file:
+        schema = json.load(file)
+    isExistential=schema["show_existential_quantification"]
+    if isExistential==True:
+        exist_symbol = "∃"
+        all_symbol = "∀"
+    else:
+        exist_symbol = ""
+        all_symbol = ""
     if row["wfs"] == status_2:  # assuming 'status' key should be 'wfs'
-        return f'∀ {row["node"]}.{row["state_id"]}'
+        return f'{exist_symbol} {row["node"]}.{row["state_id"]}'
     elif row["wfs"] == status_1:  # assuming 'status' key should be 'wfs'
-        return f'∃ {row["node"]}.{row["state_id"]}'
+        return f'{all_symbol} {row["node"]}.{row["state_id"]}'
     else:
         return f'{row["node"]}.{row["state_id"]}'
 
@@ -375,7 +389,9 @@ def generate_clean_dot_string(
         .apply(lambda x: x[["node", "label"]].values.tolist())
         .to_dict()
     )
-
+    with open("graphviz_settings.json", "r") as file:
+        schema = json.load(file)
+    labeldistance=schema["labeldistance"]
     # Initialize DOT string
     dot_string = "digraph {\n"
     dot_string += '    rankdir="TB"\n'
@@ -387,7 +403,7 @@ def generate_clean_dot_string(
         for node, label in nodes:
             dot_string += f'    "{node}" [label="{label}"]\n'
     
-    dot_string += '    edge[labeldistance=1.5 fontsize=12]\n'
+    dot_string += f'    edge[labeldistance={labeldistance} fontsize=12]\n'
     # Construct edge strings
     edge_string_ls = []
     for _, row in colored_edge_df.iterrows():
@@ -453,12 +469,15 @@ def generate_dot_string(
     dot_string = "digraph {\n"
     dot_string += "    // Node defaults can be set here if needed\n"
 
+    with open("graphviz_settings.json", "r") as file:
+        schema = json.load(file)
+    labeldistance=schema["labeldistance"]
     # Adding node information
     for index, row in colored_node_df.iterrows():
         node = f'    "{row["node"]}" [style="filled" fillcolor="{row[node_color_col]}" label="{row["label"]}" fontsize=14]\n'
         dot_string += node
 
-    dot_string += '    edge[labeldistance=1.5 fontsize=12]\n'
+    dot_string += f'    edge[labeldistance={labeldistance} fontsize=12]\n'
     # Adding edge information
     for index, row in colored_edge_df.iterrows():
         constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
@@ -517,7 +536,7 @@ def render_dot_to_png(dot_file_path, output_file_path):
 
 def generate_graphviz(input_file, keyword, reverse=False):
     """Generate Graphviz dot string for the input file."""
-    # clear_imgs_folder()
+    clear_imgs_folder(input_file)
     colored_node_df = get_node_properties(input_file, keyword, reverse)
     colored_edge_df = get_edge_properties(input_file, keyword, reverse)
     # print(colored_edge_df)
@@ -559,8 +578,9 @@ def generate_graphviz(input_file, keyword, reverse=False):
         )
 
 
-def clear_imgs_folder():
-    folder_path = "imgs/"
+def clear_imgs_folder(input_file):
+    graph_folder=input_file.split(".")[0].split("/")[1]
+    folder_path = "imgs/"+graph_folder
 
     # Check if the folder exists
     if not os.path.exists(folder_path):
@@ -596,7 +616,8 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
         for f in os.listdir(folder_path)
         if f.startswith(file_prefix) and f.endswith(".png")
     ]
-
+    if len(image_files) == 0:
+        print(f"Notice: this move(attack) graph doesn't have stable models(extensions).")
     # Start creating the HTML string
     html_str = ""
 
@@ -620,7 +641,7 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
     display(HTML(html_str))
 
 
-def show_wfs(input_file, keyword, reverse, gvz_version):
+def show_wfs(input_file, keyword, reverse, gvz_version="unfactored"):
     # Generate the Graphviz graph
     generate_graphviz(input_file, keyword, reverse)
 
@@ -637,7 +658,7 @@ def show_wfs(input_file, keyword, reverse, gvz_version):
     # Displaying the image
     return Image(image_file)
 
-def show_stb(input_file, keyword, reverse, gvz_version):
+def show_stb(input_file, keyword, reverse, gvz_version="unfactored"):
     if reverse:
         reverse_str = "backward"
     else:
