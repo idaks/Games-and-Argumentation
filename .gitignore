@@ -3,3 +3,4 @@ dlv.i386-apple-darwin.bin
 *.ipynb_checkpoints
 __pycache__/
 imgs/
+*.csv
