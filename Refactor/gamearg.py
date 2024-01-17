@@ -206,9 +206,9 @@ def create_label(status_1, status_2, row):
         exist_symbol = ""
         all_symbol = ""
     if row["wfs"] == status_2:  # assuming 'status' key should be 'wfs'
-        return f'{exist_symbol} {row["node"]}.{row["state_id"]}'
-    elif row["wfs"] == status_1:  # assuming 'status' key should be 'wfs'
         return f'{all_symbol} {row["node"]}.{row["state_id"]}'
+    elif row["wfs"] == status_1:  # assuming 'status' key should be 'wfs'
+        return f'{exist_symbol} {row["node"]}.{row["state_id"]}'
     else:
         return f'{row["node"]}.{row["state_id"]}'
 
