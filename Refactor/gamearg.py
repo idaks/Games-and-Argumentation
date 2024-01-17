@@ -540,29 +540,9 @@ def generate_plain_dot_string(
     dot_string += f'    edge[labeldistance={labeldistance} fontsize=12]\n'
     # Adding edge information
     for index, row in colored_edge_df.iterrows():
-        constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
-        edge = f'"{row["source"]}" -> "{row["target"]}" [dir="{row["direction"]}" {constraint}]\n'
+        edge = f'"{row["source"]}" -> "{row["target"]}" [dir="{row["direction"]}"]\n'
         dot_string += "    "+edge
-
-    numeric_state_ids = pd.to_numeric(
-        colored_node_df["state_id"], errors="coerce"
-    ).dropna()
-    min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
-    if np.isnan(min_state_id) or np.isnan(max_state_id):
-        dot_string += " "
-    else:
-        for state_id, group in colored_node_df.groupby("state_id"):
-            if state_id == str(int(min_state_id)):
-                rank_label = "max"
-            elif state_id == str(int(max_state_id)):
-                rank_label = "min"
-            else:
-                continue
-            nodes_same_rank = " ".join(f"{node}" for node in group["node"])
-            dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
-
     dot_string += "}"
-
     graph_folder=input_file.split(".")[0].split("/")[1]
     folder_name = "imgs"+"/"+graph_folder
     if not os.path.exists(folder_name):
@@ -631,6 +611,9 @@ def generate_graphviz(input_file, keyword, reverse=False):
 
     # Generate PNG files
     graph_folder=input_file.split(".")[0].split("/")[1]
+    render_dot_to_png(
+            f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.dot", f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.png"
+        )
     for pw in wfs_stb_pws:
         render_dot_to_png(
             f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{pw}.dot", f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{pw}.png"
@@ -704,23 +687,16 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
     display(HTML(html_str))
 
 def show_plain(input_file, keyword, reverse):
+    generate_graphviz(input_file, keyword, reverse)
     # Extracting the folder name from the input file
     graph_folder = input_file.split(".")[0].split("/")[1]
-    
     if reverse:
         reverse_str = "backward"
     else:
         reverse_str = "forward"
-    
-    render_dot_to_png(
-            f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.dot", f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.png"
-        )
     image_file=f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.png"
-
     # Displaying the image
     return Image(image_file)
-
-
 
 def show_wfs(input_file, keyword, reverse, gvz_version="unfactored"):
     # Generate the Graphviz graph
@@ -740,6 +716,7 @@ def show_wfs(input_file, keyword, reverse, gvz_version="unfactored"):
     return Image(image_file)
 
 def show_stb(input_file, keyword, reverse, gvz_version="unfactored"):
+    generate_graphviz(input_file, keyword, reverse)
     if reverse:
         reverse_str = "backward"
     else:
