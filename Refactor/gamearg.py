@@ -518,6 +518,58 @@ def generate_dot_string(
     with open(f"imgs/{graph_folder}/unfactored_{reverse_str}_{keyword}_{model}.dot", "w") as file:
         file.write(dot_string)
 
+def generate_plain_dot_string(
+    colored_node_df,
+    colored_edge_df,
+    model,
+    keyword,
+    input_file,
+    reverse_str
+):
+    dot_string = "digraph {\n"
+    dot_string += "    // Node defaults can be set here if needed\n"
+
+    with open("graphviz_settings.json", "r") as file:
+        schema = json.load(file)
+    labeldistance=schema["labeldistance"]
+    # Adding node information
+    for index, row in colored_node_df.iterrows():
+        node = f'    "{row["node"]}" [fontsize=14]\n'
+        dot_string += node
+
+    dot_string += f'    edge[labeldistance={labeldistance} fontsize=12]\n'
+    # Adding edge information
+    for index, row in colored_edge_df.iterrows():
+        constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
+        edge = f'"{row["source"]}" -> "{row["target"]}" [dir="{row["direction"]}" {constraint}]\n'
+        dot_string += "    "+edge
+
+    numeric_state_ids = pd.to_numeric(
+        colored_node_df["state_id"], errors="coerce"
+    ).dropna()
+    min_state_id, max_state_id = numeric_state_ids.min(), numeric_state_ids.max()
+    if np.isnan(min_state_id) or np.isnan(max_state_id):
+        dot_string += " "
+    else:
+        for state_id, group in colored_node_df.groupby("state_id"):
+            if state_id == str(int(min_state_id)):
+                rank_label = "max"
+            elif state_id == str(int(max_state_id)):
+                rank_label = "min"
+            else:
+                continue
+            nodes_same_rank = " ".join(f"{node}" for node in group["node"])
+            dot_string += f"    {{rank = {rank_label} {nodes_same_rank}}}\n"
+
+    dot_string += "}"
+
+    graph_folder=input_file.split(".")[0].split("/")[1]
+    folder_name = "imgs"+"/"+graph_folder
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    with open(f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.dot", "w") as file:
+        file.write(dot_string)
+
 
 def render_dot_to_png(dot_file_path, output_file_path):
     try:
@@ -546,8 +598,18 @@ def generate_graphviz(input_file, keyword, reverse=False):
         reverse_str = "backward"
     else:
         reverse_str = "forward"
+
+
     wfs_stb_pws, df_wfs_stb = node_stb_cal(input_file, keyword, reverse)
     for pw in wfs_stb_pws:
+        generate_plain_dot_string(
+            colored_node_df,
+            colored_edge_df,
+            pw,
+            keyword,
+            input_file,
+            reverse_str)
+
         generate_dot_string(
             colored_node_df,
             colored_edge_df,
@@ -616,6 +678,7 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
         for f in os.listdir(folder_path)
         if f.startswith(file_prefix) and f.endswith(".png")
     ]
+    image_files = sorted(image_files, key=lambda x: int(os.path.basename(x).split("_")[4].split(".")[0]))
     if len(image_files) == 0:
         print(f"Notice: this move(attack) graph doesn't have stable models(extensions).")
     # Start creating the HTML string
@@ -639,6 +702,24 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
 
     # Display the HTML
     display(HTML(html_str))
+
+def show_plain(input_file, keyword, reverse):
+    # Extracting the folder name from the input file
+    graph_folder = input_file.split(".")[0].split("/")[1]
+    
+    if reverse:
+        reverse_str = "backward"
+    else:
+        reverse_str = "forward"
+    
+    render_dot_to_png(
+            f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.dot", f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.png"
+        )
+    image_file=f"imgs/{graph_folder}/plain_{reverse_str}_{keyword}.png"
+
+    # Displaying the image
+    return Image(image_file)
+
 
 
 def show_wfs(input_file, keyword, reverse, gvz_version="unfactored"):
