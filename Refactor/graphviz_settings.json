@@ -1,5 +1,5 @@
 {
-    "show_existential_quantification": false,
+    "show_existential_quantification": true,
     "labeldistance" :1.5,
     "game": {
         "status" : {
