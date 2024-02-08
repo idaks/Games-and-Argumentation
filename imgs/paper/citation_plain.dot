@@ -1,0 +1,25 @@
+digraph {
+    // Node defaults can be set here if needed
+    node[fontsize=14]
+    E F G H I J K 
+     
+    node[fontsize=14, shape=box]
+    L M N O P Q R S 
+    
+    edge[labeldistance=1.5 fontsize=12 dir="back"]
+    "E" -> "L" 
+    "L" -> "E"
+    "P" -> "F"
+    "G" -> "M" 
+    "M" -> "G" 
+    "S" -> "G" 
+    "N" -> "H" 
+    "I" -> "N" 
+    "I" -> "O" 
+    "J" -> "R" 
+    "R" -> "J" 
+    "K" -> "M" 
+    "K" -> "Q" 
+    "F" -> "O"
+    "O" -> "F"
+}
