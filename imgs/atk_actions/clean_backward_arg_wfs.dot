@@ -1,0 +1,43 @@
+digraph {
+    rankdir="TB"
+    node [style=filled fontname="Palatino" fontsize=14]
+    node [fillcolor="#40cfff"]
+    "Q" [label="∀ Q.0"]
+    "H" [label="∀ H.0"]
+    node [fillcolor="#FFFFAA"]
+    "E" [label="E.∞"]
+    "L" [label="L.∞"]
+    "O" [label="O.∞"]
+    "F" [label="F.∞"]
+    "J" [label="J.∞"]
+    "R" [label="R.∞"]
+    "G" [label="G.∞"]
+    "M" [label="M.∞"]
+    "I" [label="I.∞"]
+    "P" [label="P.∞"]
+    "S" [label="S.∞"]
+    node [fillcolor="#ffb763"]
+    "N" [label="∃ N.1"]
+    "K" [label="∃ K.1"]
+    edge[labeldistance=1.5 fontsize=12]
+    edge [color="#AAAA00" style="solid" dir="back" taillabel="∞"]
+          "E" -> "L" 
+          "L" -> "E" 
+          "O" -> "F" 
+          "F" -> "O" 
+          "J" -> "R" 
+          "R" -> "J" 
+          "G" -> "M" 
+          "M" -> "G" 
+          "I" -> "O" 
+          "P" -> "F" 
+          "S" -> "G" 
+    edge [color="#cc8400" style="solid" dir="back" taillabel="1"]
+          "K" -> "Q" 
+          "N" -> "H" 
+    edge [color="black" style="dotted" dir="back" taillabel="" constraint=false]
+          "I" -> "N" 
+          "K" -> "M" 
+    {rank = max "Q" "H"}
+    {rank = min "N" "K"}
+}
