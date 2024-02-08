@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Install clingo and graphviz using conda
+sudo apt-get update
 echo "Installing clingo and graphviz"
 sudo apt-get install graphviz graphviz-dev --yes
 sudo apt install gringo --yes
