@@ -1,6 +1,6 @@
 # Reconciling Conflicting Data Curation Actions: Transparency Through Argumentation
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/idaks/Games-and-Argumentation)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/idaks/Games-and-Argumentation/tree/idcc)
 
 
 ## Overview
@@ -20,7 +20,7 @@ To set up your environment, simply click on the `Open in GitHub Codespaces` butt
 
 > **Notice:** If you encounter alerts like "Container build failed. Check troubleshooting guide" or "This codespace is currently running in recovery mode due to a configuration error", don't panic. Just press `Ctrl+Shift+P` and type `>Codespaces: Full Rebuild Container` to resolve the issue.
 
-This process will take around 4-8 minutes. **Please do not** press any button until you see something like: `@username  ➜ /workspaces/Games-and-Argumentation (main) $ `
+This process will take around 4-8 minutes. **Please do not** press any button until you see something like: `@username  ➜ /workspaces/Games-and-Argumentation (idcc) $ `
 
 #### For Non-First-Time Usage
 You can find the codespace you created at [this link](https://github.com/codespaces).
