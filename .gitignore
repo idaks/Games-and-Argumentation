@@ -2,3 +2,4 @@ dlv.x86-64-linux-elf-static.bin
 *.ipynb_checkpoints
 __pycache__/
 **/output/
+**/.DS_Store
