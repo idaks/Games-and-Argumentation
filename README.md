@@ -4,13 +4,15 @@
 
 
 ## Overview
-This repository serve as the centralized place to document all scripts related to the work we published on [IDCC 2024](https://dcc.ac.uk/events/idcc24/programme)
+This repository serve as the centralized place to document all scripts related to the work we published on [IDCC 2024](https://dcc.ac.uk/events/idcc24/programme) and you are more than welcome to check our paper.
 
 >Xia, Y., Bowers, S., Li, L., & Ludäscher, B. (2024). Reconciling Conflicting Data Curation Actions: Transparency Through Argumentation. International Journal of Digital Curation, 18.
 
-**Data Curation** with the dataset `citation.csv` and the two recipes `alice_recipe.json` and `bob_recipe.json`, you can easily replicate the process illustrated in the paper section 3.
+**Data Curation** with the dataset `citation.csv` and the OpenRefine project archives `alice.tar.gz` and `bob.tar.gz`, you can easily replicate the process illustrated in the paper section 3.
 
-**Resolve Argumentation Frame** By importing the `lib/gamearg.py`, with the translated logic programming facts, you can then run the script to resolve the AF and see the output.
+**Resolve Argumentation Frame** By importing the `lib.gamearg`, with the translated logic programming facts, you can then run the script to resolve the AF and see the output.
+
+**Replicate the Figures** You can manipulate the `.dot` files under `imgs/atk_actions` and all the original files for figures included in the paper are stored under `imgs/paper`.
 
 ## Codespace Setup
 
@@ -23,25 +25,24 @@ This process will take around 4-8 minutes. **Please do not** press any button un
 #### For Non-First-Time Usage
 You can find the codespace you created at [this link](https://github.com/codespaces).
 
-### Launch Jupyter
-
-After setting up the codespace environment:
-
-1. Type `jupyter lab` in the Terminal of the VScode online version.
-   
-   > **Notice:** Sometimes, due to codespace limitations, the terminal may go blank. Simply refreshing your browser should solve the problem.
-
-2. This will lead you to the Jupyter Lab interface, where you can run:
-   - `Tutorial.ipynb`
-
----
-
 
 ## Local Setup
 ```
 conda env create -f environment.yaml
 conda activate gamearg
 ```
+
+## Launch Jupyter
+
+After setting up the codespace or your local conda environment:
+
+1. Type `jupyter lab` in the Terminal.
+   
+   > **Notice:** Sometimes, due to codespace limitations, the terminal may go blank. Simply refreshing your browser should solve the problem.
+
+2. This will lead you to the Jupyter Lab interface, where you can run:
+   - `demo.ipynb`
+
 
 ## Contact
 
