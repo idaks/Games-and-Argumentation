@@ -20,7 +20,7 @@ def get_graphviz_schema_and_facts_prep(input_file, keyword, reverse=False):
     status_2 = schema[keyword]["status"]["status_2"]
     status_3 = schema[keyword]["status"]["status_3"]
 
-    facts_prep = f"e(X,Y):- attack(Y,X)." if reverse else f"e(X,Y):- attack(X,Y)."
+    facts_prep = f"e(X,Y):- attacks(Y,X)." if reverse else f"e(X,Y):- attacks(X,Y)."
 
     return status_1, status_2, status_3, facts_prep
 
