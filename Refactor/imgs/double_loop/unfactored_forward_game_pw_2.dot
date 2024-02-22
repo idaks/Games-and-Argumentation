@@ -1,0 +1,11 @@
+digraph {
+    // Node defaults can be set here if needed
+    "a" [style="filled" fillcolor="#f7cccb" label="a.∞" fontsize=14]
+    "b" [style="filled" fillcolor="#d5fdce" label="b.∞" fontsize=14]
+    "c" [style="filled" fillcolor="#f7cccb" label="c.∞" fontsize=14]
+    edge[labeldistance=1.5 fontsize=12]
+    "a" -> "b" [color="#CC0000" style="solid" dir="forward" taillabel="∞" ]
+    "b" -> "a" [color="#00BB00" style="solid" dir="forward" taillabel="∞" ]
+    "b" -> "c" [color="#00BB00" style="solid" dir="forward" taillabel="∞" ]
+    "c" -> "b" [color="#CC0000" style="solid" dir="forward" taillabel="∞" ]
+ }
