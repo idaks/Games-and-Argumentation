@@ -1,0 +1,5 @@
+move(a,d).
+move(d,a).
+move(a,c).
+move(c,f).
+move(b,f).
