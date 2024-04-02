@@ -44,7 +44,7 @@ digraph {
           h -> i 
     edge [color="#006ad1" style="solid" dir="back" taillabel="4"]
           c -> e 
-    edge [color="#7f2626" style="dotted" dir="back" taillabel="" constraint=false]
+    edge [color="#7f2626" style="dashed" dir="back" taillabel="" constraint=false]
           l -> e 
           e -> d 
           d -> e 

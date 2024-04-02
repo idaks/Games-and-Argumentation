@@ -414,7 +414,7 @@ def generate_clean_dot_string(
             if row[edge_color_col] != "#7f2626" and row["wfs_edge_color"] == "#7f2626"
             else f'color="{row[edge_color_col]}"'
         )
-        edge_style = "dotted" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
+        edge_style = "dashed" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
         edge_label = row["edge_label"]
         edge_dir = row["direction"]
         constraint = " constraint=false" if row["wfs_edge_color"] == "#7f2626" else ""
@@ -489,7 +489,7 @@ def generate_dot_string(
             else f'color="{row[edge_color_col]}"'
         )
 
-        edge_style = "dotted" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
+        edge_style = "dashed" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
 
         edge = f'{row["source"]} -> {row["target"]} [{color} style="{edge_style}" dir="{row["direction"]}" taillabel="{row["edge_label"]}" {constraint}]\n'
         dot_string += "    "+edge
