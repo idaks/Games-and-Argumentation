@@ -1,0 +1,22 @@
+
+attacks(l, e).
+attacks(k, l).
+attacks(m, n).
+attacks(l, m).
+attacks(n, m).
+attacks(a, b).
+attacks(d, f).
+attacks(e, h).
+attacks(e, m).
+attacks(e, d).
+attacks(a, c).
+attacks(d, g).
+attacks(c, d).
+attacks(c, e).
+attacks(g, d).
+attacks(d, e).
+attacks(m, e).
+attacks(h, i).
+attacks(i, j).
+attacks(a, o).
+attacks(d, h).

@@ -688,7 +688,7 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
     # Display the HTML
     display(HTML(html_str))
 
-def show_plain(input_file, keyword="arg", reverse=True):
+def show_plain(input_file, keyword="arg", reverse=False):
     generate_graphviz(input_file, keyword, reverse)
     # Extracting the folder name from the input file
     graph_folder = input_file.split(".")[0].split("/")[1]
@@ -700,7 +700,7 @@ def show_plain(input_file, keyword="arg", reverse=True):
     # Displaying the image
     return Image(image_file)
 
-def show_wfs(input_file, keyword="arg", reverse=True, gvz_version="unfactored"):
+def show_wfs(input_file, keyword="arg", reverse=False, gvz_version="unfactored"):
     # Generate the Graphviz graph
     generate_graphviz(input_file, keyword, reverse)
 
@@ -717,7 +717,7 @@ def show_wfs(input_file, keyword="arg", reverse=True, gvz_version="unfactored"):
     # Displaying the image
     return Image(image_file)
 
-def show_stb(input_file, keyword="arg", reverse=True, gvz_version="unfactored"):
+def show_stb(input_file, keyword="arg", reverse=False, gvz_version="unfactored"):
     generate_graphviz(input_file, keyword, reverse)
     if reverse:
         reverse_str = "backward"
