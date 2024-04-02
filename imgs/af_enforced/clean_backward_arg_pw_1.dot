@@ -2,22 +2,22 @@ digraph {
     rankdir="TB"
     node [style=filled fontname="Palatino" fontsize=14]
     node [fillcolor="#40cfff"]
-    n [label="∀ n.0"]
-    b [label="∀ b.0"]
-    f [label="∀ f.0"]
-    j [label="∀ j.0"]
-    o [label="∀ o.0"]
-    g [label="∀ g.2"]
-    h [label="∀ h.2"]
-    l [label="∀ l.4"]
-    c [label="∀ c.4"]
+    n [label=" n.0"]
+    b [label=" b.0"]
+    f [label=" f.0"]
+    j [label=" j.0"]
+    o [label=" o.0"]
+    g [label=" g.2"]
+    h [label=" h.2"]
+    l [label=" l.4"]
+    c [label=" c.4"]
     node [fillcolor="#ffb763"]
-    i [label="∃ i.1"]
-    d [label="∃ d.1"]
-    a [label="∃ a.1"]
-    m [label="∃ m.1"]
-    e [label="∃ e.3"]
-    k [label="∃ k.5"]
+    i [label=" i.1"]
+    d [label=" d.1"]
+    a [label=" a.1"]
+    m [label=" m.1"]
+    e [label=" e.3"]
+    k [label=" k.5"]
     edge[labeldistance=1.5 fontsize=12]
     edge [color="#006ad1" style="solid" dir="back" taillabel="4"]
           l -> e 
@@ -40,7 +40,7 @@ digraph {
           e -> h 
           d -> g 
           d -> h 
-    edge [color="black" style="dotted" dir="back" taillabel="" constraint=false]
+    edge [color="#7f2626" style="dotted" dir="back" taillabel="" constraint=false]
           e -> m 
           e -> d 
           d -> e 

@@ -1,5 +1,5 @@
 {
-    "show_existential_quantification": true,
+    "show_existential_quantification": false,
     "labeldistance" :1.5,
     "game": {
         "status" : {
@@ -39,21 +39,21 @@
             {
                 "source": "won",
                 "target": "won",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "draw",
                 "target": "won",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "won",
                 "target": "draw",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             }
@@ -97,21 +97,21 @@
             {
                 "source": "defeated",
                 "target": "defeated",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "undefined",
                 "target": "defeated",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             },
             {
                 "source": "defeated",
                 "target": "undefined",
-                "color": "black",
+                "color": "#7f2626",
                 "style": "dashed",
                 "show_label": false
             }

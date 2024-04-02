@@ -317,7 +317,7 @@ def get_edge_properties(input_file, keyword="game", reverse=False):
     # print(merged_df)
     merged_df["edge_label"] = merged_df.apply(
         lambda row: ""
-        if row["wfs_edge_color"] == "black"
+        if row["wfs_edge_color"] == "#7f2626"
         else str(int(row["state_id_target"]) + 1)
         if can_be_number(row["state_id_target"])
         else row["state_id_target"],
@@ -411,13 +411,13 @@ def generate_clean_dot_string(
     for _, row in colored_edge_df.iterrows():
         edge_color = (
             f'color="{row[edge_color_col]}:{row[edge_color_col]}"'
-            if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
+            if row[edge_color_col] != "#7f2626" and row["wfs_edge_color"] == "#7f2626"
             else f'color="{row[edge_color_col]}"'
         )
-        edge_style = "dotted" if row[edge_color_col] == "black" else row[edge_style_col]
+        edge_style = "dotted" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
         edge_label = row["edge_label"]
         edge_dir = row["direction"]
-        constraint = " constraint=false" if row["wfs_edge_color"] == "black" else ""
+        constraint = " constraint=false" if row["wfs_edge_color"] == "#7f2626" else ""
         edge = f'   {row["source"]} -> {row["target"]} [{edge_color} style="{edge_style}" dir="{edge_dir}" taillabel="{edge_label}"{constraint}]\n'
         edge_string_ls.append(edge)
 
@@ -482,14 +482,14 @@ def generate_dot_string(
     dot_string += f'    edge[labeldistance={labeldistance} fontsize=12]\n'
     # Adding edge information
     for index, row in colored_edge_df.iterrows():
-        constraint = "constraint=false" if row["wfs_edge_color"] == "black" else ""
+        constraint = "constraint=false" if row["wfs_edge_color"] == "#7f2626" else ""
         color = (
             f'color="{row[edge_color_col]}:{row[edge_color_col]}"'
-            if row[edge_color_col] != "black" and row["wfs_edge_color"] == "black"
+            if row[edge_color_col] != "#7f2626" and row["wfs_edge_color"] == "#7f2626"
             else f'color="{row[edge_color_col]}"'
         )
 
-        edge_style = "dotted" if row[edge_color_col] == "black" else row[edge_style_col]
+        edge_style = "dotted" if row[edge_color_col] == "#7f2626" else row[edge_style_col]
 
         edge = f'{row["source"]} -> {row["target"]} [{color} style="{edge_style}" dir="{row["direction"]}" taillabel="{row["edge_label"]}" {constraint}]\n'
         dot_string += "    "+edge
@@ -688,7 +688,7 @@ def display_images_in_rows(input_file, file_prefix, images_per_row=2, image_widt
     # Display the HTML
     display(HTML(html_str))
 
-def show_plain(input_file, keyword="arg", reverse=False):
+def show_plain(input_file, keyword="arg", reverse=True):
     generate_graphviz(input_file, keyword, reverse)
     # Extracting the folder name from the input file
     graph_folder = input_file.split(".")[0].split("/")[1]
@@ -700,7 +700,7 @@ def show_plain(input_file, keyword="arg", reverse=False):
     # Displaying the image
     return Image(image_file)
 
-def show_wfs(input_file, keyword="arg", reverse=False, gvz_version="unfactored"):
+def show_wfs(input_file, keyword="arg", reverse=True, gvz_version="unfactored"):
     # Generate the Graphviz graph
     generate_graphviz(input_file, keyword, reverse)
 
@@ -717,7 +717,7 @@ def show_wfs(input_file, keyword="arg", reverse=False, gvz_version="unfactored")
     # Displaying the image
     return Image(image_file)
 
-def show_stb(input_file, keyword="arg", reverse=False, gvz_version="unfactored"):
+def show_stb(input_file, keyword="arg", reverse=True, gvz_version="unfactored"):
     generate_graphviz(input_file, keyword, reverse)
     if reverse:
         reverse_str = "backward"

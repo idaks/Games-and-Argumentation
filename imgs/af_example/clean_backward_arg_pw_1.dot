@@ -2,29 +2,29 @@ digraph {
     rankdir="TB"
     node [style=filled fontname="Palatino" fontsize=14]
     node [fillcolor="#40cfff"]
-    b [label="∀ b.0"]
-    f [label="∀ f.0"]
-    j [label="∀ j.0"]
-    o [label="∀ o.0"]
-    g [label="∀ g.2"]
-    h [label="∀ h.2"]
-    c [label="∀ c.4"]
+    b [label=" b.0"]
+    f [label=" f.0"]
+    j [label=" j.0"]
+    o [label=" o.0"]
+    g [label=" g.2"]
+    h [label=" h.2"]
+    c [label=" c.4"]
     node [fillcolor="#a6e9ff"]
-    k [label="k.∞"]
-    m [label="m.∞"]
-    node [fillcolor="#ffb763"]
-    i [label="∃ i.1"]
-    d [label="∃ d.1"]
-    a [label="∃ a.1"]
-    e [label="∃ e.3"]
-    node [fillcolor="#ffe6c9"]
     l [label="l.∞"]
     n [label="n.∞"]
+    node [fillcolor="#ffb763"]
+    i [label=" i.1"]
+    d [label=" d.1"]
+    a [label=" a.1"]
+    e [label=" e.3"]
+    node [fillcolor="#ffe6c9"]
+    k [label="k.∞"]
+    m [label="m.∞"]
     edge[labeldistance=1.5 fontsize=12]
-    edge [color="#006ad1" style="solid" dir="back" taillabel="∞"]
+    edge [color="#cc8400" style="solid" dir="back" taillabel="∞"]
           k -> l 
           m -> n 
-    edge [color="#cc8400" style="solid" dir="back" taillabel="∞"]
+    edge [color="#006ad1" style="solid" dir="back" taillabel="∞"]
           l -> m 
           n -> m 
     edge [color="#cc8400" style="solid" dir="back" taillabel="1"]
@@ -44,13 +44,12 @@ digraph {
           h -> i 
     edge [color="#006ad1" style="solid" dir="back" taillabel="4"]
           c -> e 
-    edge [color="black" style="dotted" dir="back" taillabel="" constraint=false]
+    edge [color="#006ad1:#006ad1" style="dashed" dir="back" taillabel="" constraint=false]
           l -> e 
+    edge [color="#7f2626" style="dotted" dir="back" taillabel="" constraint=false]
+          e -> m 
           e -> d 
           d -> e 
-    edge [color="#cc8400:#cc8400" style="dashed" dir="back" taillabel="" constraint=false]
-          e -> m 
-    edge [color="#006ad1:#006ad1" style="dashed" dir="back" taillabel="" constraint=false]
           m -> e 
     {rank = max b f j o}
     {rank = min c}
