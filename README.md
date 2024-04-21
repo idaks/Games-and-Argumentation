@@ -1,14 +1,14 @@
-# Explaining Enforcement in Argumentation Framework via WFS
+# Demonstrating Provenance for Grounded Argumentation
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/idaks/Games-and-Argumentation/tree/idcc)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/idaks/Games-and-Argumentation/tree/grounded_prov)
 
 
 ## Overview
-This repository serve as the centralized place to document all scripts related to the work we published on [COMMA 2024](https://dcc.ac.uk/events/idcc24/programme) and you are more than welcome to check our paper.
+This repository serves as the centralized place to document all scripts related to the work we published on [COMMA 2024](https://comma2024.krportal.org/index.html) and you are more than welcome to check our paper.
 
 **Resolve Argumentation Framework** By importing the `lib.gamearg`, with the translated logic programming facts, you can then run the script to resolve the AF and see the output.
 
-**Replicate the Figures** You can manipulate the `.dot` files under `imgs/af_example`
+**Replicate the Figures** You can find the `.dot` files under `imgs/af_example`
 
 ## Codespace Setup
 
@@ -45,4 +45,3 @@ After setting up the codespace or your local conda environment:
 For any queries related to the code:
 - Open an issue on GitHub
 - Contact: Yilin Xia ([yilinx2@illinois.edu](mailto:yilinx2@illinois.edu))
-
