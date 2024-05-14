@@ -1,0 +1,22 @@
+
+move("l", "e").
+move("k", "l").
+move("m", "n").
+move("l", "m").
+move("n", "m").
+move("a", "b").
+move("d", "f").
+move("e", "h").
+move("e", "m").
+move("e", "d").
+move("a", "c").
+move("d", "g").
+move("c", "d").
+move("c", "e").
+move("g", "d").
+move("d", "e").
+move("m", "e").
+move("h", "i").
+move("i", "j").
+move("a", "o").
+move("d", "h").

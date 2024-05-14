@@ -1,8 +1,8 @@
 {
-    "show_existential_quantification": true,
-    "labeldistance" :1.5,
+    "show_existential_quantification": false,
+    "labeldistance": 1.5,
     "game": {
-        "status" : {
+        "status": {
             "status_1": "won",
             "status_2": "lost",
             "status_3": "draw"
@@ -12,7 +12,7 @@
             "lost": "#FFAAAA",
             "draw": "#FFFFAA",
             "draw_won": "#d5fdce",
-            "draw_lost":"#f7cccb"
+            "draw_lost": "#f7cccb"
         },
         "edge_color": [
             {
@@ -60,7 +60,7 @@
         ]
     },
     "arg": {
-        "status" : {
+        "status": {
             "status_1": "defeated",
             "status_2": "accepted",
             "status_3": "undefined"
@@ -70,7 +70,7 @@
             "defeated": "#ffb763",
             "undefined": "#FFFFAA",
             "undefined_accepted": "#a6e9ff",
-            "undefined_defeated":"#ffe6c9"
+            "undefined_defeated": "#ffe6c9"
         },
         "edge_color": [
             {
