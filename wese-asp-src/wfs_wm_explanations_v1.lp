@@ -6,7 +6,7 @@
 % undecided (i.e., drawing) moves are removed.
 % 
 % To run:
-%   clingo wf_wm_explanations_v1.lp --opt-mode=optN
+%   clingo wfs_wm_explanations_v1.lp --opt-mode=optN
 %----------------------------------------------------------------------
 
 % simple move graph

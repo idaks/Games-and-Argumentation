@@ -1,19 +1,17 @@
 %----------------------------------------------------------------------
 % An example program that provides minimal well-founded explanations
-% of a simple game graph using Clingo's "conditional literal" syntax
-% for solving win-move games. This program does not hard-code the
-% decided portion of the corresponding well-founded solution. Instead,
-% it precomputes the solved game, then only considers moves for
-% deletion that are drawn (in the solved game). It then recomputes the
-% solved game on the graph without the deleted edges. This program
-% also computes the length of positions. 
+% of game graphs using Clingo's "conditional literal" syntax for
+% solving win-move games. This program does not hard-code the decided
+% portion of the corresponding well-founded solution. Instead, it
+% precomputes the solved game, then only considers moves for deletion
+% that are drawn (in the solved game). It then recomputes the solved
+% game on the graph without the deleted edges. This program also
+% computes the length of positions.
 % 
 % To run:
-%   clingo wf_wm_explanations_v2.lp --opt-mode=optN
+%   clingo wfs_wm_explanations_v2.lp GAME.lp --opt-mode=optN
+% where GAME.lp contains move/2 facts. 
 %----------------------------------------------------------------------
-
-% simple move graph
-move(a,b). move(b,a). move(b,c). move(c,d). 
 
 % positions in the graph
 pos(X) :- move(X,_).
