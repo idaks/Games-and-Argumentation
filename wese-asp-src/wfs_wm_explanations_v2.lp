@@ -9,7 +9,7 @@
 % also computes the length of positions. 
 % 
 % To run:
-%   clingo wf_wm_explanations_v1.lp --opt-mode=optN
+%   clingo wf_wm_explanations_v2.lp --opt-mode=optN
 %----------------------------------------------------------------------
 
 % simple move graph
