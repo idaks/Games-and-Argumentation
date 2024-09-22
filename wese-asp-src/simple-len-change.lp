@@ -2,6 +2,7 @@
 % example showing that the well-founded (decided) position lengths can
 % change after a repair
 
+% a <-> b <- c -> d -> e -> f
 move(a,b).
 move(b,a).
 move(c,b).
