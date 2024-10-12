@@ -4,14 +4,10 @@
 % Basic program and test game for 3-valued well-founded solutions of
 % win-move games using Clingo's support for conditional iterals.
 %
-% TO RUN: clingo wm-cond-literal.lp 0
+% TO RUN: clingo wm-cond-literal.lp GAME.lp 0
 %
 %----------------------------------------------------------------------
 
-move(a,b).
-move(b,a).
-move(b,c).
-move(c,d).
 
 position(X) :- move(X,_).
 position(X) :- move(_,X).
