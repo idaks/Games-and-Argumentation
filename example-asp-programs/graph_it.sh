@@ -1,6 +1,6 @@
 #!/bin/sh
 
-clingo wm-cond-literal.lp matti-lpnmr-2024.lp wm-cond-literal-graph.lp --outf=2  > tmp.json
-clinguin tmp.json --out=dot > tmp.dot
+clingo wm-cond-literal.lp tapp-example.lp wm-cond-literal-graph.lp --outf=2  > tmp.json
+clingraph --type=digraph tmp.json --out=dot > tmp.dot
 dot -Tpdf tmp.dot > tmp.pdf
-
+open tmp.pdf

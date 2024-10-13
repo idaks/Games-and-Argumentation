@@ -16,3 +16,8 @@ lost(X) :- position(X), won(Y) : move(X,Y).
 won(X) :- move(X,Y), lost(Y).
 drawn(X) :- position(X), not won(X), not lost(X).
 
+num(0 .. N) :- N = #count { X : position(X) }.
+len(X, 0) :- lost(X), not move(X,_).
+len(X, N + 1) :- won(X), N = #min { M : move(X,Y), lost(Y), len(Y,M) }, num(N).
+len(X, N + 1) :- lost(X), move(X,_), N = #max { M : move(X,Y), len(Y,M) }, num(N).
+
