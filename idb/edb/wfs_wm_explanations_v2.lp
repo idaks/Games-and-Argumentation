@@ -48,8 +48,8 @@ len(X, N + 1) :- lost(X), move_1(X,_), N = #max { M : move_1(X,Y), len(Y,M) }, n
 
 % output 
 #show del/2.
-#show won/1.
-#show drawn/1.
-#show lost/1.
+%#show won/1.
+%#show drawn/1.
+%#show lost/1.
 #show len/2.
 

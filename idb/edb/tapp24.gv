@@ -1,0 +1,45 @@
+
+// Input AF: ( [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O], [(E, L), (L, K), (N, M), (M, L), (M, N), (B, A), (F, D), (H, E), (M, E), (E, M), (C, A), (G, D), (D, C), (E, C), (D, E), (D, G), (E, D), (I, H), (J, I), (O, A), (H, D)] )
+// Layer by: Attacks
+// Use Blunders: Yes
+// Use Re-Derivations: Yes
+digraph {
+ rankdir=BT  // Node defaults can be set here if needed
+    "B" [style="filled" fillcolor="#40cfff" label="B.0" fontsize=14]
+    "C" [style="filled" fillcolor="#40cfff" label="C.4" fontsize=14]
+    "F" [style="filled" fillcolor="#40cfff" label="F.0" fontsize=14]
+    "G" [style="filled" fillcolor="#40cfff" label="G.2" fontsize=14]
+    "H" [style="filled" fillcolor="#40cfff" label="H.2" fontsize=14]
+    "J" [style="filled" fillcolor="#40cfff" label="J.0" fontsize=14]
+    "O" [style="filled" fillcolor="#40cfff" label="O.0" fontsize=14]
+    "K" [style="filled" fillcolor="#FEFE62" label="K.∞" fontsize=14]
+    "L" [style="filled" fillcolor="#FEFE62" label="L.∞" fontsize=14]
+    "M" [style="filled" fillcolor="#FEFE62" label="M.∞" fontsize=14]
+    "N" [style="filled" fillcolor="#FEFE62" label="N.∞" fontsize=14]
+    "A" [style="filled" fillcolor="#ffb763" label="A.1" fontsize=14]
+    "D" [style="filled" fillcolor="#ffb763" label="D.1" fontsize=14]
+    "E" [style="filled" fillcolor="#ffb763" label="E.3" fontsize=14]
+    "I" [style="filled" fillcolor="#ffb763" label="I.1" fontsize=14]
+    edge[labeldistance=1.5 fontsize=12]
+    "E" -> "L" [color="#919191" style="dotted"fontcolor="#919191"arrowtail="onormal"arrowhead="onormal"taillabel=""]
+    "L" -> "K" [color="#f1dd4b" style="solid"fontcolor="#f1dd4b"arrowtail="vee"arrowhead="vee"taillabel="∞"]
+    "N" -> "M" [color="#f1dd4b" style="solid"fontcolor="#f1dd4b"arrowtail="vee"arrowhead="vee"taillabel="∞"]
+    "M" -> "L" [color="#f1dd4b" style="solid"fontcolor="#f1dd4b"arrowtail="vee"arrowhead="vee"taillabel="∞"]
+    "M" -> "N" [color="#f1dd4b" style="solid"fontcolor="#f1dd4b"arrowtail="vee"arrowhead="vee"taillabel="∞"]
+    "B" -> "A" [color="#40cfff" style="solid"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"taillabel="1"]
+    "F" -> "D" [color="#40cfff" style="solid"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"taillabel="1"]
+    "H" -> "E" [color="#40cfff" style="solid"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"taillabel="3"]
+    "E" -> "M" [dir=back color="#919191" style= "dotted"fontcolor="#919191"arrowtail="onormal"arrowhead="onormal"headlabel=""]
+    "E" -> "M" [color="#919191" style="dotted"fontcolor="#919191"arrowtail="onormal"arrowhead="onormal"taillabel=""]
+    "A" -> "C" [dir=back color="#40cfff" style= "dashed"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"headlabel="5"]
+    "D" -> "G" [dir=back color="#40cfff" style= "dashed"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"headlabel="3"]
+    "D" -> "C" [color="#ffb763" style="solid"fontcolor="#ffb763"arrowtail="vee"arrowhead="vee"taillabel="2"]
+    "E" -> "C" [color="#ffb763" style="solid"fontcolor="#ffb763"arrowtail="vee"arrowhead="vee"taillabel="4"]
+    "D" -> "E" [color="#919191" style="dotted"fontcolor="#919191"arrowtail="onormal"arrowhead="onormal"taillabel=""]
+    "D" -> "G" [color="#ffb763" style="solid"fontcolor="#ffb763"arrowtail="vee"arrowhead="vee"taillabel="2"]
+    "D" -> "E" [dir=back color="#919191" style= "dotted"fontcolor="#919191"arrowtail="onormal"arrowhead="onormal"headlabel=""]
+    "I" -> "H" [color="#ffb763" style="solid"fontcolor="#ffb763"arrowtail="vee"arrowhead="vee"taillabel="2"]
+    "J" -> "I" [color="#40cfff" style="solid"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"taillabel="1"]
+    "O" -> "A" [color="#40cfff" style="solid"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"taillabel="1"]
+    "D" -> "H" [dir=back color="#40cfff" style= "dashed"fontcolor="#40cfff"arrowtail="vee"arrowhead="vee"headlabel="3"]
+}

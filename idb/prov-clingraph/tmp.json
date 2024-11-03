@@ -1,0 +1,30 @@
+{
+  "Solver": "clingo version 5.7.2",
+  "Input": [
+    "wm-cond-literal.lp","tapp24.lp","wm-cond-literal-graph.lp"
+  ],
+  "Call": [
+    {
+      "Witnesses": [
+        {
+          "Value": [
+            "won(a)", "won(d)", "won(i)", "won(e)", "node(a)", "node(d)", "node(i)", "node(e)", "node(j)", "node(f)", "node(o)", "node(b)", "node(g)", "node(h)", "node(c)", "node(k)", "node(l)", "node(m)", "node(n)", "lost(j)", "lost(f)", "lost(o)", "lost(b)", "lost(g)", "lost(h)", "lost(c)", "drawn(k)", "drawn(l)", "drawn(m)", "drawn(n)", "move(a,b)", "move(a,c)", "move(a,o)", "move(c,d)", "move(c,e)", "move(d,e)", "move(d,f)", "move(d,g)", "move(d,h)", "move(e,d)", "move(e,h)", "move(e,m)", "move(g,d)", "move(h,i)", "move(i,j)", "move(k,l)", "move(l,m)", "move(m,n)", "move(n,m)", "edge((a,b))", "edge((a,c))", "edge((a,o))", "edge((c,d))", "edge((c,e))", "edge((d,e))", "edge((d,f))", "edge((d,g))", "edge((d,h))", "edge((e,d))", "edge((e,h))", "edge((e,m))", "edge((g,d))", "edge((h,i))", "edge((i,j))", "edge((k,l))", "edge((l,m))", "edge((m,n))", "edge((n,m))", "len(j,0)", "len(f,0)", "len(o,0)", "len(b,0)", "attr(node,k,fillcolor,yellow2)", "attr(node,l,fillcolor,yellow2)", "attr(node,m,fillcolor,yellow2)", "attr(node,n,fillcolor,yellow2)", "attr(node,a,fillcolor,green3)", "attr(node,d,fillcolor,green3)", "attr(node,i,fillcolor,green3)", "attr(node,e,fillcolor,green3)", "attr(node,j,fillcolor,red2)", "attr(node,f,fillcolor,red2)", "attr(node,o,fillcolor,red2)", "attr(node,b,fillcolor,red2)", "attr(node,g,fillcolor,red2)", "attr(node,h,fillcolor,red2)", "attr(node,c,fillcolor,red2)", "attr(node,a,style,filled)", "attr(node,d,style,filled)", "attr(node,i,style,filled)", "attr(node,e,style,filled)", "attr(node,j,style,filled)", "attr(node,f,style,filled)", "attr(node,o,style,filled)", "attr(node,b,style,filled)", "attr(node,g,style,filled)", "attr(node,h,style,filled)", "attr(node,c,style,filled)", "attr(node,k,style,filled)", "attr(node,l,style,filled)", "attr(node,m,style,filled)", "attr(node,n,style,filled)", "attr(node,k,label,(k,\"&infin;\"))", "attr(node,l,label,(l,\"&infin;\"))", "attr(node,m,label,(m,\"&infin;\"))", "attr(node,n,label,(n,\"&infin;\"))", "attr(node,j,label,(j,0))", "attr(node,f,label,(f,0))", "attr(node,o,label,(o,0))", "attr(node,b,label,(b,0))", "attr(edge,(e,m),color,darkgray)", "attr(edge,(e,d),color,darkgray)", "attr(edge,(d,e),color,darkgray)", "attr(edge,(e,m),style,dashed)", "attr(edge,(e,d),style,dashed)", "attr(edge,(d,e),style,dashed)", "attr(edge,(k,l),label,\"&infin;\")", "attr(edge,(l,m),label,\"&infin;\")", "attr(edge,(n,m),label,\"&infin;\")", "attr(edge,(m,n),label,\"&infin;\")", "attr(edge,(k,l),color,yellow2)", "attr(edge,(l,m),color,yellow2)", "attr(edge,(n,m),color,yellow2)", "attr(edge,(m,n),color,yellow2)", "attr(edge,(c,d),color,red2)", "attr(edge,(g,d),color,red2)", "attr(edge,(h,i),color,red2)", "attr(edge,(c,e),color,red2)", "attr(edge,(a,b),color,green3)", "attr(edge,(a,c),color,green3)", "attr(edge,(a,o),color,green3)", "attr(edge,(d,f),color,green3)", "attr(edge,(d,g),color,green3)", "attr(edge,(d,h),color,green3)", "attr(edge,(i,j),color,green3)", "attr(edge,(e,h),color,green3)", "attr(edge,(a,b),label,1)", "attr(edge,(a,o),label,1)", "attr(edge,(d,f),label,1)", "attr(edge,(i,j),label,1)", "position(a)", "position(c)", "position(d)", "position(e)", "position(g)", "position(h)", "position(i)", "position(k)", "position(l)", "position(m)", "position(n)", "position(b)", "position(o)", "position(f)", "position(j)", "num(0)", "num(1)", "num(2)", "num(3)", "num(4)", "num(5)", "num(6)", "num(7)", "num(8)", "num(9)", "num(10)", "num(11)", "num(12)", "num(13)", "num(14)", "num(15)", "len(i,1)", "len(d,1)", "len(a,1)", "len(h,2)", "len(g,2)", "len(e,3)", "len(c,4)", "attr(node,g,label,(g,2))", "attr(node,h,label,(h,2))", "attr(node,c,label,(c,4))", "attr(node,a,label,(a,1))", "attr(node,d,label,(d,1))", "attr(node,i,label,(i,1))", "attr(node,e,label,(e,3))", "attr(edge,(a,c),constraint,false)", "attr(edge,(d,g),constraint,false)", "attr(edge,(d,h),constraint,false)", "attr(edge,(a,c),style,dashed)", "attr(edge,(d,g),style,dashed)", "attr(edge,(d,h),style,dashed)", "attr(edge,(c,d),label,2)", "attr(edge,(g,d),label,2)", "attr(edge,(h,i),label,2)", "attr(edge,(c,e),label,4)", "attr(edge,(a,c),label,5)", "attr(edge,(d,g),label,3)", "attr(edge,(d,h),label,3)", "attr(edge,(e,h),label,3)"
+          ]
+        }
+      ]
+    }
+  ],
+  "Result": "SATISFIABLE",
+  "Models": {
+    "Number": 1,
+    "More": "no"
+  },
+  "Calls": 1,
+  "Time": {
+    "Total": 0.004,
+    "Solve": 0.000,
+    "Model": 0.000,
+    "Unsat": 0.000,
+    "CPU": 0.003
+  }
+}

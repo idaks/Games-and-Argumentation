@@ -3,46 +3,23 @@ digraph {
     node [style=filled fontname="Palatino" fontsize=14]
     node [fillcolor="#AAFFAA"]
     "e" [label="∃ e.1"]
-    "d" [label="∃ d.1"]
-    "a" [label="∃ a.1"]
+    "c" [label="∃ c.1"]
     node [fillcolor="#FFAAAA"]
-    "b" [label="∀ b.0"]
-    "f" [label="∀ f.0"]
-    "h" [label="∀ h.0"]
-    "c" [label="∀ c.2"]
-    "g" [label="∀ g.2"]
+    "d" [label="∀ d.0"]
     node [fillcolor="#d5fdce"]
-    "l" [label="l.∞"]
-    "n" [label="n.∞"]
+    "b" [label="b.∞"]
     node [fillcolor="#f7cccb"]
-    "k" [label="k.∞"]
-    "m" [label="m.∞"]
+    "a" [label="a.∞"]
     edge[labeldistance=1.5 fontsize=12]
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
-           "a" -> "b" 
-           "d" -> "f" 
-           "e" -> "h" 
-    edge [color="#00BB00" style="solid" dir="forward" taillabel="3"]
-           "a" -> "c" 
-           "d" -> "g" 
     edge [color="#CC0000" style="solid" dir="forward" taillabel="∞"]
-           "k" -> "l" 
-           "m" -> "n" 
-    edge [color="#CC0000" style="solid" dir="forward" taillabel="2"]
-           "c" -> "d" 
-           "c" -> "e" 
-           "g" -> "d" 
+           "a" -> "b" 
     edge [color="#00BB00" style="solid" dir="forward" taillabel="∞"]
-           "l" -> "m" 
-           "n" -> "m" 
-    edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
-           "l" -> "e" 
-           "d" -> "e" 
+           "b" -> "a" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "c" -> "d" 
            "e" -> "d" 
-    edge [color="#00BB00:#00BB00" style="dashed" dir="forward" taillabel="" constraint=false]
-           "e" -> "m" 
-    edge [color="#CC0000:#CC0000" style="dashed" dir="forward" taillabel="" constraint=false]
-           "m" -> "e" 
-    {rank = max b f h}
-    {rank = min c g}
+    edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+           "b" -> "c" 
+    {rank = max d}
+    {rank = min e c}
 }

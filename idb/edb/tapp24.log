@@ -1,0 +1,51 @@
+clingo version 5.5.2
+Reading from weight.lp ...
+Solving...
+Answer: 1
+weight(a,b,0)
+Answer: 2
+weight(a,o,0)
+Answer: 3
+weight(d,e,0)
+Answer: 4
+weight(a,c,0)
+Answer: 5
+weight(c,e,0)
+Answer: 6
+weight(c,d,0)
+Answer: 7
+weight(d,g,0)
+Answer: 8
+weight(e,m,0)
+Answer: 9
+weight(n,m,4) delta_type(drawn,lost,2) delta_type(drawn,won,2)
+Answer: 10
+weight(m,n,4) delta_type(drawn,lost,2) delta_type(drawn,won,2)
+Answer: 11
+weight(e,d,0)
+Answer: 12
+weight(e,h,2) delta_type(won,drawn,1) delta_type(lost,drawn,1)
+Answer: 13
+weight(g,d,0)
+Answer: 14
+weight(h,i,0)
+Answer: 15
+weight(m,e,0)
+Answer: 16
+weight(l,e,0)
+Answer: 17
+weight(l,m,2) delta_type(drawn,lost,1) delta_type(drawn,won,1)
+Answer: 18
+weight(k,l,1) delta_type(drawn,lost,1)
+Answer: 19
+weight(d,h,0)
+Answer: 20
+weight(d,f,0)
+Answer: 21
+weight(i,j,4) delta_type(won,lost,1) delta_type(won,drawn,1) delta_type(lost,won,1) delta_type(lost,drawn,1)
+SATISFIABLE
+
+Models       : 21
+Calls        : 1
+Time         : 0.007s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.004s
