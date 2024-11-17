@@ -1,0 +1,73 @@
+clingo version 5.5.2
+Reading from weight.lp ...
+Solving...
+Answer: 1
+del(b,y) weight(b,y,0)
+Answer: 2
+del(b,w) weight(b,w,0)
+Answer: 3
+del(b,v) weight(b,v,0)
+Answer: 4
+del(c,z) weight(c,z,0)
+Answer: 5
+del(c,q) weight(c,q,0)
+Answer: 6
+del(a,b) weight(a,b,0)
+Answer: 7
+del(e,s) weight(e,s,0)
+Answer: 8
+del(e,i) weight(e,i,0)
+Answer: 9
+del(b,e) weight(b,e,0)
+Answer: 10
+del(d,e) weight(d,e,0)
+Answer: 11
+del(c,d) weight(c,d,0)
+Answer: 12
+del(b,f) weight(b,f,0)
+Answer: 13
+del(f,s) weight(f,s,0)
+Answer: 14
+del(f,h) weight(f,h,0)
+Answer: 15
+del(b,c) weight(b,c,0)
+Answer: 16
+del(e,m) delta(e,drawn,lost) weight(e,m,1)
+Answer: 17
+del(d,x) delta(d,won,drawn) weight(d,x,1)
+Answer: 18
+del(u,v) delta(u,won,lost) delta(t,lost,won) delta(s,won,lost) delta(f,lost,won) delta(e,drawn,won) weight(u,v,5)
+Answer: 19
+del(m,o) delta(e,drawn,won) delta(j,drawn,lost) delta(m,drawn,lost) delta(n,drawn,won) delta(o,drawn,won) weight(m,o,5)
+Answer: 20
+del(o,m) delta(e,drawn,lost) delta(j,drawn,won) delta(m,drawn,won) delta(n,drawn,lost) delta(o,drawn,lost) weight(o,m,5)
+Answer: 21
+del(i,l) weight(i,l,0)
+Answer: 22
+del(n,m) delta(j,drawn,won) delta(n,drawn,lost) weight(n,m,2)
+Answer: 23
+del(j,n) delta(j,drawn,lost) weight(j,n,1)
+Answer: 24
+del(s,t) delta(s,won,lost) delta(f,lost,won) delta(e,drawn,won) weight(s,t,3)
+Answer: 25
+del(i,j) weight(i,j,0)
+Answer: 26
+del(i,o) weight(i,o,0)
+Answer: 27
+del(i,k) weight(i,k,0)
+Answer: 28
+del(t,b) weight(t,b,0)
+Answer: 29
+del(t,u) weight(t,u,0)
+Answer: 30
+del(s,g) weight(s,g,0)
+Answer: 31
+del(h,q) delta(h,won,lost) delta(f,lost,won) weight(h,q,2)
+Answer: 32
+del(g,q) delta(g,won,lost) weight(g,q,1)
+SATISFIABLE
+
+Models       : 32
+Calls        : 1
+Time         : 0.007s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
