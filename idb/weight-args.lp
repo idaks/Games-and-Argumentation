@@ -11,10 +11,10 @@ val(X,lost)  :- pos(X), val(Y,won) : move(X,Y).
 val(X,drawn) :- pos(X), not val(X,won), not val(X,lost).
 
 % Pick exactly one edge to delete
-{ del(X,Y) : move(X,Y) } = 1.
+{ del(X) : pos(X) } = 1.
 
-% New move graph without deleted edge
-move1(X,Y) :- move(X,Y), not del(X,Y).
+% New move graph without deleted nodes
+move1(X,Y) :- move(X,Y), not del(X), not del(Y).
 
 % Position values AFTER edge deletion
 val1(X,won)   :- move1(X,Y), val1(Y,lost).
@@ -31,10 +31,10 @@ delta_total(N) :- N = #count{ X : val(X,Old), val1(X,New), Old != New }.
 delta_type(Old,New, N) :- delta(_,Old, New), N = #count{ X : delta(X,Old,New) }.
 
 % What is the *weight* of an edge X->Y? (= #values changed by deleting it)
-weight(X,Y, W) :- del(X,Y), delta_total(W).
+weight(X, W) :- del(X), delta_total(W).
 
 %#show del/2.
 %#show delta/3.
 %#show delta_total/1.
 % #show delta_type/3.
-#show weight/3.
+#show weight/2.
