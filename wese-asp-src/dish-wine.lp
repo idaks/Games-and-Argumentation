@@ -14,21 +14,34 @@ move(white, pasta).
 
 % there are four possible worlds
 
-% PW1: won(red). won(pasta). won(meat). lost(white). lost(fish).
+% PW1: won(red). lost(white). won(pasta). won(meat). lost(fish).
+:- lost(red).
 :- won(white).
+:- lost(pasta).
+:- lost(meat).
 :- won(fish).
 
 % PW2:
-% won(white). won(pasta). won(meat). lost(red). lost(fish).
-% :- won(red).
-% :- won(fish).
+% lost(red). won(white). won(pasta). won(meat). lost(fish).
+%% :- won(red).
+%% :- lost(white).
+%% :- lost(pasta).
+%% :- lost(meat).
+%% :- won(fish).
 
 % PW3:
-% won(white). won(pasta). won(fish). lost(red). lost(meat).
-% :- won(red).
-% :- won(meat).
+% lost(red). won(white). won(pasta). lost(meat). won(fish). 
+%% :- won(red).
+%% :- lost(white).
+%% :- lost(pasta).
+%% :- won(meat).
+%% :- lost(fish).
 
 % PW4:
-% won(white). won(meat). won(fish). lost(red). lost(pasta).
-% :- won(red).
-% :- won(pasta).
+% lost(red). won(white). lost(pasta). won(meat). won(fish). 
+%% :- won(red).
+%% :- lost(white).
+%% :- won(pasta).
+%% :- lost(meat).
+%% :- lost(fish).
+
