@@ -1,0 +1,53 @@
+digraph {
+ rankdir=BT
+ node[shape=circle]
+    B -> A
+    G -> S
+    H -> F
+    I -> E
+    J -> I
+    K -> I
+    L -> I
+    M -> E
+    M -> N
+    N -> J
+    O -> I
+    Q -> C
+    Q -> G
+    Q -> H
+    U -> T
+    V -> B
+    V -> U
+    W -> B
+    X -> D
+    Y -> B
+    Z -> C
+//    C -> B
+//    D -> C
+//    E -> B
+//    E -> D
+//    F -> B
+//    O -> M
+//    S -> E
+//    S -> F
+//    T -> S
+
+edge[color=red2]
+ C -> B
+ D -> C
+ E -> B
+ E -> D
+ F -> B
+ O -> M
+ S -> E
+ S -> F
+ T -> S
+
+edge[dir=back style=dashed]
+//    M -> O
+    O -> M 
+//    B -> T
+    T -> B [dir=back style=dashed color=red2]
+
+
+}
