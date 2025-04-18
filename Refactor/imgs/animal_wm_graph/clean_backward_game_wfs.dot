@@ -1,0 +1,73 @@
+digraph {
+    rankdir="TB"
+    node [style=filled fontname="Palatino" fontsize=14]
+    node [fillcolor="#AAFFAA"]
+    "b" [label=" b.1"]
+    "z" [label=" z.3"]
+    "h" [label=" h.3"]
+    "q" [label=" q.3"]
+    "s" [label=" s.3"]
+    "d" [label=" d.3"]
+    "u" [label=" u.5"]
+    "i" [label=" i.5"]
+    "m" [label=" m.5"]
+    "n" [label=" n.7"]
+    node [fillcolor="#FFAAAA"]
+    "a" [label=" a.0"]
+    "f" [label=" f.2"]
+    "c" [label=" c.2"]
+    "y" [label=" y.2"]
+    "w" [label=" w.2"]
+    "t" [label=" t.4"]
+    "g" [label=" g.4"]
+    "e" [label=" e.4"]
+    "x" [label=" x.4"]
+    "k" [label=" k.6"]
+    "l" [label=" l.6"]
+    "v" [label=" v.6"]
+    "j" [label=" j.6"]
+    "o" [label=" o.6"]
+    edge[labeldistance=1.5 fontsize=12]
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="1"]
+           "b" -> "a" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="5"]
+           "b" -> "t" 
+           "i" -> "e" 
+           "m" -> "e" 
+           "q" -> "g" 
+           "s" -> "e" 
+           "u" -> "t" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="2"]
+           "c" -> "b" 
+           "e" -> "b" 
+           "f" -> "b" 
+           "v" -> "b" 
+           "w" -> "b" 
+           "y" -> "b" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="3"]
+           "d" -> "c" 
+           "h" -> "f" 
+           "q" -> "c" 
+           "s" -> "f" 
+           "z" -> "c" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="4"]
+           "e" -> "d" 
+           "g" -> "s" 
+           "t" -> "s" 
+           "x" -> "d" 
+    edge [color="#CC0000" style="solid" dir="forward" taillabel="6"]
+           "j" -> "i" 
+           "k" -> "i" 
+           "l" -> "i" 
+           "o" -> "i" 
+           "o" -> "m" 
+           "v" -> "u" 
+    edge [color="#00BB00" style="solid" dir="forward" taillabel="7"]
+           "m" -> "o" 
+           "n" -> "j" 
+    edge [color="black" style="dotted" dir="forward" taillabel="" constraint=false]
+           "m" -> "n" 
+           "q" -> "h" 
+    {rank = max a}
+    {rank = min n}
+}

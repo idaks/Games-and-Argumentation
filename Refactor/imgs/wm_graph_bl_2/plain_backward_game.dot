@@ -1,0 +1,14 @@
+digraph {
+    // Node defaults can be set here if needed
+    "e" [fontsize=14]
+    "d" [fontsize=14]
+    "b" [fontsize=14]
+    "a" [fontsize=14]
+    "c" [fontsize=14]
+    edge[labeldistance=1.5 fontsize=12]
+    "b" -> "a" [dir="forward"]
+    "a" -> "b" [dir="forward"]
+    "c" -> "b" [dir="forward"]
+    "d" -> "c" [dir="forward"]
+    "d" -> "e" [dir="forward"]
+}
