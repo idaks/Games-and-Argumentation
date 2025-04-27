@@ -1,0 +1,21 @@
+clingo version 5.4.1
+Reading from str_adm.lp ...
+Solving...
+Answer: 1
+out(b,3) out(i,3) out(k,1) out(f,1) out(e,1) out(d,1) in(h,4) in(j,2) in(l,0) in(g,0) in(c,2) in(a,4)
+Answer: 2
+out(b,5) out(i,3) out(k,1) out(f,1) out(e,1) out(d,1) in(h,4) in(j,2) in(l,0) in(g,0) in(a,6)
+Answer: 3
+out(b,5) out(i,3) out(k,1) in(h,4) in(j,2) in(l,0) in(a,6)
+Answer: 4
+out(b,3) out(i,3) out(k,1) out(f,1) out(e,1) out(d,1) in(j,2) in(l,0) in(g,0) in(c,2) in(a,4)
+Answer: 5
+out(b,3) out(k,1) out(f,1) out(e,1) out(d,1) in(l,0) in(g,0) in(c,2) in(a,4)
+Answer: 6
+out(b,3) out(f,1) out(e,1) out(d,1) in(g,0) in(c,2) in(a,4)
+SATISFIABLE
+
+Models       : 6
+Calls        : 1
+Time         : 0.005s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.005s
